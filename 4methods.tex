@@ -7,7 +7,7 @@ In the following chapter we will discuss about the steps taken for importing the
 
 By default, we have always used a 5 nodes HBase cluster: 1 Master server and 4 Region Servers. Default parameters are described below. Whether there is a change in the number of nodes or any parameters, we will state it in its corresponding section.
 \par
-As we exposed in chapter 4., we use HBase in combination with HDFS as our distributed filesystem. Hence we deploy a DataNode in the same node where HBase's Master is, and a DataNode along with each Region Server. Besides it, if the task requires Hadoop MapReduce, we turn on it, starting a JobTracker where the NameNode is and as many TaskTrackers as DataNodes there are in the cluster.
+As we exposed in chapter 4., we use HBase in combination with HDFS as our distributed filesystem. Hence, we deploy a DataNode in the same node where HBase's Master is, and a DataNode along with each Region Server. Besides it, if the task requires Hadoop MapReduce, we turn on it, starting a JobTracker where the NameNode is and as many TaskTrackers as DataNodes there are in the cluster.
 
 \section{HBase tuned parameters for a write-heavy cluster}
 
