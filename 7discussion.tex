@@ -1,0 +1,46 @@
+\chapter{Discussion}
+\label{chapter:discussion}
+
+-what with duplicates? using mapreduce combiner class to delete them. Or in hadoop sampling erase them....
+-ttl maximum 3
+-mapreduce for reading random rows?
+-schema redesign with only one column family...better to see number of storefiles when flushing..and better to control reads/block cache, etc...
+-schema redesign: also change the row key...to intwritable? http://blog.cloudera.com/blog/2009/12/7-tips-for-improving-mapreduce-performance/
+-schema redesign: calculate the record size: http://comments.gmane.org/gmane.comp.java.hadoop.hbase.user/29543  -----> smallest column qualifier would help
+-short-circuit en reads hdfs.
+-http://blog.cloudera.com/blog/2009/12/7-tips-for-improving-mapreduce-performance/
+-tool from cookbook administration, like hlog-reader for finding out which region is the hottest....
+-
+
+
+
+
+
+HOY........
+-1073741824 = 1GB de hbase.hregion.max.filesize
+
+
+
+
+
+
+--------------------
+Probar en final output de mapreduce si me va bien snappy y gzip...vs no comprimido nada...
+
+tamanyos de hfiles y eso en cookbook
+al igual que hot regions en cookbook (wal) 
+-Hadoop Tuned Parameters add! as I did with HBase parameters.
+-aportar mas datos y formulas con la pagina 
+- http://hbase-perf-optimization.blogspot.fi/2013/03/hbase-configuration-optimization.html para mas optimizaciones
+
+
+-dfs.datanode.handler.count
+
+
+
+
+
+
+------
+
+mapred.child.java.opts -Xmx3072m and hadoop heap\_space 2GB ? in mapredsite.xml

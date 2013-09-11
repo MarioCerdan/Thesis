@@ -1,0 +1,44 @@
+\chapter{Methods III}
+\label{chapter:methods III}
+ 
+\section{Benchmarking: HBase vs MySQL}
+
+In this section we compare our tuned HBase cluster against a standard MySQL cluster.
+\par
+The MySQL cluster has been compiled and subsequently deployed onto Triton with the same characteristics we have used for our HBase cluster deployment (Allocated RAM, Xeon nodes, etc). Therefore, our MySQL cluster is composed of five nodes and the data is spread evenly among them using a simple sharding function S(key), S = hash(key) \% numberOfNodes, because by default MySQL has no built-in clustering capabilites, as HBase has.
+
+\bigskip
+
+The benchmarking is based on a industry standard benchmark: Yahoo! Cloud Serving Benchmark (YCSB). For more information about this tool head to Background section: YCSB.
+\par
+The purpose of the benchmark is to compare HBase against MySQL in a variety of different scenarios, such as a heavy-write scenario, a heavy-read scenario, etc.
+\par
+YCSB works with its own data, which is represented as a table of records, each record has a unique key and an amount of fields which represent record values.
+\par
+Despite it does not allow users to load their own data, YCSB data is really configurable in terms of how many records user wants, how many fields has each record and the size of them. So although we can not play with the prior real data, we can almost reproduce it.
+
+Table 7.1 summarizes the types of workload that were chosen for benchmarking.
+
+\begin{table}[htbp]
+\caption{}
+\begin{tabular}{|l|r|l|l|l|}
+\hline
+Workload & \multicolumn{1}{l|}{ Insert \% } & Read \%  & Update \%  & Scan \% \\ \hline
+Data Load  & 100 &  &  &  \\ \hline
+Short range scans: workload E  & 5 &  &  & \multicolumn{1}{r|}{95} \\ \hline
+Reads with heavy insert load  & 55 & \multicolumn{1}{r|}{45} &  &  \\ \hline
+Scans with heavy insert load  & 55 &  &  & \multicolumn{1}{r|}{45} \\ \hline
+Scans with heavy update load & \multicolumn{1}{l|}{} &  & \multicolumn{1}{r|}{55} & \multicolumn{1}{r|}{45} \\ \hline
+\end{tabular}
+\label{Table 1 YCSB Workloads.}
+\end{table}
+
+We run each workload from the same node, the principal one, which is the one who has the nameNode and the masterNode of Hadoop and HBase respectively.
+
+Below we present results for the workloads: load, predominant reads, reads with inserts, and scans with havy load and with heavy updates.
+
+\subsection{Predominant reads}
+
+\subsection{Reads mixed with Writes}
+
+\subsection{Scans}
