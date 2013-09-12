@@ -1,0 +1,57 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: thesis-example.aux
+The style file: acm.bst
+White space in argument---line 242 of file thesis-example.aux
+ : \citation{BloomFilter
+ :                       http://en.wikipedia.org/wiki/Bloom_filter}
+I'm skipping whatever remains of this command
+Database file #1: sources.bib
+Warning--I didn't find a database entry for "CAP"
+Warning--I didn't find a database entry for "ProbeCAP"
+Warning--I didn't find a database entry for "("
+Warning--I didn't find a database entry for "http://permalink.gmane.org/gmane.comp.java.hadoop.hbase.user/33133"
+Warning--I didn't find a database entry for "http://comments.gmane.org/gmane.comp.java.hadoop.hbase.user/34417"
+Warning--can't use both volume and number fields in ananthanarayanan2010reining
+Warning--can't use both volume and number fields in ghemawat2003google
+You've used 90 entries,
+            2253 wiz_defined-function locations,
+            971 strings with 15926 characters,
+and the built_in function-call counts, 24756 in all, are:
+= -- 2282
+> -- 1050
+< -- 0
++ -- 447
+- -- 348
+* -- 1494
+:= -- 3946
+add.period$ -- 262
+call.type$ -- 90
+change.case$ -- 439
+chr.to.int$ -- 0
+cite$ -- 92
+duplicate$ -- 939
+empty$ -- 2295
+format.name$ -- 348
+if$ -- 5267
+int.to.chr$ -- 0
+int.to.str$ -- 90
+missing$ -- 39
+newline$ -- 443
+num.names$ -- 180
+pop$ -- 740
+preamble$ -- 1
+purify$ -- 353
+quote$ -- 0
+skip$ -- 731
+stack$ -- 0
+substring$ -- 1041
+swap$ -- 264
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 352
+warning$ -- 2
+while$ -- 238
+width$ -- 92
+write$ -- 891
+(There was 1 error message)

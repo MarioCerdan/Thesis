@@ -1,0 +1,68 @@
+\BOOKMARK [0][]{bookmark.0.cover.0}{Cover page}{}
+\BOOKMARK [0][]{chapter*.1}{Abbreviations and Acronyms}{}
+\BOOKMARK [0][]{bookmark.0.contents.0}{Contents}{}
+\BOOKMARK [0][]{chapter.1}{1 Introduction}{}
+\BOOKMARK [1][-]{subsection.1.0.1}{1.0.1 IaaS}{chapter.1}
+\BOOKMARK [2][-]{subsection.1.0.2}{1.0.2 PaaS}{subsection.1.0.1}
+\BOOKMARK [2][-]{subsection.1.0.3}{1.0.3 SaaS}{subsection.1.0.1}
+\BOOKMARK [1][-]{section.1.1}{1.1 Big Data}{chapter.1}
+\BOOKMARK [0][]{chapter.2}{2 Background}{}
+\BOOKMARK [1][-]{section.2.1}{2.1 Datastores: from SQL to NoSQL systems}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.1.1}{2.1.1 The basic principles of NoSQL}{section.2.1}
+\BOOKMARK [2][-]{subsection.2.1.2}{2.1.2 Key features of NoSQL Datastores}{section.2.1}
+\BOOKMARK [2][-]{subsection.2.1.3}{2.1.3 Types of NoSQL Datastores}{section.2.1}
+\BOOKMARK [0][]{chapter.3}{3 Technical background}{}
+\BOOKMARK [1][-]{section.3.1}{3.1 Column-Oriented Datastores}{chapter.3}
+\BOOKMARK [1][-]{section.3.2}{3.2 HBase}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.2.1}{3.2.1 Data Model}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.2}{3.2.2 Storage}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.3}{3.2.3 Architecture}{section.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.3.1}{3.2.3.1 Storage layer}{subsection.3.2.3}
+\BOOKMARK [3][-]{subsubsection.3.2.3.2}{3.2.3.2 Server layer}{subsection.3.2.3}
+\BOOKMARK [3][-]{subsubsection.3.2.3.3}{3.2.3.3 Client layer}{subsection.3.2.3}
+\BOOKMARK [2][-]{subsection.3.2.4}{3.2.4 Write}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.5}{3.2.5 Read}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.6}{3.2.6 Delete}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.7}{3.2.7 HBase API}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.8}{3.2.8 HBase properties}{section.3.2}
+\BOOKMARK [1][-]{section.3.3}{3.3 HDFS}{chapter.3}
+\BOOKMARK [1][-]{section.3.4}{3.4 MapReduce}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.4.1}{3.4.1 Hadoop MapReduce}{section.3.4}
+\BOOKMARK [0][]{chapter.4}{4 Environment}{}
+\BOOKMARK [1][-]{section.4.1}{4.1 Triton}{chapter.4}
+\BOOKMARK [1][-]{section.4.2}{4.2 Cloudera's Distribution Including Apache Hadoop - CDH}{chapter.4}
+\BOOKMARK [1][-]{section.4.3}{4.3 MySQL}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.3.1}{4.3.1 Yahoo! Cloud Serving Benchmark - YCSB}{section.4.3}
+\BOOKMARK [1][-]{section.4.4}{4.4 Hannibal}{chapter.4}
+\BOOKMARK [1][-]{section.4.5}{4.5 Dataset PV.com}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.5.1}{4.5.1 HBase schema design}{section.4.5}
+\BOOKMARK [0][]{chapter.5}{5 Methods}{}
+\BOOKMARK [1][-]{section.5.1}{5.1 HBase cluster: how it looks}{chapter.5}
+\BOOKMARK [1][-]{section.5.2}{5.2 HBase tuned parameters for a write-heavy cluster}{chapter.5}
+\BOOKMARK [1][-]{section.5.3}{5.3 Hadoop baseline parameters}{chapter.5}
+\BOOKMARK [1][-]{section.5.4}{5.4 Introduction}{chapter.5}
+\BOOKMARK [1][-]{section.5.5}{5.5 Writing - Importing data}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.5.1}{5.5.1 First approach: An HBase client}{section.5.5}
+\BOOKMARK [3][-]{subsubsection.5.5.1.1}{5.5.1.1 First approach II: An HBase client with setAutoFlush false}{subsection.5.5.1}
+\BOOKMARK [2][-]{subsection.5.5.2}{5.5.2 Second approach: A multithread HBase client}{section.5.5}
+\BOOKMARK [2][-]{subsection.5.5.3}{5.5.3 Third approach: Using MapReduce algorithm}{section.5.5}
+\BOOKMARK [3][-]{subsubsection.5.5.3.1}{5.5.3.1 The small files problem}{subsection.5.5.3}
+\BOOKMARK [3][-]{subsubsection.5.5.3.2}{5.5.3.2 Third approach II: Compression}{subsection.5.5.3}
+\BOOKMARK [3][-]{subsubsection.5.5.3.3}{5.5.3.3 Third approach III: Pre-creating regions}{subsection.5.5.3}
+\BOOKMARK [2][-]{subsection.5.5.4}{5.5.4 Fourth approach:Skew data}{section.5.5}
+\BOOKMARK [1][-]{section.5.6}{5.6 Performance Tunning Hadoop}{chapter.5}
+\BOOKMARK [0][]{chapter.6}{6 Methods}{}
+\BOOKMARK [1][-]{section.6.1}{6.1 Random Reads in HBase}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.1.1}{6.1.1 Random Reads in our heavy-write cluster}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.2}{6.1.2 Studying random read performance}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.3}{6.1.3 Proceding with random read}{section.6.1}
+\BOOKMARK [0][]{chapter.7}{7 Methods III}{}
+\BOOKMARK [1][-]{section.7.1}{7.1 Benchmarking: HBase vs MySQL}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.1.1}{7.1.1 Predominant reads}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.2}{7.1.2 Reads mixed with Writes}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.3}{7.1.3 Scans}{section.7.1}
+\BOOKMARK [0][]{chapter.8}{8 Implementation}{}
+\BOOKMARK [0][]{chapter.9}{9 Evaluation}{}
+\BOOKMARK [0][]{chapter.10}{10 Discussion}{}
+\BOOKMARK [0][]{chapter.11}{11 Conclusions}{}
+\BOOKMARK [0][]{appendix.A}{A First appendix}{}

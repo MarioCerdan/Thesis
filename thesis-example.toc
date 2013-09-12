@@ -1,0 +1,71 @@
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\contentsline {chapter}{Abbreviations and Acronyms}{4}{chapter*.1}
+\contentsline {chapter}{\numberline {1}Introduction}{6}{chapter.1}
+\contentsline {subsection}{\numberline {1.0.1}IaaS}{13}{subsection.1.0.1}
+\contentsline {subsection}{\numberline {1.0.2}PaaS}{13}{subsection.1.0.2}
+\contentsline {subsection}{\numberline {1.0.3}SaaS}{14}{subsection.1.0.3}
+\contentsline {section}{\numberline {1.1}Big Data}{14}{section.1.1}
+\contentsline {chapter}{\numberline {2}Background}{17}{chapter.2}
+\contentsline {section}{\numberline {2.1}Datastores: from SQL to NoSQL systems}{17}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}The basic principles of NoSQL}{19}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Key features of NoSQL Datastores}{22}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Types of NoSQL Datastores}{23}{subsection.2.1.3}
+\contentsline {chapter}{\numberline {3}Technical background}{24}{chapter.3}
+\contentsline {section}{\numberline {3.1}Column-Oriented Datastores}{24}{section.3.1}
+\contentsline {section}{\numberline {3.2}HBase}{24}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Data Model}{25}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Storage}{26}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Architecture}{26}{subsection.3.2.3}
+\contentsline {subsubsection}{\numberline {3.2.3.1}Storage layer}{26}{subsubsection.3.2.3.1}
+\contentsline {subsubsection}{\numberline {3.2.3.2}Server layer}{27}{subsubsection.3.2.3.2}
+\contentsline {subsubsection}{\numberline {3.2.3.3}Client layer}{28}{subsubsection.3.2.3.3}
+\contentsline {subsection}{\numberline {3.2.4}Write}{28}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Read}{29}{subsection.3.2.5}
+\contentsline {subsection}{\numberline {3.2.6}Delete}{30}{subsection.3.2.6}
+\contentsline {subsection}{\numberline {3.2.7}HBase API}{30}{subsection.3.2.7}
+\contentsline {subsection}{\numberline {3.2.8}HBase properties}{34}{subsection.3.2.8}
+\contentsline {section}{\numberline {3.3}HDFS}{34}{section.3.3}
+\contentsline {section}{\numberline {3.4}MapReduce}{35}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Hadoop MapReduce}{36}{subsection.3.4.1}
+\contentsline {chapter}{\numberline {4}Environment}{37}{chapter.4}
+\contentsline {section}{\numberline {4.1}Triton}{37}{section.4.1}
+\contentsline {section}{\numberline {4.2}Cloudera's Distribution Including Apache Hadoop - CDH}{38}{section.4.2}
+\contentsline {section}{\numberline {4.3}MySQL}{39}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Yahoo! Cloud Serving Benchmark - YCSB}{39}{subsection.4.3.1}
+\contentsline {section}{\numberline {4.4}Hannibal}{39}{section.4.4}
+\contentsline {section}{\numberline {4.5}Dataset PV.com}{39}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}HBase schema design}{41}{subsection.4.5.1}
+\contentsline {chapter}{\numberline {5}Methods}{43}{chapter.5}
+\contentsline {section}{\numberline {5.1}HBase cluster: how it looks}{43}{section.5.1}
+\contentsline {section}{\numberline {5.2}HBase tuned parameters for a write-heavy cluster}{43}{section.5.2}
+\contentsline {section}{\numberline {5.3}Hadoop baseline parameters}{46}{section.5.3}
+\contentsline {section}{\numberline {5.4}Introduction}{47}{section.5.4}
+\contentsline {section}{\numberline {5.5}Writing - Importing data}{47}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}First approach: An HBase client}{47}{subsection.5.5.1}
+\contentsline {subsubsection}{\numberline {5.5.1.1}First approach II: An HBase client with setAutoFlush false}{50}{subsubsection.5.5.1.1}
+\contentsline {subsection}{\numberline {5.5.2}Second approach: A multithread HBase client}{50}{subsection.5.5.2}
+\contentsline {subsection}{\numberline {5.5.3}Third approach: Using MapReduce algorithm}{51}{subsection.5.5.3}
+\contentsline {subsubsection}{\numberline {5.5.3.1}The small files problem}{51}{subsubsection.5.5.3.1}
+\contentsline {subsubsection}{\numberline {5.5.3.2}Third approach II: Compression}{53}{subsubsection.5.5.3.2}
+\contentsline {subsubsection}{\numberline {5.5.3.3}Third approach III: Pre-creating regions}{54}{subsubsection.5.5.3.3}
+\contentsline {subsection}{\numberline {5.5.4}Fourth approach:Skew data}{55}{subsection.5.5.4}
+\contentsline {section}{\numberline {5.6}Performance Tunning Hadoop}{57}{section.5.6}
+\contentsline {chapter}{\numberline {6}Methods}{60}{chapter.6}
+\contentsline {section}{\numberline {6.1}Random Reads in HBase}{60}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Random Reads in our heavy-write cluster}{60}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Studying random read performance}{61}{subsection.6.1.2}
+\contentsline {subsection}{\numberline {6.1.3}Proceding with random read}{62}{subsection.6.1.3}
+\contentsline {chapter}{\numberline {7}Methods III}{65}{chapter.7}
+\contentsline {section}{\numberline {7.1}Benchmarking: HBase vs MySQL}{65}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Predominant reads}{66}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Reads mixed with Writes}{66}{subsection.7.1.2}
+\contentsline {subsection}{\numberline {7.1.3}Scans}{66}{subsection.7.1.3}
+\contentsline {chapter}{\numberline {8}Implementation}{67}{chapter.8}
+\contentsline {chapter}{\numberline {9}Evaluation}{68}{chapter.9}
+\contentsline {chapter}{\numberline {10}Discussion}{69}{chapter.10}
+\contentsline {chapter}{\numberline {11}Conclusions}{70}{chapter.11}
+\contentsline {chapter}{\numberline {A}First appendix}{71}{appendix.A}
