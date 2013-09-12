@@ -4,14 +4,84 @@
 This is the first appendix. You could put some test images or verbose data in an
 appendix, if there is too much data to fit in the actual text nicely.
 
-For now, the Aalto logo variants are shown in Figure~\ref{fig:aaltologo}.
 
-\begin{figure}
-\begin{center}
-\subfigure[In English]{\includegraphics[width=.8\textwidth]{images/aalto-logo-en}}
-\subfigure[Suomeksi]{\includegraphics[width=.8\textwidth]{images/aalto-logo-fi}}
-\subfigure[På svenska]{\includegraphics[width=.8\textwidth]{images/aalto-logo-se}}
-\caption{Aalto logo variants}
-\label{fig:aaltologo}
-\end{center}
-\end{figure}
+\section{XML video file}
+
+Here we show an example of an XML video file:
+Basically, it includes a list of videos, each one represented between tags <video>...</video>. Our dataset consists of thousand of these XML files.
+
+\lstset{language=XML, basicstyle=\footnotesize, numbers=left, breaklines=true}
+\begin{lstlisting}
+<index><videoList>
+<video>
+	<albumArt>http://assets0.ordienetworks.com/tmbs/f5e477ba4d/fullsize_8.jpg</albumArt>
+	<author>
+		<userName>paropetje</userName>
+	</author>
+	<description>feel the adrenaline</description>
+	<mediaDate>2012-05-12 21:02:49.0</mediaDate>
+	<uid>f5e477ba4d</uid>
+	<explicit>false</explicit>
+	<serviceLabel>FunnyOrDie</serviceLabel>
+	<externalUrl>http://www.funnyordie.com/videos/f5e477ba4d</externalUrl>
+	<videoName>toys for boys</videoName>
+	<genreList>
+		<genre>Real Life</genre>
+	</genreList>
+	<isResourceList>true</isResourceList>
+	<resourceList>
+		<resource>
+			<streamUrl>http://videos0.ordienetworks.com/videos/f5e477ba4d/sd.flv</streamUrl>
+			<duration>0:01:42</duration>
+			<itemTypeId>1</itemTypeId>
+			<mimeType>application/x-shockwave-flash</mimeType>
+			<resourceType>stream</resourceType>
+			<uid>http://videos0.ordienetworks.com/videos/f5e477ba4d/sd.flv</uid>
+			<height>400</height>
+			<width>640</width>
+			<formatList>
+				<format>
+					<height>400</height>
+					<width>640</width>
+					<mimeType>application/x-shockwave-flash</mimeType>
+				</format>
+			</formatList>
+		</resource>
+		<resource>
+			<streamUrl>http://videos0.ordienetworks.com/videos/f5e477ba4d/iphone_wifi.mp4</streamUrl>
+			<duration>0:01:42</duration>
+			<itemTypeId>1</itemTypeId>
+			<mimeType>video/mp4</mimeType>
+			<resourceType>stream</resourceType>
+			<uid>http://videos0.ordienetworks.com/videos/f5e477ba4d/iphone_wifi.mp4</uid>
+			<height>400</height>
+			<width>640</width>
+			<formatList>
+				<format>
+					<height>400</height>
+					<width>640</width>
+					<mimeType>video/mp4</mimeType>
+				</format>
+			</formatList>
+		</resource>
+	</resourceList>
+	<tagList>
+		<tag>toys</tag>
+		<tag>boys</tag>
+		<tag>motor</tag>
+		<tag>moter</tag>
+		<tag>bike</tag>
+		<tag>adrenaline</tag>
+		<tag>kick</tag>
+	</tagList>
+	<serviceName>Funnyordie</serviceName>
+	<sourceViewCount>1</sourceViewCount>
+</video>
+<video>
+...
+</video>
+</videoList></index>
+\end{lstlisting}
+
+
+

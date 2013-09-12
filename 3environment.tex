@@ -64,85 +64,6 @@ YCSB lastest version \cite{YCSB} used: ycsb 0.1.4.
 
 
 
-\section{Dataset PV.com}
-
-Here we show an example of an XML video file:
-Basically, it includes a list of videos, each one represented between tags <video>...</video>. Our dataset consists of thousand of these XML files.
-
-\lstset{language=XML, basicstyle=\footnotesize, numbers=left, breaklines=true}
-\begin{lstlisting}
-<index><videoList>
-<video>
-	<albumArt>http://assets0.ordienetworks.com/tmbs/f5e477ba4d/fullsize_8.jpg</albumArt>
-	<author>
-		<userName>paropetje</userName>
-	</author>
-	<description>feel the adrenaline</description>
-	<mediaDate>2012-05-12 21:02:49.0</mediaDate>
-	<uid>f5e477ba4d</uid>
-	<explicit>false</explicit>
-	<serviceLabel>FunnyOrDie</serviceLabel>
-	<externalUrl>http://www.funnyordie.com/videos/f5e477ba4d</externalUrl>
-	<videoName>toys for boys</videoName>
-	<genreList>
-		<genre>Real Life</genre>
-	</genreList>
-	<isResourceList>true</isResourceList>
-	<resourceList>
-		<resource>
-			<streamUrl>http://videos0.ordienetworks.com/videos/f5e477ba4d/sd.flv</streamUrl>
-			<duration>0:01:42</duration>
-			<itemTypeId>1</itemTypeId>
-			<mimeType>application/x-shockwave-flash</mimeType>
-			<resourceType>stream</resourceType>
-			<uid>http://videos0.ordienetworks.com/videos/f5e477ba4d/sd.flv</uid>
-			<height>400</height>
-			<width>640</width>
-			<formatList>
-				<format>
-					<height>400</height>
-					<width>640</width>
-					<mimeType>application/x-shockwave-flash</mimeType>
-				</format>
-			</formatList>
-		</resource>
-		<resource>
-			<streamUrl>http://videos0.ordienetworks.com/videos/f5e477ba4d/iphone_wifi.mp4</streamUrl>
-			<duration>0:01:42</duration>
-			<itemTypeId>1</itemTypeId>
-			<mimeType>video/mp4</mimeType>
-			<resourceType>stream</resourceType>
-			<uid>http://videos0.ordienetworks.com/videos/f5e477ba4d/iphone_wifi.mp4</uid>
-			<height>400</height>
-			<width>640</width>
-			<formatList>
-				<format>
-					<height>400</height>
-					<width>640</width>
-					<mimeType>video/mp4</mimeType>
-				</format>
-			</formatList>
-		</resource>
-	</resourceList>
-	<tagList>
-		<tag>toys</tag>
-		<tag>boys</tag>
-		<tag>motor</tag>
-		<tag>moter</tag>
-		<tag>bike</tag>
-		<tag>adrenaline</tag>
-		<tag>kick</tag>
-	</tagList>
-	<serviceName>Funnyordie</serviceName>
-	<sourceViewCount>1</sourceViewCount>
-</video>
-<video>
-...
-</video>
-</videoList></index>
-\end{lstlisting}
-
-
 \subsection{HBase schema design}
 
 Here we show the Hbase table schema design used to store the data into our HBase cluster. Reader can see how the previous XML video data would look stored into the table: Our row key is the \textit{uid} of the video. There are 4 column families: \textit{main}, \textit{genre}, \textit{tag} and \textit{resource}. Each column family contains many column qualifiers.
@@ -170,5 +91,47 @@ f5e477ba4d & t1 & paropetje & http://... & feel the adrenaline & 2012-05-12 21:0
 \end{table}
 
 
-\subsectiobn{Our dataset} ok ok ok
+\subsection{Our dataset}
+
+Our dataset is composed of thousands of XML files whose sizes vary from just a few KBs to dozens of MBs. Each of them is composed in turn of a list of elements wrapped between <element></element> tags. Every element is constituted of at least 15 sub-elements, which can be any kind of raw data (strings, integers, etc) or the start point of another sub-list. While the total size of the XML is known, the amount of elements within each document is unknown due to the unfixed size of the XML files. The same situation happens with the size of each element, the number of sub-elements is unfixed as well as the size of each one.
+\par
+A conceptual example of one of our XML files is shown below \footnote{For the sake of simplicity, only a basic form of a real XML is depicted.}.
+
+\lstset{language=XML, basicstyle=\footnotesize, numbers=left, breaklines=true}
+\begin{lstlisting}
+<element 1>
+...
+</element 1>
+<element 2>
+	<sub-element 1>
+		"Hi, I am a looooooong string"
+	</sub-element 1>
+	...
+	<sub-element n>
+		<sublist1>
+			...
+		</sublist1>
+	</sub-element n>
+</element 2>
+...
+<element 3>
+...
+</element 3>
+\end{lstlisting}
+
+\bigskip
+
+A real example can be found in the appendix 1. It will be useful in order to understand the HBase table design described 
+
+\subsection{HBase schema design}
+
+In the following chapters we will work with HBase as our datastore. For which reason, we have designed an HBase schema that is able to hold our XML data previously depicted. It is worth to state that this schema is focused on obtaining a high performance when updating and retrieving data from it; our row key is the element \textit{uid} of an element since most of the request we will have to cope with are requests of some \cite{uids}. Nonetheless, there could be requests of some other nature, but they will only represent a low percent of the total requests.
+
+ and that is why it has that structure and no other.
+\par
+In the appendix 2, we show the followed Hbase table schema design. The reader can see how the previous XML video data would look stored into the table: Our row key is the \textit{uid} of the video. There are 4 column families: \textit{main}, \textit{genre}, \textit{tag} and \textit{resource}. Each column family contains many column qualifiers.
+\par
+By convention, a column name is made of its column family prefix and a qualifier (Ex. main:description). The colon character delimits both columns.
+
+
 
