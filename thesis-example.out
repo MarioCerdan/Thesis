@@ -32,10 +32,10 @@
 \BOOKMARK [1][-]{section.4.1}{4.1 Triton}{chapter.4}
 \BOOKMARK [1][-]{section.4.2}{4.2 Cloudera's Distribution Including Apache Hadoop - CDH}{chapter.4}
 \BOOKMARK [1][-]{section.4.3}{4.3 MySQL}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.3.1}{4.3.1 Yahoo! Cloud Serving Benchmark - YCSB}{section.4.3}
-\BOOKMARK [1][-]{section.4.4}{4.4 Hannibal}{chapter.4}
-\BOOKMARK [1][-]{section.4.5}{4.5 Dataset PV.com}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.5.1}{4.5.1 HBase schema design}{section.4.5}
+\BOOKMARK [1][-]{section.4.4}{4.4 Yahoo! Cloud Serving Benchmark - YCSB}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.4.1}{4.4.1 Hannibal}{section.4.4}
+\BOOKMARK [2][-]{subsection.4.4.2}{4.4.2 Presenting our Dataset}{section.4.4}
+\BOOKMARK [2][-]{subsection.4.4.3}{4.4.3 HBase storage schema design}{section.4.4}
 \BOOKMARK [0][]{chapter.5}{5 Methods}{}
 \BOOKMARK [1][-]{section.5.1}{5.1 HBase cluster: how it looks}{chapter.5}
 \BOOKMARK [1][-]{section.5.2}{5.2 HBase tuned parameters for a write-heavy cluster}{chapter.5}
@@ -65,4 +65,3 @@
 \BOOKMARK [0][]{chapter.9}{9 Evaluation}{}
 \BOOKMARK [0][]{chapter.10}{10 Discussion}{}
 \BOOKMARK [0][]{chapter.11}{11 Conclusions}{}
-\BOOKMARK [0][]{appendix.A}{A First appendix}{}

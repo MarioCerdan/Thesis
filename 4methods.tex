@@ -1,24 +1,37 @@
 \chapter{Methods}
 \label{chapter:methods}
 
-In the following chapter we will discuss about the steps taken for importing the real data of our company into a fully tuned HBase cluster deployed on top of Triton. We will go through a basic version of importing data to the most fine-grain solution we found, but first, before going into the different approaches, we explain how we have optimized our HBase cluster to meet our customer needs.
 
-\section{HBase cluster: how it looks}
 
-By default, we have always used a 5 nodes HBase cluster: 1 Master server and 4 Region Servers. Default parameters are described below. Whether there is a change in the number of nodes or any parameters, we will state it in its corresponding section.
+In the next two chapters, we will discuss about the steps taken for importing our dataset into a fully tuned HBase cluster deployed on top of Triton. We will go through a basic version of importing data to the most fine-grain solution we managed to get, but before going into the different approaches, let us depict the workflow taken, doing your reading more satisfactory and easier.
+
+\bigskip
+\centerline{\fixme{!PICTURE!}}
+\bigskip
+
+
+
+\section{HBase cluster at a glance}
+
+We have always used a 5 nodes HBase cluster by default: 1 Master server and 4 Region Servers. Default parameters are described below. Whether there is a change in the number of nodes or any parameters, we will state it in its corresponding section.
 \par
 As we exposed in chapter 4., we use HBase in combination with HDFS as our distributed filesystem. Hence, we deploy a DataNode in the same node where HBase's Master is, and a DataNode along with each Region Server. Besides it, if the task requires Hadoop MapReduce, we turn on it, starting a JobTracker where the NameNode is and as many TaskTrackers as DataNodes there are in the cluster.
 
-\section{HBase tuned parameters for a write-heavy cluster}
+\section{HBase: tunning parameters for a write-heavy cluster}
+
+In this section, we will explain how we have optimized our HBase cluster to meet our needs, which could be summarized into "excel in data import" operations.
+\par
+HBase is highly configurable when it comes to data-writing with plenty modifiable parameters. In the following lines we specify which ones, why and how we have modified them. They are Java Virtual Machine related parameters, MemStore related parameters and a few Hadoop parameters.
 
 \begin{enumerate}
 
-\item JVM related parameters:
+\item \textbf{JVM related parameters}:
+\bigskip
 
-- \textit{Export HBASE\_HEAPSIZE=2000}. The maximum amount of heap to use expressed in MB. We have increased this parameter from 1000 to 2000 as HBase is a RAM consumer. Therefore, the more RAM, the better the performance.
+- \textit{HBASE\_HEAPSIZE}. The maximum amount of heap to use expressed in MB. We have increased this parameter from 1000 to 2000 as HBase is a RAM consumer. Therefore, the more RAM, the better the performance.
 \par
-- \textit{Export HBASE\_OPTS="\$HBASE\_OPTS -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/triton/ics/scratch/cerdanm1/try2/gc-hbase.log -XX:+UseConcMarkSweepGC".
-export HBASE\_REGIONSERVER\_OPTS="-XX:+UseParNewGC -Xmx2g -Xms2g -Xmn128m"}
+- \textit{HBASE\_OPTS="-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:gc-hbase.log -XX:+UseConcMarkSweepGC".
+  HBASE\_REGIONSERVER\_OPTS="-XX:+UseParNewGC -Xmx2g -Xms2g -Xmn128m"}
 \par
 We have enabled Java's garbage collector logs as a way to help us to discover how to improve performance by tuning JVM flags and looking for long and short pauses. 
 \par
@@ -40,8 +53,8 @@ The Concurrent-Mark-Sweep collector (CMS) is responsible for cleaning dead objec
 
 To get more information about this two modes or how garbage collector and HBase work together, read Todd Lipcon GC blog article \cite{MSLABexplained} and HBase Documentation Chapter 13 Troubleshooting and Debugging Apache HBase \cite{ApacheHBaseLogs}.
 
-\item MemStore parameters:
-
+\item \textbf{MemStore parameters}:
+\bigskip
 HBase write operations are applied in the hosting region's MemStore at first, and then flushed to HDFS to save memory space when MemStore size reaches a threshold. This is what happens in a normal write scenario, but in a write-heavy HBase cluster we may observe an unstable write speed and always this situation occurs, it is because updates are being blocked by Region servers. There are three blocking scenarios:
 \begin{itemize}
 \item Size of all MemStores in a Region server reaches a maximum and all the updates are blocked and flushes are forced.
@@ -75,6 +88,7 @@ No issues found.
 
 
 \section{Hadoop baseline parameters}
+
 By default, Hadoop comes with a non-aggressive set of parameters that are proved to work well. But, since we are looking for the best performance, we must tweak them to be more aggressive. So for our baseline Hadoop configuration we have made a few changes: 
 \begin{itemize}
 \item The default number of map/Reduce slots is not adequate for our workload, that is why we have modified it to run a maximum of 12 (instead of 2) simultaneously map tasks and 6 (instead of 2) simultaneously reduce tasks per node since our nodes have 12 cores each one. Always a bit over the total amount of cores per node.

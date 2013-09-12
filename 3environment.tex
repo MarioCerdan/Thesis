@@ -64,7 +64,7 @@ YCSB lastest version \cite{YCSB} used: ycsb 0.1.4.
 
 \subsection{Presenting our Dataset}
 
-Our dataset is composed of thousands of XML files whose sizes vary from just a few KBs to dozens of MBs. Each of them is composed in turn of a list of elements wrapped between <element></element> tags. Every element is constituted of at least 15 sub-elements, which can be any kind of raw data (strings, integers, etc) or the start point of another sub-list. While the total size of the XML is known, the amount of elements within each document is unknown due to the unfixed size of the XML files. The same situation happens with the size of each element, the number of sub-elements is unfixed as well as the size of each one.
+Our dataset is composed of thousands of XML files whose sizes vary from just a few KBs to dozens of MBs. Each of them is composed in turn of a list of elements wrapped between <element></element> tags. Every element is constituted of at least 15 sub-elements which are either integers or strings, or the start point to another sub-list of N sub-elements. While the total size of the XML is known, the amount of elements within each document is unknown due to the unfixed size of the XML files. The same situation happens with the size of each element where its number of sub-elements is unfixed as well as the length of each one (one can be a string sentence really long while other an integer).
 \par
 A conceptual example of one of our XML files is shown below \footnote{For the sake of simplicity, only a basic form of a real XML is depicted.}.
 
@@ -85,14 +85,14 @@ A conceptual example of one of our XML files is shown below \footnote{For the sa
 	</sub-element n>
 </element 2>
 ...
-<element 3>
+<element N>
 ...
-</element 3>
+</element N>
 \end{lstlisting}
 
 \bigskip
 
-A real XML sample can be found in the Appendix 1. It will be useful in order to understand the HBase storage schema proposed and described in the next subsection.
+A real XML sample can be found in the Appendix 1. It is useful in order to understand the HBase storage schema proposed and described in the next subsection.
 
 \subsection{HBase storage schema design}
 
@@ -105,7 +105,7 @@ The sparse nature of HBase tables (not all columns populated in a row) makes the
 It is worth to state that this schema is based on our main data access pattern in order to support efficient performance when updating and retrieving data from it; our row key is the \textit{Uid} tag \footnote{Uid and other real name's elements included in the Appendix 1 -  XML sample instance} since most of the request we will have to cope with will be row key-based requests. Nonetheless, there could be retrievals of some other nature, but they will only represent a low percent of the total requests.
 \bigskip
 
-In the Appendix 2, we show the followed Hbase storage schema design. The reader will be able to see how the previous XML video data would look stored into our Hbase database: Our row key is the \textit{uid} of the video. There are 4 column families: \textit{main}, \textit{genre}, \textit{tag} and \textit{resource}. Each column family contains many column qualifiers.
+In the Appendix 2, we show the followed Hbase storage schema design. The reader will be able to see how the previous XML video data maps into our Hbase database: Our row key is the \textit{uid} of the video. There are 4 column families: \textit{main}, \textit{genre}, \textit{tag} and \textit{resource}. Each column family contains many column qualifiers.
 \par
 By convention, a column name is made of its column family prefix and a qualifier (Ex. main:description). The colon character delimits both columns.
 

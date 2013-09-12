@@ -41,7 +41,7 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 
 \bibitem{bernstein1983multiversion}
 {\sc Bernstein, P.~A., and Goodman, N.}
-\newblock Multiversion concurrency control—theory and algorithms.
+\newblock Multiversion concurrency control theory and algorithms.
 \newblock {\em ACM Transactions on Database Systems (TODS) 8}, 4 (1983),
   465--483.
 
