@@ -49,7 +49,7 @@ In 26 February 2013, coinciding with the start of this project, Cloudera release
 
 MySQL \cite{MySQL} has been chosen as the open source RDBMS to test against HBase. The version used for the experiments has been MySQL Community Server 5.6.12, which is the last stable release offered by MySQL.
 
-\subsection{Yahoo! Cloud Serving Benchmark - YCSB}
+\section{Yahoo! Cloud Serving Benchmark - YCSB}
 
 YCSB\cite{cooper2010benchmarking} is a standard open-source benchmark tool developed by Yahoo! Labs, its aim is to provide a general framework for evaluating the performance of distributed key/value and cloud storage systems, such as HBase, Cassandra, and PNUTS. YCSB allows one to define different workload scenarios by mixing reads, writes, updates and table scans, and then measures the performance of the system on a particular workload.
 \par
@@ -57,41 +57,12 @@ YCSB\cite{cooper2010benchmarking} is a standard open-source benchmark tool devel
 \par
 YCSB lastest version \cite{YCSB} used: ycsb 0.1.4.
 
-\section{Hannibal}
+\subsection{Hannibal}
 \fixme{should I talk about Hannibal tool for monitoring..as well as DStats for plotting?} 
 
 
 
-
-
-\subsection{HBase schema design}
-
-Here we show the Hbase table schema design used to store the data into our HBase cluster. Reader can see how the previous XML video data would look stored into the table: Our row key is the \textit{uid} of the video. There are 4 column families: \textit{main}, \textit{genre}, \textit{tag} and \textit{resource}. Each column family contains many column qualifiers.
-\par
-By convention, a column name is made of its column family prefix and a qualifier (Ex. main:description). The colon character delimits both columns.
-
-
-\begin{table}[htbp]
-
-\begin{center}
-\begin{sideways}
-\scalebox{0.30}[1]{
-\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
-\hline
-Row Key & Time Stamp & main:author & main:albumArt & main:description & main:mediaDate & main:serviceName & main:externalUrl & main:videoName & main:sourceRating & Tag:n & genre:n & resource:streamUrl:n & resource:duration:n & resource:itemTypeId:n & resource:mimeType:n & resource:resourceType:n & resource:uid:n & resource:width:n & resource:height:n \\ \hline
-f5e477ba4d & t5 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \multicolumn{1}{r|}{450} \\ \hline
-f5e477ba4d & t3 & karhu &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-f5e477ba4d & t2 &  & http://assets0.ordienetworks.com/tmbs/f5e477ba4d/fullsize\_9.jpg.. & painful &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-f5e477ba4d & t1 & paropetje & http://... & feel the adrenaline & 2012-05-12 21:02:49.0 & Funnyordie & http://... & toys for boys &  & toys & Real Life & http://... & 0:01:42 & \multicolumn{1}{r|}{1} & application/x-shockwave-flash & stream & f5e477ba4d & \multicolumn{1}{r|}{640} & \multicolumn{1}{r|}{400} \\ \hline
-\end{tabular}}
-\end{sideways}
-\end{center}
-\caption{Our HBase table schema with a sample stored. Different timestamps due to updates.}
-\label{HTable}
-\end{table}
-
-
-\subsection{Our dataset}
+\subsection{Presenting our Dataset}
 
 Our dataset is composed of thousands of XML files whose sizes vary from just a few KBs to dozens of MBs. Each of them is composed in turn of a list of elements wrapped between <element></element> tags. Every element is constituted of at least 15 sub-elements, which can be any kind of raw data (strings, integers, etc) or the start point of another sub-list. While the total size of the XML is known, the amount of elements within each document is unknown due to the unfixed size of the XML files. The same situation happens with the size of each element, the number of sub-elements is unfixed as well as the size of each one.
 \par
@@ -121,15 +92,20 @@ A conceptual example of one of our XML files is shown below \footnote{For the sa
 
 \bigskip
 
-A real example can be found in the appendix 1. It will be useful in order to understand the HBase table design described 
+A real XML sample can be found in the Appendix 1. It will be useful in order to understand the HBase storage schema proposed and described in the next subsection.
 
-\subsection{HBase schema design}
+\subsection{HBase storage schema design}
 
-In the following chapters we will work with HBase as our datastore. For which reason, we have designed an HBase schema that is able to hold our XML data previously depicted. It is worth to state that this schema is focused on obtaining a high performance when updating and retrieving data from it; our row key is the element \textit{uid} of an element since most of the request we will have to cope with are requests of some \cite{uids}. Nonetheless, there could be requests of some other nature, but they will only represent a low percent of the total requests.
+In the following chapters we will work with HBase as our datastore. For which reason, we have designed an HBase storage schema that is able to map our XML data previously depicted to our HBase database. 
 
- and that is why it has that structure and no other.
 \par
-In the appendix 2, we show the followed Hbase table schema design. The reader can see how the previous XML video data would look stored into the table: Our row key is the \textit{uid} of the video. There are 4 column families: \textit{main}, \textit{genre}, \textit{tag} and \textit{resource}. Each column family contains many column qualifiers.
+The sparse nature of HBase tables (not all columns populated in a row) makes them an interesting storage substitute for our XML dataset, in which elements can have different number of items, or even different items.
+
+\par
+It is worth to state that this schema is based on our main data access pattern in order to support efficient performance when updating and retrieving data from it; our row key is the \textit{Uid} tag \footnote{Uid and other real name's elements included in the Appendix 1 -  XML sample instance} since most of the request we will have to cope with will be row key-based requests. Nonetheless, there could be retrievals of some other nature, but they will only represent a low percent of the total requests.
+\bigskip
+
+In the Appendix 2, we show the followed Hbase storage schema design. The reader will be able to see how the previous XML video data would look stored into our Hbase database: Our row key is the \textit{uid} of the video. There are 4 column families: \textit{main}, \textit{genre}, \textit{tag} and \textit{resource}. Each column family contains many column qualifiers.
 \par
 By convention, a column name is made of its column family prefix and a qualifier (Ex. main:description). The colon character delimits both columns.
 
