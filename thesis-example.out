@@ -37,20 +37,19 @@
 \BOOKMARK [2][-]{subsection.4.4.2}{4.4.2 Presenting our Dataset}{section.4.4}
 \BOOKMARK [2][-]{subsection.4.4.3}{4.4.3 HBase storage schema design}{section.4.4}
 \BOOKMARK [0][]{chapter.5}{5 Methods}{}
-\BOOKMARK [1][-]{section.5.1}{5.1 HBase cluster: how it looks}{chapter.5}
-\BOOKMARK [1][-]{section.5.2}{5.2 HBase tuned parameters for a write-heavy cluster}{chapter.5}
-\BOOKMARK [1][-]{section.5.3}{5.3 Hadoop baseline parameters}{chapter.5}
-\BOOKMARK [1][-]{section.5.4}{5.4 Introduction}{chapter.5}
-\BOOKMARK [1][-]{section.5.5}{5.5 Writing - Importing data}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.5.1}{5.5.1 First approach: An HBase client}{section.5.5}
-\BOOKMARK [3][-]{subsubsection.5.5.1.1}{5.5.1.1 First approach II: An HBase client with setAutoFlush false}{subsection.5.5.1}
-\BOOKMARK [2][-]{subsection.5.5.2}{5.5.2 Second approach: A multithread HBase client}{section.5.5}
-\BOOKMARK [2][-]{subsection.5.5.3}{5.5.3 Third approach: Using MapReduce algorithm}{section.5.5}
-\BOOKMARK [3][-]{subsubsection.5.5.3.1}{5.5.3.1 The small files problem}{subsection.5.5.3}
-\BOOKMARK [3][-]{subsubsection.5.5.3.2}{5.5.3.2 Third approach II: Compression}{subsection.5.5.3}
-\BOOKMARK [3][-]{subsubsection.5.5.3.3}{5.5.3.3 Third approach III: Pre-creating regions}{subsection.5.5.3}
-\BOOKMARK [2][-]{subsection.5.5.4}{5.5.4 Fourth approach:Skew data}{section.5.5}
-\BOOKMARK [1][-]{section.5.6}{5.6 Performance Tunning Hadoop}{chapter.5}
+\BOOKMARK [1][-]{section.5.1}{5.1 HBase cluster at a glance}{chapter.5}
+\BOOKMARK [1][-]{section.5.2}{5.2 HBase: tunning parameters for a write-heavy cluster}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.2.1}{5.2.1 Hadoop baseline parameters}{section.5.2}
+\BOOKMARK [1][-]{section.5.3}{5.3 Introduction to the import experiment}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.3.1}{5.3.1 First approach: An HBase client}{section.5.3}
+\BOOKMARK [3][-]{subsubsection.5.3.1.1}{5.3.1.1 First approach - second version : An HBase client without AutoFlush}{subsection.5.3.1}
+\BOOKMARK [2][-]{subsection.5.3.2}{5.3.2 Second approach: A multithread HBase client}{section.5.3}
+\BOOKMARK [2][-]{subsection.5.3.3}{5.3.3 Third approach: Using MapReduce algorithm}{section.5.3}
+\BOOKMARK [3][-]{subsubsection.5.3.3.1}{5.3.3.1 The small files problem}{subsection.5.3.3}
+\BOOKMARK [3][-]{subsubsection.5.3.3.2}{5.3.3.2 Third approach II: Compression}{subsection.5.3.3}
+\BOOKMARK [3][-]{subsubsection.5.3.3.3}{5.3.3.3 Third approach III: Pre-creating regions}{subsection.5.3.3}
+\BOOKMARK [2][-]{subsection.5.3.4}{5.3.4 Fourth approach:Skew data}{section.5.3}
+\BOOKMARK [1][-]{section.5.4}{5.4 Performance Tunning Hadoop}{chapter.5}
 \BOOKMARK [0][]{chapter.6}{6 Methods}{}
 \BOOKMARK [1][-]{section.6.1}{6.1 Random Reads in HBase}{chapter.6}
 \BOOKMARK [2][-]{subsection.6.1.1}{6.1.1 Random Reads in our heavy-write cluster}{section.6.1}
@@ -65,3 +64,6 @@
 \BOOKMARK [0][]{chapter.9}{9 Evaluation}{}
 \BOOKMARK [0][]{chapter.10}{10 Discussion}{}
 \BOOKMARK [0][]{chapter.11}{11 Conclusions}{}
+\BOOKMARK [0][]{appendix.A}{A First appendix}{}
+\BOOKMARK [1][-]{section.A.1}{A.1 XML video file}{appendix.A}
+\BOOKMARK [1][-]{section.A.2}{A.2 Hbase storage schema design}{appendix.A}

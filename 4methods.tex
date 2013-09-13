@@ -81,7 +81,7 @@ To avoid these update blockings due to write-heavy workloads, we have tuned MemS
 
 This tuning has met our needs and therefore, it has allowed us to reduce the chances of update blockings.
 \par
-To know if these parameters are working fine, the user must take a look at the HBase logs. While grepping Region Server logs with the message \textbf"Blocking updates for"} will uncover block issues, looking for the sentence \textbf{"Flush of region * due to global heap pressure"} will reveal problems to handle the high write rate and the Memstore size limit. 
+To know if these parameters are working fine, the user must take a look at the HBase logs. While grepping Region Server logs with the message \textbf{"Blocking updates for"} will uncover block issues, looking for the sentence \textbf{"Flush of region * due to global heap pressure"} will reveal problems to handle the high write rate and the Memstore size limit. 
 \par
 Briefly example of one of our studies of our HBase logs:
 \bigskip
@@ -106,7 +106,7 @@ Following HBase tuning parameters, we explain how we have optimized our Hadoop. 
 \end{itemize}
 
 
-\section{Introduction to the import experiment}
+\section{The import experiment}
 
 %Now it is time to describe the steps followed with the XML data. First, how we have imported it and subsequently, we expound how we %have optimize it in order to get the maximum speed and efficiency. After that, we show how we managed to maximize random reads %throughtput in our HBase cluster and finally, we benchmark our tunned HBase cluster against a MySQL cluster in different scenarios, the %most popular SQL solution against what is the most likely famous NoSQL software.
 Once we have describe how we have tunned our HBase + Hadoop cluster, it is time to focus on the first experiment itself, which is importing our whole dataset into a cloud datastore like HBase and test how it works. We will go through a basic version of importing data to the most fine-grain solution we managed to get. Suffice to say that all obtained results and conclusions are disclosed and analyzed along the way.
@@ -115,7 +115,7 @@ Once we have describe how we have tunned our HBase + Hadoop cluster, it is time 
 
 As first approach, we have developed a Java application that uses HBase Client API to import the whole data set into our 5 nodes HBase cluster. Basically, it creates the table that will hold the whole data and starts parsing the XML video files one by one. As we showed before, these XML files contain lots of elements. For each file, our client creates a list of Puts objects mapping each obejct to a parsed video, and subsequently, it is sent to the HBase cluster through a call to the \textit{HTable.Put} API method. Once the XML file has been parsed, the client repeats the same process with the next file until all of them are read.
 \bigskip
-\veterline{RESULTS}
+\centerline{RESULTS}
 \bigskip
 
 Later on surveying the results, we can see a few drawbacks of this idea. Let's explain them in order to understand our next approaches to the solution:
@@ -185,7 +185,7 @@ Like before, \textit{SetAutoFlush} is turned off for each HTable within the pool
 \bigskip
 \centerline{\fixme{graphs}}
 \bigskip
-\centerline{Results: - Here results\
+\centerline{Results: - Here results}
 \par
 
 Hint:Logs do not reveal issues with Memstores and related parameters yet.
@@ -212,7 +212,7 @@ So that if we want to leverage the power of MapReduce framework at its maximum, 
 
 \subsubsection{The small files problem}
 In terms of Hadoop HDFS, a small file is one which is smaller than the HDFS block size (in our case, 64MB). The problem with them is that HDFS is not designed to handle lot of files because every file, directory and block in this distributed file system is represented as an objects in the namenode's memory, so having lots of files would use too much memory. Thus, HDFS is not geared up to efficiently accessing small files, but for streaming access of large files. 
-\\
+\par
 In MapReduce we still find this problem due to mappers usually proccess a block of input at a time. If there are lots of small files, then there will be a lot of more mappers, with their corresponding bookkeeping overhead. To overcome this pitfall and to be able to exploit the real power of MapReduce we have rewritten all the XML video files together into a big single \textit{SequenceFile} (a Hadoop-specific archive format) \cite{ApacheHadoopSequenceFile}, in which the name of each file is the key and its file contents is the value. 
 \par
 \textit{SequenceFiles} are spittable, so MapReduce can cut them into chunks and interact with each one autonomously. They support compression and splitting as well, which is another advantage to have in mind given that MapReduce jobs performance is increased when working with splittable files (they can be processed in parallel by many mappers)  \cite{SmallFiles}.
