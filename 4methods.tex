@@ -141,53 +141,64 @@ Region server keeps a number of running threads to answer incoming requests to u
 \item Compressed data:
 \bigskip
 In Hbase, it is well-kwown that using some form of compression for storing data may lead to an increase in IO performance, and thus in an increase in the overall performance \cite{raichand2013short} \cite{cheng2013key} \cite{aiyer2012storage} \cite{ApacheHBaseCompression}. But at this time, we are not using any sort of data compression yet. We should exploit it to reduce the number of bytes written/to read from HDFS, to save disk usage and to improve the efficiency of network bandwitch. On the other hand, if we enable it, we will need to un/compress data so we will need some extra CPU cycles. It is simply trading IO load for CPU load.
-\par
 
-\fixme{Talk in another approach about the three codecs with some graphs? or just here: I will use Snappy because balbalbala?  http://blog.erdemagaoglu.com/post/4605524309/lzo-vs-snappy-vs-lzf-vs-zlib-a-comparison-of }
+%\fixme{Talk in another approach about the three codecs with some graphs? or just here: I will use Snappy because balbalbala?  %http://blog.erdemagaoglu.com/post/4605524309/lzo-vs-snappy-vs-lzf-vs-zlib-a-comparison-of }
  \bigskip
 
- \item setAutoFlush + WAL
+\item setAutoFlush:
 \bigskip
-HBase client API provides a built-in Write Buffer that allows to cache a group of \textit{Put/Delete} objects in the client side, and flush these objects to the Region Servers in a batch so that they are sent in one RPC call to the servers, instead of sending \textit{Puts} one at a time like by default. Using it, all requested changes will wind up in the same Write Buffer and will not be sent until the Write Buffer is filled. The chief advantage of using it is the reduction in the number of necessary RPC connections to transfer data from the client to the sever and back. In a our application, which needs to store thousands of values per second, less RPC calls will mean less round-trip times (RTTs) to happen.
-\par
-\fixme{HBase book: image region servers + puts per region}
-\par
-We have already explained the HBase arquitecture and its Write Path, where Write Ahead Log (WAL) plays. Turning WAL off means that Region server will not write \textit{Put} objects into the WAL, only into the MemStore and therefore, increasing throughput on \textit{Puts}. In return, if there is a Region server failure there will be data loss \cite{ApacheHBaseWAL}.
+HBase client API provides a built-in Write Buffer that allows to cache a group of \textit{Put/Delete} objects on the client side, and flush these objects to the Region Servers in a batch so that they are sent in one RPC call to the servers, instead of sending \textit{Puts} one at a time like by default. Using it, all requested changes will wind up in the same Write Buffer and will not be sent until the Write Buffer is filled. The chief advantage of using it is the reduction in the amount of necessary RPC connections to transfer data from the client to the sever and back. In a our application, which needs to store thousands of values per second, less RPC calls will mean less round-trip times (RTTs) to happen. Figure 4.1 provides the architecture of the Client Write Buffer \footnote{This figure is obtained from HBase: The Definitive Guide}.
 
+\bigskip
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/putsRegionServer.png}
+\caption{HBase built-in Write Buffer.} \label{fig:putsRegionServer}
+\end{figure}
+
+To take advantage of this feature, we should \textit{setAutoFlush} to false, instead of true by default.
+\bigskip
+\item Write Ahead Log:
+We have already explained the HBase arquitecture and its Write Path, where WAL plays and is on by default. Turning WAL off indicates that Region server will not write \textit{Put} objects into the WAL, only into the MemStore and therefore, increasing throughput on \textit{Puts}. In return, if there is a Region server failure there will be data loss.
 
 \end{enumerate}
 
 
+All of these drawbacks will be kept in mind as the base to improve our subsequent solutions.
 
-\fixme{Para mas informacion dirigirse a HBase libro, HBase CookBook libro seccion performance}
-
-\subsubsection{First approach II: An HBase client with setAutoFlush false}
+\subsubsection{First approach - second version : An HBase client without AutoFlush}
 
 This is a minor modification to the first approach. Disabling setAutoFlush reveals a slight improvement:
+\bigskip
+\centerline{Results.}
 
--Results.
+
 
 
 \subsection{Second approach: A multithread HBase client}
 
-For this second approach we have improved our first HBase client application by adding it support to Java threads. The idea behind it is very simple: instead of reading and parsing XML video files one at a time, we create now N Java threads and each of them reads and parses one file concurrently. There is no limitation with our hardware, given that our nodes have twelve cores each one and they can run multiple threads. The issue resides in the HBase API because the \textit{HTable} class we are using is not thread-safe, that is, the local write buffer is not guarded against concurrent modifications. To avoid it, we should use one instance of HTable for each thread we are running in our client application, and that is exactly what \textit{HTablePool} class allows us to do: namely to pool client API instances to the HBase cluster. With \textit{HTablePool(Configuration conf, int maxSize)} we create a pool with our configuration, while setting the maximum number of HTable instances it is allowed to contain. 
+In this proposal we have improved our first HBase client application by adding it support to Java threads. The idea behind it is very simple: instead of reading and parsing XML video files one at a time, we create now N Java threads and each of them reads and parses one file concurrently. There is no limitation with our hardware since our nodes have twelve cores each one and they can run multiple threads. The issue resides in the HBase API because the \textit{HTable} class we are using is not thread-safe, that is, the local write buffer is not guarded against concurrent modifications. To dodge it, we should use one instance of HTable for each thread we are running in our client application, and that is exactly what \textit{HTablePool} class allows us to do: namely to pool client API instances to the HBase cluster. With \textit{HTablePool(conf, maxSize)} we create a pool with our configuration, while setting the maximum number of HTable instances it is allowed to contain. 
 \par
 Like before, \textit{SetAutoFlush} is turned off for each HTable within the pool as we gain performance with it (this feature is not available in HBase 0.92.X series but now it is possible thanks to the HBASE-5728 patch \cite{HBase5728}). 
 \par
- In our experiments we have tried from 2 to 50 HTable instances / Threads with different numbers of RPC listener threads (\textit{hbase.regionserver.handler.count}) with the following results:
+ In our experiments we have tried from 2 to 50 HTable instances / Threads with different numbers of RPC listener threads turning out the following results:
+\bigskip
+\centerline{\fixme{graphs}}
+\bigskip
+\centerline{Results: - Here results\
 \par
-\fixme{graphs}
-\par
-Results: - Here results
-\par
+
 Hint:Logs do not reveal issues with Memstores and related parameters yet.
+\bigskip
 
-Main drawbacks:
-\par
-- WAL is still turned on. We have not disabled it because we do not want data loss in case of hardware or software failures. In approaches using HBase Client API, we place data before speed.
-\par
-- We are still facing the problem of regions and Load Balancer.
+As we proceed before, it is time to discuss the drawbacks discovered here:
+\begin{enumerate}
+\item WAL is still turned on. We have not disabled it because we do not want data loss in case of hardware or software failures. In the HBase Client API approaches, we place integrity before speed.
 
+\item Still facing the problem of regions and Load Balancer.
+
+\item Data continues uncompressed.
+\end{enumerate}
 
 
 \subsection{Third approach: Using MapReduce algorithm}
