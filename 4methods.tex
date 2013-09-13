@@ -35,18 +35,25 @@ HBase is highly configurable when it comes to data-writing with plenty modifiabl
 \par
 We have enabled Java's garbage collector logs as a way to help us to discover how to improve performance by tuning JVM flags and looking for long and short pauses. 
 \par
-Following Todd Lipcon blog articles "Avoiding Full GCs in Apache HBase with MemStore-Local Allocation Buffers: Part 1, 2 and 3" \fixme{ cite ClouderaGC}, we have turned on the \textit{Parallel New} collector for the young generation (\textit{-XX:+UseParNewGC}) and the \textit{Concurrent Mark-Sweep} collector for the old generation (\textit{-XX:+UseConcMarkSweepGC}). The Parallel New collector is a "stop-the-world copying collector" but since the young generation is small and it uses many threads, the collector finnishes its work very quickly.
+Following Todd Lipcon blog articles "Avoiding Full GCs in Apache HBase with MemStore-Local Allocation Buffers: Part 1, 2 and 3" \footnote{http://blog.cloudera.com/blog/2011/02/avoiding-full-gcs-in-hbase-with-memstore-local-allocation-buffers-part-1/}, we have turned on the \textit{Parallel New} collector for the young generation (\textit{-XX:+UseParNewGC}) and the \textit{Concurrent Mark-Sweep} collector for the old generation (\textit{-XX:+UseConcMarkSweepGC}). The Parallel New collector is a "stop-the-world copying collector" but since the young generation is small and it uses many threads, the collector finnishes its work very quickly.
 \par
 The Concurrent-Mark-Sweep collector (CMS) is responsible for cleaning dead objects in the old generation. It is also a "stop-the-world collector". The problem comes out when CMS fails and minute pauses appear in logs. CMS has two failure modes:
 \begin{enumerate}
-\item Concurrent Mode Failure: To avoid this mode, we need the garbage collector to start its work earlier in order to avoid getting overrun with new allocations. Setting \textit{-XX:CMSInitationOccupancyFraction} flag to 70 turns out to help us.
-\item Promotion Failure due to fragmentation: This happens when there is not enough contiguous free space in the old-generation to allocate objects. This is termed memory fragmentation. When this occurs, the copying collector is called owing to its ability to compact all the objects and free up space. To address this issue and avoid the stop produced by the copying collector, we use MemStore-Local Allocation Buffer (MSLAB) (See cited articles for more background \cite{ApacheHBaseMSLAB} \cite{MSLAB}), a new Todd's experimental facility.  hbase.hregion.memstore.mslab.enabled flag is set to true and the hbase.hregion.memstore.mslab.chunksize is set to 2MB per memstore.
+\item \textbf{Concurrent Mode Failure}: To avoid this mode, we need the garbage collector to start its work earlier in order to avoid getting overrun with new allocations. Setting \textit{-XX:CMSInitationOccupancyFraction} flag to 70 turns out to help us.
+\item \textbf{Promotion Failure due to fragmentation}: This happens when there is not enough contiguous free space in the old-generation to allocate objects. This is termed memory fragmentation. When this occurs, the copying collector is called owing to its ability to compact all the objects and free up space. To address this issue and avoid the stop produced by the copying collector, we use MemStore-Local Allocation Buffer (MSLAB) \footnote{Articles for more background \cite{ApacheHBaseMSLAB} \cite{MSLAB})}, a new Todd's experimental facility.  \textit{Hbase.hregion.memstore.mslab.enabled} flag is set to true and the \textit{hbase.hregion.memstore.mslab.chunksize} is set to 2MB per memstore.
 
 \par
-\fixme{table}
--hbase.hregion.memstore.mslab.enabled	
--hbase.hregion.memstore.mslab.max.allocation
--hbase.hregion.memstore.mslab.chunksize
+\begin{table}[htbp]
+\caption{}
+\begin{tabular}{|l|}
+\hline
+hbase.hregion.memstore.mslab.enabled  \\ \hline
+hbase.hregion.memstore.mslab.max.allocation \\ \hline
+hbase.hregion.memstore.mslab.chunksize \\ \hline
+\end{tabular}
+\label{HBase MSLAB parameters.}
+\end{table}
+
 \end{enumerate}
 
 \fixme{Screenshot of GC log without problems. HBase Lars George page 421}
@@ -58,94 +65,90 @@ To get more information about this two modes or how garbage collector and HBase 
 HBase write operations are applied in the hosting region's MemStore at first, and then flushed to HDFS to save memory space when MemStore size reaches a threshold. This is what happens in a normal write scenario, but in a write-heavy HBase cluster we may observe an unstable write speed and always this situation occurs, it is because updates are being blocked by Region servers. There are three blocking scenarios:
 \begin{itemize}
 \item Size of all MemStores in a Region server reaches a maximum and all the updates are blocked and flushes are forced.
-\item Region's MemStore size reaches a threshold defined by hbase.hregion.memstore.flush.size * hbase.hregion.memstore.block.multiplier.
-\item A Store has more than hbase.hstore.blockingStoreFiles number of StoreFiles (one StoreFile per MemStore flushed)
+\item Region's MemStore size reaches a threshold defined by \textit{hbase.hregion.memstore.flush.size} * \textit{hbase.hregion.memstore.block.multiplier}.
+\item A Store has more than \textit{hbase.hstore.blockingStoreFiles} number of StoreFiles (one StoreFile per MemStore flushed).
 \end{itemize}
 
-To avoid these update blockings due to write-heavy workloads, we have tuned MemStore size and related parameters, such as upper and lower limits of it before flushing, blocking times, etc..., following the configuration parameters for an HBase heavy-write load cluster  proposed on chapter 9 "Advanced configurations and Tuning" of the book "HBase Administration Cookbook" \cite{jiang2012hbase}, experiences from Sematext \cite{MemstoreSematext} and GBif companies \cite{MemstoreGBif} and the most important, following our studies of our own HBase logs:
-\\
+To avoid these update blockings due to write-heavy workloads, we have tuned MemStore size and related parameters, such as upper and lower limits of it before flushing and blocking times, following the configuration parameters for an HBase heavy-write load cluster  proposed on chapter 9 "Advanced configurations and Tuning" of the book "HBase Administration Cookbook" \cite{jiang2012hbase}, experiences from Sematext \cite{MemstoreSematext} and GBif companies \cite{MemstoreGBif} and the most important, following our studies about own HBase logs:
+\bigskip
 \begin{enumerate}
-\item hbase.regionserver.global.memstore.upperLimit set to 40\% (default one)
-\item hbase.regionserver.global.memstore.lowerLimit set to 35\% (default one)
-\item hbase.hregion.memstore.block.multiplier set to 8 instead 2.
-\item hbase.hregion.memstore.flush.size set to its default value, which is 128MB.
-\item hbase.hstore.blockingStoreFiles set to 20 instead of 7.
+\item \textit{hbase.regionserver.global.memstore.upperLimit} set to 40\% (default one)
+\item \textit{hbase.regionserver.global.memstore.lowerLimit} set to 35\% (default one)
+\item \textit{hbase.hregion.memstore.block.multiplier} set to 8 instead 2.
+\item \textit{hbase.hregion.memstore.flush.size} set to its default value, which is 128MB.
+\item {hbase.hstore.blockingStoreFiles} set to 20 instead of 7.
 \end{enumerate}
 
 This tuning has met our needs and therefore, it has allowed us to reduce the chances of update blockings.
-\\
-To know if these parameters are working fine, users must take a look at the HBase logs. While grepping Region Server logs with the message "Blocking updates for..." will uncover block issues, looking for the sentence "Flush of region * due to global heap pressure" will reveal problems to handle the high write rate and with the Memstore size limiting. 
-\\
-Example of one of our studies of HBase logs:
+\par
+To know if these parameters are working fine, the user must take a look at the HBase logs. While grepping Region Server logs with the message \textbf"Blocking updates for"} will uncover block issues, looking for the sentence \textbf{"Flush of region * due to global heap pressure"} will reveal problems to handle the high write rate and the Memstore size limit. 
+\par
+Briefly example of one of our studies of our HBase logs:
+\bigskip
 \[cerdanm1@triton logs-hbase\]\$ grep \textbf{"due to global heap pressure"} hbase-cerdanm1-5072810-regionserver-cn219.log 
 2013-07-23 12:06:22,173 INFO org.apache.hadoop.hbase.regionserver.MemStoreFlusher: globalMemStoreLimit=810.9m, globalMemStoreLimitLowMark=709.5m, maxHeap=2.0g
-
-No issues found.
-
-\fixme{should I write here something like: in order to understand better each parameter go to [cite HBase books....]}
+\bigskip
+Result: No issues found.
 
 \end{enumerate}
 
 
-\section{Hadoop baseline parameters}
+\subsection{Hadoop baseline parameters}
 
-By default, Hadoop comes with a non-aggressive set of parameters that are proved to work well. But, since we are looking for the best performance, we must tweak them to be more aggressive. So for our baseline Hadoop configuration we have made a few changes: 
+Following HBase tuning parameters, we explain how we have optimized our Hadoop. By default, Hadoop comes with a non-aggressive set of parameters that are proved to work well. But, since we are looking for the best performance, we must tweak them to be more aggressive. So for our baseline Hadoop configuration we have made a few changes, exposed below: 
 \begin{itemize}
 \item The default number of map/Reduce slots is not adequate for our workload, that is why we have modified it to run a maximum of 12 (instead of 2) simultaneously map tasks and 6 (instead of 2) simultaneously reduce tasks per node since our nodes have 12 cores each one. Always a bit over the total amount of cores per node.
 \item \textit{mapred.child.java.opts} Hadoop parameter caps the heap of each map/reduce task process at 200 MB, which is too small. So we have overridden it to 3072MB. {mapred.child.ulimit} parameter has been also modified to be 2.5 times higher than the new heap of map/reduce tasks to prevent out of control memory consumption.
 \item \textit{dfs.datanode.handler.count} controls the number of threads that serve data block requests in Datanodes. We have set it to 8 instead 3 by default. Increasing this value will lead to an increase in the memory utilization of the Datanode, but since we have enough RAM, we can enhance it.
 \item \textit{dfs.datanode.max.xcievers} controls the number of files that a DataNode can service concurrently and it is commonly recommended to increment it from the default of 256 to something higher \footnote{http://blog.cloudera.com/blog/2012/03/hbase-hadoop-xceivers/}  \footnote{\label{1}http://blog.cloudera.com/blog/2009/03/configuration-parameters-what-can-you-just-ignore/}. We have set it to 512.
-\item \textit{io.file.buffer.size} parameter determines how much data can be buffered while operating with sequence files. We have raise it from 4096 to 65536 like Cloudera recommends \footnotemark[1].
+\item \textit{io.file.buffer.size} parameter determines how much data can be buffered while operating with sequence files. We have raise it from 4096 to 65536 following Cloudera recommendation \footnotemark[1].
 \item JVM reuse policy: \textit{mapred.job.reuse.jvm.num.tasks} is a configuration parameter found in \textit{mapred-site.xml} which decides wheter map/reduce tasks reuse or not spawned JVMs. We have set its value to \textit{-1}, which means that an unlimited number of tasks can reuse the same JVM. This policy is expected to benefit in scenarios where there are many short-length tasks and it is exactly our case.
 \end{itemize}
 
 
+\section{Introduction to the import experiment}
 
-
-
-
-\section{Introduction}
-
-Here we describe followed steps with the XML data. First, how we have imported it and subsequently, we expound how we have optimize it in order to get the maximum speed and efficiency. After that, we show how we managed to maximize random reads throughtput in our HBase cluster and finally, we benchmark our tunned HBase cluster against a MySQL cluster in different scenarios, the most popular SQL solution against what is the most likely famous NoSQL software.
-
-\section{Writing - Importing data}
+%Now it is time to describe the steps followed with the XML data. First, how we have imported it and subsequently, we expound how we %have optimize it in order to get the maximum speed and efficiency. After that, we show how we managed to maximize random reads %throughtput in our HBase cluster and finally, we benchmark our tunned HBase cluster against a MySQL cluster in different scenarios, the %most popular SQL solution against what is the most likely famous NoSQL software.
+Once we have describe how we have tunned our HBase + Hadoop cluster, it is time to focus on the first experiment itself, which is importing our whole dataset into a cloud datastore like HBase and test how it works. We will go through a basic version of importing data to the most fine-grain solution we managed to get. Suffice to say that all obtained results and conclusions are disclosed and analyzed along the way.
 
 \subsection{First approach: An HBase client}
 
-As first approach, we have developed a Java application that uses HBase Client API to import the whole PV.com data set into our 5 nodes HBase cluster. Basically, it creates the video table and starts parsing the XML video files one by one. As we showed before, these XML files contain lots of videos. For each file, our client creates a list of Puts, corresponding each Put to a parsed video. Then, this list of video Puts is sent to the HBase cluster through a call to the HTable.Put method. Once the XML file has been parsed, the client repeats the same process with the next file.
-\par
-RESULTS:
-\par
-After studying the results, we can see a few drawbacks to this idea. Let's explain them in order to understand our next approaches to the solution:
+As first approach, we have developed a Java application that uses HBase Client API to import the whole data set into our 5 nodes HBase cluster. Basically, it creates the table that will hold the whole data and starts parsing the XML video files one by one. As we showed before, these XML files contain lots of elements. For each file, our client creates a list of Puts objects mapping each obejct to a parsed video, and subsequently, it is sent to the HBase cluster through a call to the \textit{HTable.Put} API method. Once the XML file has been parsed, the client repeats the same process with the next file until all of them are read.
+\bigskip
+\veterline{RESULTS}
+\bigskip
+
+Later on surveying the results, we can see a few drawbacks of this idea. Let's explain them in order to understand our next approaches to the solution:
 
 \begin{enumerate}
-\item The method \textit{admin.createTable()} used creates a table with only one region. This is a problem since HBase Client API is only able to communicate and send its Puts to only one region/node. So while one node is taking all the work load, the others are idle. This behaviour changes once a threshold is reached and the region is splitted into two halves by the RegionSplitter, and the Hbase Load Balancer enters in the scene distributing new regions across the nodes, but until it is triggered, no more nodes are in use and the obtained performance is really poor.
+\item The method \textit{admin.createTable()} used creates a table with only one region. This is an issue since HBase Client API is only able to communicate and send its Puts to only one region/node. So while one node is taking all the work load, the others are idle. This behaviour changes once a threshold is reached and the region is splitted into two halves by the RegionSplitter, and the Hbase Load Balancer enters in the scene distributing new regions across the nodes, but until it is triggered, no more nodes are in use and the obtained performance is really poor.
 \par
 
-To understand this feature we can reproduce Ted Yu's explanation from his article "Load Balancer in HBase 0.90" \cite{LoadBalancer}, where he explains how Load Balancer works: "If at least one region server joined the cluster just before the current balancing action, both new and old regions from overloaded region servers would be moved onto underloaded region servers. Otherwise, I find the new regions and put them on different underloaded servers. Previously (in the older Load Balancer version) one underloaded server would be filled up before the next underloaded server is considered.".
+To understand this feature we can reproduce Ted Yu's explanation from his technical article "Load Balancer in HBase 0.90" \cite{LoadBalancer}, where he explains how Load Balancer works: "If at least one region server joined the cluster just before the current balancing action, both new and old regions from overloaded region servers would be moved onto underloaded region servers. Otherwise, I find the new regions and put them on different underloaded servers. Previously (in the older Load Balancer version) one underloaded server would be filled up before the next underloaded server is considered.".
 \par
-We can conclude that we will see an improved performance once the region gets splitted and the Load Balancer starts to work.
+We can wrap up that we will see an improved performance once the region gets splitted and the Load Balancer starts to work.
 
+\bigskip
+\fixme{Graph with the I/O of nodes, showing only one node working. Ganglia}
+\bigskip
 
-\fixme{Graph with the I/O of nodes, showing only one node working.}
-
-
-\item Region Server handler count
-
-Region server keeps a number of running threads to answer incoming requests to user tables. To prevent region server running out of memory, this property is set to 10 by default which is a very low number unless you are using large write buffers with a really high number of concurrent clients. So in our case, that our payload per request is low (we have normal \textit{Puts}, no big ones), increasing this number to handle more requests from the client would be beneficial as it will mean more accepted concurrent write requests. On the other hand, setting it to a higher number will consume more Region server's memory, but our cluster has enough to handle this peak. So in order to leverage it, we need not just to change hbase.regionserver.handler.count parameter which affects the server-side, but also to make the client to work concurrently by using threads.
-
+\item Region Server handler count:
+\bigskip
+Region server keeps a number of running threads to answer incoming requests to user tables. To prevent region server running out of memory, this property is set to 10 by default which is a very low number unless you are using large write buffers with a really high number of concurrent clients. So in our case, that our payload per request is low (we have normal \textit{Puts}, no big ones), increasing this number to handle more requests from the client would be beneficial as it will mean more accepted concurrent write requests. On the other hand, setting it to a higher number will consume more Region server's memory, but our cluster has enough to handle this peak. So in order to leverage it, we need not just to change \textit{hbase.regionserver.handler.count} parameter which affects the server-side, but also to make the client to work concurrently by using threads.
+\bigskip
 \centerline{\textit{hbase.regionserver.handler.count = 10}}
-
-\item compressed data
-
-In Hbase, it is well-kwown that using some form of compression for storing data may lead to an increase in IO performance, and thus in an increase in the overall performance \cite{ApacheHBaseCompression}. But up till this point we are not using any sort of data compression yet. We should exploit it to reduce the number of bytes written/to read from HDFS, to save disk usage and to improve the efficiency of network bandwitch. On the other hand, if we enable it, we will need to un/compress data so we will need some extra CPU cycles. It is simply trading IO load for CPU load.
+\bigskip
+\item Compressed data:
+\bigskip
+In Hbase, it is well-kwown that using some form of compression for storing data may lead to an increase in IO performance, and thus in an increase in the overall performance \cite{raichand2013short} \cite{cheng2013key} \cite{aiyer2012storage} \cite{ApacheHBaseCompression}. But at this time, we are not using any sort of data compression yet. We should exploit it to reduce the number of bytes written/to read from HDFS, to save disk usage and to improve the efficiency of network bandwitch. On the other hand, if we enable it, we will need to un/compress data so we will need some extra CPU cycles. It is simply trading IO load for CPU load.
 \par
-\fixme{Talk in another approach about the three codecs with some graphs? or just here: I will use Snappy because balbalbala?  http://blog.erdemagaoglu.com/post/4605524309/lzo-vs-snappy-vs-lzf-vs-zlib-a-comparison-of }
 
+\fixme{Talk in another approach about the three codecs with some graphs? or just here: I will use Snappy because balbalbala?  http://blog.erdemagaoglu.com/post/4605524309/lzo-vs-snappy-vs-lzf-vs-zlib-a-comparison-of }
+ \bigskip
 
  \item setAutoFlush + WAL
-\par
-HBase client API provides a built-in Write Buffer that allows to cache a group of \textit{Put/Delete} objects in the client side, and flush these objects to the Region Servers in a batch so that they are sent in one RPC call to the servers, instead of sending \textit{Puts} one at a time like by default. Using it, all requested changes will wind up in the same Write Buffer and will not be sent until the Write Buffer is filled. The main advantage of using it is the reduction in the number of necessary RPC connections to transfer data from the client to the sever and back. In a our application, which needs to store thousands of values per second, less RPC calls will mean less round-trip times (RTTs) to happen.
+\bigskip
+HBase client API provides a built-in Write Buffer that allows to cache a group of \textit{Put/Delete} objects in the client side, and flush these objects to the Region Servers in a batch so that they are sent in one RPC call to the servers, instead of sending \textit{Puts} one at a time like by default. Using it, all requested changes will wind up in the same Write Buffer and will not be sent until the Write Buffer is filled. The chief advantage of using it is the reduction in the number of necessary RPC connections to transfer data from the client to the sever and back. In a our application, which needs to store thousands of values per second, less RPC calls will mean less round-trip times (RTTs) to happen.
 \par
 \fixme{HBase book: image region servers + puts per region}
 \par
