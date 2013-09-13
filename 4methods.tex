@@ -205,41 +205,48 @@ As we proceed before, it is time to discuss the drawbacks discovered here:
 
 
 Until now, we have used Hadoop HDFS as the distributed file system for our HBase cluster. But we have not take advantage of the processing framework Hadoop provides, which is MapReduce and its tight integration with HDFS and these two with HBase.
- \par
-Hbase includes several methods to support loading data into HBase. The two most straightforward solution are either to use the \textit{TableOutputFormat} class from a MapReduce job for writing data into an HBase table or to use the default HBase client APIs. If there is not too much data to transfer, using the latter one is the best and also the simplest, but when data is voluminous, using \textit{TableOutputFormat} MapReduce job to load data makes more sense. Even more, instead of using the last one, is more efficient to generate the internal HFile format files in our MapReduce job and then load the generated files into our HBase cluster. This feature is namely \textbf{Bulk Load} and it use less CPU and network resources than simply using the \textit{TableOutputFormat} API or any other HBase client APIs \cite{ApacheHBaseBulkLoad}. Therefore, the third approach is based on Bulk Loading.
 \par
-So that if we want to leverage the power of MapReduce framework at its maximum, we must place all our XML video files into the Hadoop HDFS file system, because is how MapReduce achieves its best performance. The place where MapReduce really shines is if data gets stored on several different nodes (a distributed file system) and its mappers can access different partitioned data on different nodes in parallel. But, before copying the data from the local file system to HDFS, we have to deal with Hadoop HDFS and MapReduce small files problem.
+Hbase includes several methods to support loading data into HBase. The two most straightforward solution are either to use the \textit{TableOutputFormat} class from a MapReduce job for writing data into an HBase table or to use the default HBase client APIs. If there is not too much data to transfer, using the latter one is the best and also the simplest option, but when data is voluminous, using \textit{TableOutputFormat} MapReduce job to load data makes more sense. Even more, instead of using the last one, is more efficient to generate the internal HBase format files (HFiles) within our MapReduce job and then load the generated files into our HBase cluster. This feature is namely \textbf{Bulk Load} and it uses less CPU and network resources than simply using the \textit{TableOutputFormat} API or any other HBase client APIs \cite{ApacheHBaseBulkLoad}. Therefore, our third approach is based on Bulk Loading. In the following lines we explain what steps we took to get this third solution and which were the issues we have to cope with.
 
-\subsubsection{The small files problem}
-In terms of Hadoop HDFS, a small file is one which is smaller than the HDFS block size (in our case, 64MB). The problem with them is that HDFS is not designed to handle lot of files because every file, directory and block in this distributed file system is represented as an objects in the namenode's memory, so having lots of files would use too much memory. Thus, HDFS is not geared up to efficiently accessing small files, but for streaming access of large files. 
+\subsubsection{Building the solution}
+
+First of all is get to know how MapReduce really works and what drawbacks it has. If we want to leverage the power of the MapReduce framework at its maximum, we must place all our XML video files into the Hadoop HDFS file system, because is how MapReduce achieves its best performance. The place where MapReduce really shines is if data gets stored on several different nodes (a distributed file system) and its mappers can access different partitioned data on different nodes in parallel. But, before copying the data from the local file system to HDFS, we have to deal with Hadoop HDFS and MapReduce small files problem.
+
+\paragraph{The small files problem}
+In terms of Hadoop HDFS, a small file is one which is smaller than the HDFS block size (in our case, 64MB). The problem with them is that HDFS is not designed to handle a lot of files due to every file, directory and block in this distributed file system is represented as an objects in the namenode's memory, so having lots of files would use too much memory. Thus, HDFS is not geared up to efficiently accessing small files, but for streaming access of large files. 
 \par
-In MapReduce we still find this problem due to mappers usually proccess a block of input at a time. If there are lots of small files, then there will be a lot of more mappers, with their corresponding bookkeeping overhead. To overcome this pitfall and to be able to exploit the real power of MapReduce we have rewritten all the XML video files together into a big single \textit{SequenceFile} (a Hadoop-specific archive format) \cite{ApacheHadoopSequenceFile}, in which the name of each file is the key and its file contents is the value. 
+MapReduce also suffers the same issue, due to mappers usually proccess a block of input at a time. If there are lots of small files, then there will be a lot of more mappers, with their corresponding bookkeeping overhead. To overcome this pitfall and to be able to exploit the real power of MapReduce we have rewritten all the XML files together into a big single \textit{SequenceFile} (a Hadoop-specific archive format) \cite{ApacheHadoopSequenceFile}, in which the name of each file is the key and its file contents is the value. 
 \par
-\textit{SequenceFiles} are spittable, so MapReduce can cut them into chunks and interact with each one autonomously. They support compression and splitting as well, which is another advantage to have in mind given that MapReduce jobs performance is increased when working with splittable files (they can be processed in parallel by many mappers)  \cite{SmallFiles}.
-\par
-\fixme{sequencefile image}
-\par
-To load the XML video files into a single \textit{SequenceFile} we have used \textbf{Forqlift} \cite{Forqlift}: a tool for managing SequenceFiles. It allows us to create a SequenceFile with a key, which will be the name of the corresponding XML file, as a \textit{Hadoop Text} type and the value, which will be the file contents, as a \textit{Hadoop Text} type as well.
+\textit{SequenceFiles} are spittable, so MapReduce can cut them into chunks and interact with each one autonomously. They support compression and splitting as well, which is another advantage to keep in mind since MapReduce jobs performance is increased when working with splittable files (they can be processed in parallel by many mappers)  \cite{SmallFiles}. Figure 4.2 samples the SequenceFile file layout \footnote{This figure is obtained from Cloudera Small FIles Problem article.}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.5\textwidth]{./images/sequencefile.png}
+\caption{SequenceFile File Layout.} \label{fig:sequencefile}
+\end{figure}
+
+
+To load all the XML files into a big single \textit{SequenceFile} we have used \textbf{Forqlift} \cite{Forqlift}: a tool for managing SequenceFiles. It allows us to create a SequenceFile with a key, which will be the name of the corresponding XML file, as a \textit{Hadoop Text} type and the value, which will be the file contents, as a \textit{Hadoop Text} type as well.
 
 \centerline{\textit{forqlift create --file=/videos.seq --data-type=text /path/to/all/xml/files/*.xml} }
+\bigskip
+
+Once we have resolved the small files problem, we are ready to copy the big SequenceFile, which includes all the XML video files, into HDFS using the hadoop \textit{fs -put fatsequencefile.seq} command. 
+\par
+At this point we have managed to get our data ready to efficiently feed our MapReduce job. Now  it is time to expose how our MapReduce client code looks like and what results it gives out.
 \par
 
-Once we have resolved the small files problem, we are ready to copy the big SequenceFile, which includes all the XML video files, to HDFS using the hadoop \textit{fs -put videos.seq} command. 
-\par
-\fixme{SequenceFIle picture}
-\par
-At this point we have managed to get our data ready to efficiently feed our MapReduce job.
-\par
+\fixme{what about some MapReduce code here ?.}
 
-\fixme{what about code here ?.}
-\par
-In our MapReduce Java code we first create a Job instance and then we set different parameters to the job, such as the InputFormatClass, OutputFormatClass, MapOutputKeyClass, MapOutputValueClass, ... . One of these parameters is the mapper class. Our map tasks receive \textit{Text} keys, and \textit{Text} values one at a time. The key is the name of a XML video file and the value is its file contents. Each spawned map task parses the XML content, creates the corresponding Put objects, adds parsed data to the Put object with the method \textit{video.toPut()} and finally, unlike previous approaches where the Put objects were written directly to the HBase table, here the map task passes fully completed Put objects to the reducers by calling \textit{context.write()} method.
-\par
-Along with Bulk Load feature,we use \textit{HFileOutputFormat.configureIncrementalLoad}, a method provided by HBase to auto configure the reduce phase. It establishes \textit{PutSortReducer} class as the reducer method, because it sorts columns of a row before writing them out, ensuring the total order at column level HBase needs. In addition, it sets \textit{TotalOrderPartitioner} as the partitioner class to ensure total order partitioning at a row level too. As we wrote before, Bulk Load feature generate HBase internal data files from a MapReduce job using \textit{HFileOutputFormat}. It must be configured such that each output HFile is matched to a single region and that is why this kind of MapReduce jobs use TotalOrderPartitioner class: to partition the map output into disjoint ranges of the key space, which correspond to the key ranges of the current regions in the table. The number of reducer tasks is set according to the number of regions in the table, that in our case, it is still one.
+\bigskip
 
-\subsubsection{Third approach II: Compression}
+In our MapReduce Java code we first create a Job instance and then we set different parameters to it, such as the InputFormatClass, OutputFormatClass, MapOutputKeyClass, MapOutputValueClass ,etc. One of these parameters is the mapper class. Our map tasks receive \textit{Text} keys, and \textit{Text} values one at a time. The key is the name of a XML file and the value is its file contents. Each spawned map task parses the XML content, creates the corresponding Put objects, adds parsed data to the Put object with the method \textit{video.toPut()} and finally, unlike previous approaches where the Put objects were written directly to the HBase table, here the map task passes fully completed Put objects to the reducers by calling \textit{context.write()} method.
+\par
+Along with Bulk Load feature,we use \textit{HFileOutputFormat.configureIncrementalLoad}, a method provided by HBase to auto configure the reduce phase. It establishes \textit{PutSortReducer} class as the reducer method, because it sorts columns of a row before writing them out, ensuring the total order at column level HBase needs. In addition, it sets \textit{TotalOrderPartitioner} as the partitioner class to ensure total order partitioning at a row level too. As we wrote before, Bulk Load feature generate HBase internal data files from a MapReduce job using \textit{HFileOutputFormat}. It must be configured such a way that each output HFile is matched to a single region and that is why this kind of MapReduce jobs use TotalOrderPartitioner class: to partition the map output into disjoint ranges of the key space, which correspond to the key ranges of the current regions in the table. The number of reducer tasks is set according to the number of regions in the table, that in our case, it is still one.
 
-In this approach we have enabled compression to both mappers output and reducers final output (HFiles) by setting these parameters to the job:
+\subsubsection{Third approach second version: Compression}
+
+Finally, after some approaches, we have try compression. For this solution we have used the final code we got from the previous approach, the MapReduce client version as our baseline. Compression has been enabled in both mappers output and reducers final outputs (HFiles) by setting these parameters to the job:
 
 \begin{table}[htbp]
 \caption{}
@@ -255,13 +262,14 @@ org.apache.hadoop.hbase.io.hfile.Compression.Algorithm.XXX.getName()); \\ \hline
 \label{}
 \end{table}
 
-If we use compression, we will get our data compressed for our HBase cluster, since Bulk Load's outputs are the internal HBase files which constitute our database files.
+One extra benefit on using compression in the reducer side within the Bulk Load feature is that the final outputs we will get from it, which will be internal HBase files which will constitute our database (HFiles), will be already compressed. All of this will give us an HBase cluster with all the data it stores compressed.
 \par
-As we explained in the first approach, using compression is beneficial for us. It reduces the size of our final data and the amount of data  exchanged between mappers and reducers by losing just some CPU cycles. Using compression makes even more sense in MapReduce jobs since they are nearly always IO-bound processes and not CPU-bound.
+As we justified in the first approach, using compression is beneficial for us. It reduces the size of our final data and the amount of data  exchanged between mappers and reducers by losing just some CPU cycles. Using compression makes even more sense in MapReduce jobs since they are nearly always IO-bound processes and not CPU-bound.
+\bigskip
 \par
-Hadoop allows to use a variety of compression algorithms, but the most used with it are DEFLATE, GZip \cite{GZip}, LZO and Snappy \cite{Snappy}:
+Hadoop allows to use a variety of compression algorithms, but the more adopted are DEFLATE, GZip \cite{GZip}, LZO and Snappy \cite{Snappy}:
 
-\fixme{tabla common input formats, better to change this one to the one seen in HBASE THE DEFINITIVE guide.}
+\fixme{table with common input formats, better to change this one to the one seen in HBASE THE DEFINITIVE guide.}
 \begin{table}[htbp]
 \caption{}
 \begin{tabular}{|l|l|l|l|l|}
