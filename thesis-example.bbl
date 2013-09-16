@@ -1,0 +1,511 @@
+\begin{thebibliography}{10}
+
+\bibitem{abadi2012consistency}
+{\sc Abadi, D.}
+\newblock Consistency tradeoffs in modern distributed database system design:
+  {CAP} is only part of the story.
+\newblock {\em Computer 45}, 2 (2012), 37--42.
+
+\bibitem{CompressionComparison}
+{\sc Agaoglu, E.}
+\newblock {LZO} vs {Snappy} vs {LZF} vs {ZLIB}, {A} comparison of compression
+  algorithms for fat cells in hbase, 2013.
+\newblock
+  \url{http://blog.erdemagaoglu.com/post/4605524309/lzo-vs-snappy-vs-lzf-vs-zl%
+ib-a-comparison-of}. Accessed 11.8.2013.
+
+\bibitem{agrawal2010big}
+{\sc Agrawal, D., Das, S., and El~Abbadi, A.}
+\newblock Big data and cloud computing: new wine or just new bottles?
+\newblock {\em Proceedings of the VLDB Endowment 3}, 1-2 (2010), 1647--1648.
+
+\bibitem{aiyer2012storage}
+{\sc Aiyer, A.~S., Bautin, M., Chen, G.~J., Damania, P., Khemani, P.,
+  Muthukkaruppan, K., Ranganathan, K., Spiegelberg, N., Tang, L., and Vaidya,
+  M.}
+\newblock Storage {I}nfrastructure {B}ehind {F}acebook {M}essages: {U}sing
+  {HB}ase at {S}cale.
+\newblock {\em IEEE Data Eng. Bull. 35}, 2 (2012), 4--13.
+
+\bibitem{amazon:aws}
+{\sc Amazon, I.}
+\newblock Amazon {W}eb {S}ervices web page, 2013.
+\newblock \url{http://aws.amazon.com/}. Accessed 11.6.2013.
+
+\bibitem{ananthanarayanan2010reining}
+{\sc Ananthanarayanan, G., Kandula, S., Greenberg, A.~G., Stoica, I., Lu, Y.,
+  Saha, B., and Harris, E.}
+\newblock Reining in the {O}utliers in {M}ap-{R}educe {C}lusters using
+  {M}antri.
+\newblock In {\em OSDI\/} (2010), vol.~10, p.~24.
+
+\bibitem{ApacheZooKeeper}
+{\sc {A}pache~{S}oftware {F}oundation, T.}
+\newblock Apache zookeeper web page, January 2012.
+\newblock \url{http://zookeeper.apache.org/}. Accessed 15.5.2013.
+
+\bibitem{MemstoreSematext}
+{\sc Baranau, A.}
+\newblock {C}onfiguring {HB}ase {M}emstore: {W}hat {Y}ou {S}hould {K}now, July
+  2012.
+
+\bibitem{bernstein1983multiversion}
+{\sc Bernstein, P.~A., and Goodman, N.}
+\newblock Multiversion concurrency control theory and algorithms.
+\newblock {\em ACM Transactions on Database Systems (TODS) 8}, 4 (1983),
+  465--483.
+
+\bibitem{HBase5728}
+{\sc Bing~Li, J.~X.}
+\newblock Methods {M}issing in {HT}able{I}nterface, April 2012.
+
+\bibitem{bloom1970space}
+{\sc Bloom, B.~H.}
+\newblock Space/time trade-offs in hash coding with allowable errors.
+\newblock {\em Communications of the ACM 13}, 7 (1970), 422--426.
+
+\bibitem{HDFSarchitecture}
+{\sc Borthakur, D.}
+\newblock {HDFS} {A}rchitecture, June 2012.
+\newblock \url{http://hadoop.apache.org/common/docs/r0.20.0/hdfs_design.html}.
+
+\bibitem{burrows2006chubby}
+{\sc Burrows, M.}
+\newblock The {C}hubby lock service for loosely-coupled distributed systems.
+\newblock In {\em Proceedings of the 7th symposium on Operating systems design
+  and implementation\/} (2006), USENIX Association, pp.~335--350.
+
+\bibitem{cattell2011scalable}
+{\sc Cattell, R.}
+\newblock Scalable {SQL} and {N}o{SQL} data stores.
+\newblock {\em ACM SIGMOD Record 39}, 4 (2011), 12--27.
+
+\bibitem{chang2008bigtable}
+{\sc Chang, F., Dean, J., Ghemawat, S., Hsieh, W.~C., Wallach, D.~A., Burrows,
+  M., Chandra, T., Fikes, A., and Gruber, R.~E.}
+\newblock Bigtable: A distributed storage system for structured data.
+\newblock {\em ACM Transactions on Computer Systems (TOCS) 26}, 2 (2008), 4.
+
+\bibitem{cheng2013key}
+{\sc Cheng, P., and An, J.}
+\newblock The {K}ey as {D}ictionary {C}ompression {M}ethod of {I}nverted
+  {I}ndex {T}able under the {HB}ase database.
+\newblock {\em Journal of Software 8}, 5 (2013), 1086--1093.
+
+\bibitem{codd2001relational}
+{\sc Codd, E.~F.}
+\newblock A relational model of data for large shared data banks.
+\newblock In {\em Pioneers and Their Contributions to Software Engineering}.
+  Springer, 2001, pp.~61--98.
+
+\bibitem{cooper2008pnuts}
+{\sc Cooper, B.~F., Ramakrishnan, R., Srivastava, U., Silberstein, A.,
+  Bohannon, P., Jacobsen, H.-A., Puz, N., Weaver, D., and Yerneni, R.}
+\newblock {PNUTS}: {Y}ahoo!'s hosted data serving platform.
+\newblock {\em Proceedings of the VLDB Endowment 1}, 2 (2008), 1277--1288.
+
+\bibitem{cooper2010benchmarking}
+{\sc Cooper, B.~F., Silberstein, A., Tam, E., Ramakrishnan, R., and Sears, R.}
+\newblock Benchmarking cloud serving systems with {YCSB}.
+\newblock In {\em Proceedings of the 1st ACM symposium on Cloud computing\/}
+  (2010), ACM, pp.~143--154.
+
+\bibitem{corbett2012spanner}
+{\sc Corbett, J.~C., Dean, J., Epstein, M., Fikes, A., Frost, C., Furman, J.,
+  Ghemawat, S., Gubarev, A., Heiser, C., Hochschild, P., et~al.}
+\newblock {S}panner: {G}oogle's globally-distributed database.
+\newblock In {\em Proceedings of OSDI\/} (2012), vol.~1.
+
+\bibitem{dean2008mapreduce}
+{\sc Dean, J., and Ghemawat, S.}
+\newblock Mapreduce: simplified data processing on large clusters.
+\newblock {\em Communications of the ACM 51}, 1 (2008), 107--113.
+
+\bibitem{Dropbox}
+{\sc Dropbox, I.}
+\newblock Dropbox web page, 2008.
+\newblock \url{http://www.dropbox.com}. Accessed 11.6.2013.
+
+\bibitem{Dropbox:sheet}
+{\sc Dropbox, I.}
+\newblock Dropbox {F}act {S}heet, 2012.
+\newblock \url{https://www.dropbox.com/static/docs/DropboxFactSheet.pdf}.
+  Accessed 11.6.2013.
+
+\bibitem{fox2009above}
+{\sc Fox, A., Griffith, R., Joseph, A., Katz, R., Konwinski, A., Lee, G.,
+  Patterson, D., Rabkin, A., and Stoica}.
+\newblock Above the clouds: A {B}erkeley view of cloud computing.
+\newblock {\em Dept. Electrical Eng. and Comput. Sciences, University of
+  California, Berkeley, Rep. UCB/EECS 28\/} (2009).
+
+\bibitem{george2011hbase}
+{\sc George, L.}
+\newblock {\em {HB}ase: The {D}efinitive {G}uide}.
+\newblock O'Reilly Media, Inc., 2011.
+
+\bibitem{ghemawat2003google}
+{\sc Ghemawat, S., Gobioff, H., and Leung, S.-T.}
+\newblock The {G}oogle file system.
+\newblock In {\em ACM SIGOPS Operating Systems Review\/} (2003), vol.~37, ACM,
+  pp.~29--43.
+
+\bibitem{gray1993transaction}
+{\sc Gray, J., and Reuter, A.}
+\newblock {\em Transaction processing}.
+\newblock Kaufmann, 1993.
+
+\bibitem{Heroku:gigaom}
+{\sc Harris, D.}
+\newblock Heroku boss: 1.5m apps, many not in {R}uby, May 2012.
+
+\bibitem{heroku}
+{\sc Heroku, I.}
+\newblock Heroku web page, 2013.
+\newblock \url{http://www.heroku.com/}. Accessed 11.6.2013.
+
+\bibitem{Dropbox:thanks}
+{\sc Houston, D.}
+\newblock Dropbox {T}hanks a (hundred) million, 2012.
+\newblock \url{https://blog.dropbox.com/2012/11/thanks-a-hundred-million/}.
+  Accessed 11.6.2013.
+
+\bibitem{hunt2010zookeeper}
+{\sc Hunt, P., Konar, M., Junqueira, F.~P., and Reed, B.}
+\newblock Zookeeper: wait-free coordination for internet-scale systems.
+\newblock In {\em Proceedings of the 2010 USENIX conference on USENIX annual
+  technical conference\/} (2010), vol.~8, pp.~11--11.
+
+\bibitem{ClouderaCDH}
+{\sc Inc., C.}
+\newblock {CDH} web page, 2013.
+\newblock \url{http://www.cloudera.com/content/cloudera/en/products/cdh.html}.
+  Accessed 1.4.2013.
+
+\bibitem{CloudBees}
+{\sc Inc., C.}
+\newblock Cloud{B}ees web page, 2013.
+\newblock \url{http://www.cloudbees.com/}. Accessed 11.6.2013.
+
+\bibitem{Cloudera}
+{\sc Inc., C.}
+\newblock Cloudera web page, 2013.
+\newblock \url{http://www.cloudera.com/}. Accessed 1.4.2013.
+
+\bibitem{GoogleApps}
+{\sc Inc., G.}
+\newblock Google {A}pps web page, 2008.
+\newblock \url{http://www.google.com/enterprise/apps/business/}. Accessed
+  11.6.2013.
+
+\bibitem{CloudGoogle}
+{\sc Inc., G.}
+\newblock Google {C}loud {P}latform web page, 2013.
+\newblock \url{https://cloud.google.com/}. Accessed 11.6.2013.
+
+\bibitem{Snappy}
+{\sc Inc., G.}
+\newblock Snappy web page, 2013.
+\newblock \url{https://code.google.com/p/snappy/}. Accessed 25.7.2013.
+
+\bibitem{HyperTable}
+{\sc Inc., H.}
+\newblock Hyper{T}able web page, 2012.
+\newblock \url{http://hypertable.org/}. Accessed 25.5.2013.
+
+\bibitem{MySQL}
+{\sc Inc., O.}
+\newblock My{SQL} web page, 2008.
+\newblock \url{http://www.mysql.com}. Accessed 11.6.2013.
+
+\bibitem{CompressionHadoop}
+{\sc Inc., R.}
+\newblock Data {C}ompression in {H}adoop, 2013.
+\newblock \url{http://comphadoop.weebly.com/}. Accessed 11.8.2013.
+
+\bibitem{Force.com}
+{\sc Inc., S.}
+\newblock Force.com web page, 2008.
+\newblock \url{https://www.force.com /}. Accessed 11.6.2013.
+
+\bibitem{Salesforce.com}
+{\sc Inc., S.}
+\newblock Salesfoce.com web page, 2008.
+\newblock \url{http://www.salesforce.com}. Accessed 11.6.2013.
+
+\bibitem{DBEnginesRanking}
+{\sc IT, S.}
+\newblock {DB}-{E}ngines {R}anking of {DBMS}, 2013.
+\newblock \url{http://db-engines.com/en/ranking}. Accessed 6.5.2013.
+
+\bibitem{jiang2012hbase}
+{\sc Jiang, Y.}
+\newblock {\em {HB}ase {A}dministration {C}ookbook}.
+\newblock Packt Publishing, 2012.
+
+\bibitem{jin2010cloud}
+{\sc Jin, H., Ibrahim, S., Bell, T., Gao, W., Huang, D., and Wu, S.}
+\newblock Cloud types and services.
+\newblock In {\em Handbook of Cloud Computing}. Springer, 2010, pp.~335--355.
+
+\bibitem{junqueira2011zab}
+{\sc Junqueira, F.~P., Reed, B.~C., and Serafini, M.}
+\newblock Zab: High-performance broadcast for primary-backup systems.
+\newblock In {\em Dependable Systems \& Networks (DSN), 2011 IEEE/IFIP 41st
+  International Conference on\/} (2011), IEEE, pp.~245--256.
+
+\bibitem{kwon2012skewtune}
+{\sc Kwon, Y., Balazinska, M., Howe, B., and Rolia, J.}
+\newblock Skewtune: mitigating skew in mapreduce applications.
+\newblock In {\em Proceedings of the 2012 ACM SIGMOD International Conference
+  on Management of Data\/} (2012), ACM, pp.~25--36.
+
+\bibitem{kwon2013managing}
+{\sc Kwon, Y., Ren, K., Balazinska, M., Howe, B., and Rolia, J.}
+\newblock Managing {S}kew in {H}adoop.
+\newblock {\em IEEE Data Eng. Bull 36}, 1 (2013), 24--33.
+
+\bibitem{YCSB}
+{\sc Labs, Y.}
+\newblock {YCSB} web page, 2010.
+\newblock \url{http://labs.yahoo.com/Web_Information_Management/YCSB/}.
+  Accessed 5.6.2013.
+
+\bibitem{ComputerworldNoSQL}
+{\sc Lai, E.}
+\newblock Computerworld: {N}o to {SQL} {A}nti-database movement gains steam,
+  2009.
+\newblock \url{http://www.computerworld.com/s/article/9135086/}. Accessed
+  4.8.2013.
+
+\bibitem{MSLABexplained}
+{\sc Lipcon, T.}
+\newblock Avoiding full {GC}s in {A}pache {HB}ase with {M}em{S}tore-{L}ocal
+  {A}llocation {B}uffers, April 2012.
+
+\bibitem{MSLAB}
+{\sc Lipcon, T.}
+\newblock Avoiding full {GC}s with {M}em{S}tore-{L}ocal {A}llocation {B}uffers
+  {C}loudera {P}resentation, February 2012.
+
+\bibitem{lynch2008cloud}
+{\sc Lynch, M.}
+\newblock The {C}loud {W}ars: \$100+ billion at stake.
+\newblock {\em Merrill Lynch\/} (2008).
+
+\bibitem{Forqlift}
+{\sc McCallum, Q.~E.}
+\newblock Forqlift web page, 2013.
+\newblock \url{http://www.exmachinatech.net/projects/forqlift/}. Accessed
+  20.4.2013.
+
+\bibitem{mell2011nist}
+{\sc Mell, P., and Grance, T.}
+\newblock The {NIST} definition of cloud computing (draft).
+\newblock {\em NIST special publication 800\/} (2011), 145.
+
+\bibitem{MemstoreGBif}
+{\sc Meyn, O.}
+\newblock {O}ptimizing {W}rites in {HB}ase, July 2012.
+
+\bibitem{Azure:description}
+{\sc Microsoft, I.}
+\newblock Windows {A}zure {D}ocumentation, 2013.
+\newblock
+  \url{http://www.windowsazure.com/en-us/develop/net/fundamentals/intro-to-win%
+dows-azure/}. Accessed 11.6.2013.
+
+\bibitem{Azure}
+{\sc Microsoft, I.}
+\newblock Windows {A}zure web page, 2013.
+\newblock \url{http://www.microsoft.com/en-us/server-cloud/windows-azure.aspx}.
+  Accessed 11.6.2013.
+
+\bibitem{oberhumer2005lzo}
+{\sc Oberhumer, M.}
+\newblock {LZO} real-time data compression library.
+\newblock {\em User manual for LZO version 0.28, URL: http://www. infosys.
+  tuwien. ac. at/Staff/lux/marco/lzo. html (February 1997)\/} (2005).
+
+\bibitem{o1996log}
+{\sc O'Neil, P., Cheng, E., Gawlick, D., and O'Neil, E.}
+\newblock The log-structured merge-tree ({LSM}-tree).
+\newblock {\em Acta Informatica 33}, 4 (1996), 351--385.
+
+\bibitem{padhy2011rdbms}
+{\sc Padhy, R.~P., Patra, M.~R., and Satapathy, S.~C.}
+\newblock {RDBMS} to {N}o{SQL}: {R}eviewing {S}ome {N}ext-{G}eneration
+  {N}on-{R}elational {D}atabase's.
+\newblock {\em International Journal of Advanced Engineering Science and
+  Technologies 11}, 1 (2011), 15--30.
+
+\bibitem{pritchett2008base}
+{\sc Pritchett, D.}
+\newblock Base: {A}n acid alternative.
+\newblock {\em Queue 6}, 3 (2008), 48--55.
+
+\bibitem{GZip}
+{\sc project, G.}
+\newblock {GZ}ip web page, 2013.
+\newblock \url{http://www.gnu.org/software/gzip/}. Accessed 25.7.2013.
+
+\bibitem{RackSpace}
+{\sc Rackspace, I.}
+\newblock Rackspace web page, 2013.
+\newblock \url{http://www.rackspace.com/}. Accessed 25.4.2013.
+
+\bibitem{raichand2013short}
+{\sc Raichand, P.}
+\newblock A short survey of data compression techniques for column oriented
+  databases.
+\newblock {\em Journal of Global Research in Computer Science 4}, 7 (2013),
+  43--46.
+
+\bibitem{OpenShiftOrigin}
+{\sc Red~Hat, I.}
+\newblock Openshift origin source code, 2011.
+\newblock \url{https://github.com/openshift}. Accessed 11.6.2013.
+
+\bibitem{OpenShift}
+{\sc Red~Hat, I.}
+\newblock Openshift web page, 2011.
+\newblock \url{https://www.openshift.com/}. Accessed 11.6.2013.
+
+\bibitem{samar2011scalable}
+{\sc Samar, T., Berberich, K., and Weikum, G.}
+\newblock Scalable {D}istributed {T}ime-{T}ravel {T}ext {S}earch.
+
+\bibitem{Rackspace:forbes}
+{\sc Savitz, E.}
+\newblock Rackspace {S}lides {A}fter {H}ours {A}s {Q}4 {R}evs {M}iss {S}treet
+  {V}iews, February 2013.
+
+\bibitem{shvachko2010hadoop}
+{\sc Shvachko, K., Kuang, H., Radia, S., and Chansler, R.}
+\newblock The {H}adoop distributed file system.
+\newblock In {\em Mass Storage Systems and Technologies (MSST), 2010 IEEE 26th
+  Symposium on\/} (2010), IEEE, pp.~1--10.
+
+\bibitem{strauch2011nosql}
+{\sc Strauch, C., Sites, U.-L.~S., and Kriha, W.}
+\newblock No{SQL} databases.
+\newblock {\em URL: http://www. christof-strauch. de/nosqldbs. pdf\/} (2011).
+
+\bibitem{Strozzi}
+{\sc Strozzi, C.}
+\newblock No{SQL} - a relational database management system, 2007-2010.
+\newblock {WWW} page of the article:
+  \url{http://www.strozzi.it/cgi-bin/CSA/tw7/I/en_US/nosql/Home\%20Page}.
+  Accessed 10 Apr 2013.
+
+\bibitem{TFile}
+{\sc Tang, H.}
+\newblock {TF}ile {S}pecification.
+
+\bibitem{ApacheHadoop}
+{\sc {T}he {A}pache~{S}oftware {F}oundation}.
+\newblock Apache {H}adoop web page, 2006.
+\newblock \url{http://hadoop.apache.org/}. Accessed 25.4.2013.
+
+\bibitem{ApacheCassandra}
+{\sc {T}he {A}pache~{S}oftware {F}oundation}.
+\newblock Apache {C}assandra web page, 2009.
+\newblock \url{http://accumulo.apache.org/}. Accessed 25.5.2013.
+
+\bibitem{ApacheAccumulo}
+{\sc {T}he {A}pache~{S}oftware {F}oundation}.
+\newblock {A}pache {A}ccumulo web page, 2011.
+\newblock \url{http://accumulo.apache.org/}. Accessed 25.5.2013.
+
+\bibitem{ApacheHadoopSequenceFile}
+{\sc {T}he {A}pache~{S}oftware {F}oundation}.
+\newblock Apache {H}adoop {W}iki page - {S}equence{F}ile, 2012.
+\newblock \url{http://wiki.apache.org/hadoop/SequenceFile}. Accessed 20.6.2013.
+
+\bibitem{ApacheHBaseBulkLoad}
+{\sc {T}he {A}pache~{S}oftware {F}oundation}.
+\newblock Apache {HB}ase {B}ook {G}uide {B}ulk {L}oad feature, 2012.
+\newblock \url{http://hbase.apache.org/book/arch.bulk.load.html}. Accessed
+  2.7.2013.
+
+\bibitem{ApacheHBaseCompression}
+{\sc {T}he {A}pache~{S}oftware {F}oundation}.
+\newblock Apache {HB}ase {B}ook {G}uide {C}ompression, 2012.
+\newblock \url{http://hbase.apache.org/book/important_configurations.html
+  Compression}. Accessed 16.7.2013.
+
+\bibitem{ApacheHBaseDataModel}
+{\sc {T}he {A}pache~{S}oftware {F}oundation}.
+\newblock Apache hbase book guide datamodel, 2012.
+\newblock \url{http://hbase.apache.org/book/datamodel.html}. Accessed
+  25.7.2013.
+
+\bibitem{ApacheHBaseMSLAB}
+{\sc {T}he {A}pache~{S}oftware {F}oundation}.
+\newblock Apache {HB}ase {B}ook {G}uide {JVM}, 2012.
+\newblock \url{http://hbase.apache.org/book/jvm.html}. Accessed 8.7.2013.
+
+\bibitem{ApacheHBaseLogs}
+{\sc {T}he {A}pache~{S}oftware {F}oundation}.
+\newblock Apache {HB}ase {B}ook {T}roubleshooting {G}uide, 2012.
+\newblock \url{http://hbase.apache.org/book/trouble.log.html}. Accessed
+  8.7.2013.
+
+\bibitem{ApacheHBase}
+{\sc {T}he {A}pache~{S}oftware {F}oundation}.
+\newblock Apache hbase web page, 2012.
+\newblock \url{http://hbase.apache.org/}. Accessed 25.4.2013.
+
+\bibitem{white2012hadoop}
+{\sc Tom, W.}
+\newblock {\em {H}adoop: {T}he {D}efinitive {G}uide}, vol.~1005.
+\newblock 2009.
+
+\bibitem{vogels2009eventually}
+{\sc Vogels, W.}
+\newblock Eventually consistent.
+\newblock {\em Communications of the ACM 52}, 1 (2009), 40--44.
+
+\bibitem{walton1991taxonomy}
+{\sc Walton, C.~B., Dale, A.~G., and Jenevein, R.~M.}
+\newblock A {T}axonomy and {P}erformance {M}odel of {D}ata {S}kew {E}ffects in
+  {P}arallel {J}oins.
+\newblock In {\em VLDB\/} (1991), vol.~91, pp.~537--548.
+
+\bibitem{wang2012nosql}
+{\sc Wang, G., and Tang, J.}
+\newblock The {N}o{SQL} {P}rinciples and {B}asic {A}pplication of {C}assandra
+  {M}odel.
+\newblock In {\em Computer Science \& Service System (CSSS), 2012 International
+  Conference on\/} (2012), IEEE, pp.~1332--1335.
+
+\bibitem{SmallFiles}
+{\sc White, T.}
+\newblock {T}he {S}mall {F}iles {P}roblem, February 2009.
+
+\bibitem{wiki:cloud}
+{\sc Wikipedia}.
+\newblock Cloud {C}omputing --- {W}ikipedia{,} {T}he {F}ree {E}ncyclopedia,
+  2013.
+\newblock Online; accessed 10-June-2013.
+
+\bibitem{wiki:consistency}
+{\sc Wikipedia}.
+\newblock Consistency model --- {W}ikipedia{,} the free encyclopedia, 2013.
+\newblock Online; accessed 10-June-2013.
+
+\bibitem{Xen}
+{\sc {X}en {P}roject, T.}
+\newblock Xen {P}roject web page, 2013.
+\newblock \url{http://www.xen.org/}. Accessed 11.6.2013.
+
+\bibitem{LoadBalancer}
+{\sc Yu, T.}
+\newblock Load {B}alancer in {HB}ase 0.90, April 2011.
+
+\bibitem{aslett2013451}
+{\sc Yulitza~Peraza, G.~Z.}
+\newblock 451 {M}arket {M}onitor {C}loud {C}omputing: {O}verview {R}eport 2013.
+\newblock {\em 451 Research 5\/} (2013).
+
+\end{thebibliography}

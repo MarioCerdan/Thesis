@@ -1,7 +1,7 @@
 \chapter{Environment}
 \label{chapter:environment}
 
-Here we describe the environment we work in. We describe the cluster used for testing, the software deployed and the dataset of our experiments.
+Here we describe the environment we has worked in. We describe the cluster used for testing, the software deployed and the dataset of our experiments.
 
 \section{Triton}
 
@@ -57,12 +57,13 @@ YCSB\cite{cooper2010benchmarking} is a standard open-source benchmark tool devel
 \par
 YCSB lastest version \cite{YCSB} used: ycsb 0.1.4.
 
-\subsection{Hannibal}
+\section{Hannibal}
+
 \fixme{should I talk about Hannibal tool for monitoring..as well as DStats for plotting?} 
 
 
 
-\subsection{Presenting our Dataset}
+\section{Presenting our Dataset}
 
 Our dataset is composed of thousands of XML files whose sizes vary from just a few KBs to dozens of MBs. Each of them is composed in turn of a list of elements wrapped between <element></element> tags. Every element is constituted of at least 15 sub-elements which are either integers or strings, or the start point to another sub-list of N sub-elements. While the total size of the XML is known, the amount of elements within each document is unknown due to the unfixed size of the XML files. The same situation happens with the size of each element where its number of sub-elements is unfixed as well as the length of each one (one can be a string sentence really long while other an integer).
 \par

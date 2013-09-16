@@ -56,18 +56,6 @@ To leverage this feature, we have to change how our HBase table is created:
 Without a doubt that if we just read once, and our requested data is not within the same block, it will be difficult to see how block cache helps, but in a scenario were we were continuosly retrieving 25 row keys per time, this feature will help for sure.
 
 
-\item Bloom Filters:
-
-HBase supports Bloom Filter \cite{BloomFilter http://en.wikipedia.org/wiki/Bloom_filter}. Bloom Filters are a mechanism to figure out whether an HFIle/storeFile stores a specific row, rowCol cell or not without loading the file and scanning the block. They avoid the step of going through each HFile's block index , which has the start row key of each block inside it, to check whether the row can be there or not, and if it does, then HBase needs to load the block and start scanning in order to confirm if the row is there or not. The drawback of Bloom Filter is that they have to be stored within the HFile and consequently, HFile's size will be boosted. 
-\par
-By default Bloom Filter is disabled. User just need to alter the table or create a new one adding the BLOOMFILTER => 'ROW' or 'ROWCOL' parameter to enable it. Bloom Filters are configurable at columnFamily level and within it, Bloom Filters can be at row or at row + column level. We set up it at row level because we are not looking for specific cells.
-\bigskip
-
-Our results:
-
-
-
-
 \item Tuning HFIle's block size:
 \par
 HFile are the actual HBase storage files. Each one is composed of blocks which are the smallest unit of data HBase reads and places in the Block Cache. These blocks store key/value pairs and have a minimum size, which is by default 64KB. To achieve better performance, we can modified its minimum block size. If we want to improve random reads, we should decrease this value to avoid too many key/value pairs within each block, because the read operation always loads entire blocks and then look inside the block for the key/value, so setting it to a lower value will decrease the amount of data fetched by each seek operation, thus decreasing IO and time needed for decompression. On the other hand, it will require more memory to hold the block index, now bigger due to the rise in the number of blocks.
@@ -79,6 +67,24 @@ To get the best block size, we compute the average key/value size of our desired
 \bigskip
 
 Thanks to it, now we can set the best block size for our columnFamily (CF1) and thus, we will achieve better random read performance.
+
+\item Bloom Filters:
+
+HBase supports Bloom Filter \cite{bloom1970space}. Bloom Filters are a space-efficient and constant-time mechanism to figure out whether an HFIle/storeFile stores a specific row, rowCol cell or not without loading the entire file and scanning the block (64KB by default, explained before). They avoid the process of going through each HFile's block index, which has the start row key of each block inside it, to check whether the row can be there or not, and if it does, then HBase needs to load the block and start scanning in order to confirm if the row is there or not. The drawback of using Bloom Filter is that these filters have to be stored within the HFile and consequently, HFile's size will be boosted. 
+\par
+By default Bloom Filter is disabled. User just need to alter the table or create a new one adding the BLOOMFILTER => 'ROW' or 'ROWCOL' parameter to enable it. Bloom Filters are configurable at columnFamily level and within it, Bloom Filters can be at row or at row + column level. We set up it at row level because we are not looking for specific cells.
+\bigskip
+
+Our results:
+
+
+This does not translate into an immediate performance gain on indi-
+vidual get operations, since HBase does the reads in parallel, and is
+ultimately bound by disk read latency. Reducing the number of unnec-
+essary block loads improves the overall throughput of the cluster.
+
+
+
 
  
 
