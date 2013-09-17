@@ -40,7 +40,7 @@ Following Todd Lipcon blog articles "Avoiding Full GCs in Apache HBase with MemS
 The Concurrent-Mark-Sweep collector (CMS) is responsible for cleaning dead objects in the old generation. It is also a "stop-the-world collector". The problem comes out when CMS fails and minute pauses appear in logs. CMS has two failure modes:
 \begin{enumerate}
 \item \textbf{Concurrent Mode Failure}: To avoid this mode, we need the garbage collector to start its work earlier in order to avoid getting overrun with new allocations. Setting \textit{-XX:CMSInitationOccupancyFraction} flag to 70 turns out to help us.
-\item \textbf{Promotion Failure due to fragmentation}: This happens when there is not enough contiguous free space in the old-generation to allocate objects. This is termed memory fragmentation. When this occurs, the copying collector is called owing to its ability to compact all the objects and free up space. To address this issue and avoid the stop produced by the copying collector, we use MemStore-Local Allocation Buffer (MSLAB) \footnote{Articles for more background \cite{ApacheHBaseMSLAB} \cite{MSLAB})}, a new Todd's experimental facility.  \textit{Hbase.hregion.memstore.mslab.enabled} flag is set to true and the \textit{hbase.hregion.memstore.mslab.chunksize} is set to 2MB per memstore.
+\item \textbf{Promotion Failure due to fragmentation}: This happens when there is not enough contiguous free space in the old-generation to allocate objects. This is termed memory fragmentation. When this occurs, the copying collector is called owing to its ability to compact all the objects and free up space. To address this issue and avoid the stop produced by the copying collector, we use MemStore-Local Allocation Buffer (MSLAB) \footnote{MSLAB articles for a deeper background \cite{ApacheHBaseMSLAB} \cite{MSLAB})}, a new Todd's experimental facility.  \textit{Hbase.hregion.memstore.mslab.enabled} flag is set to true and the \textit{hbase.hregion.memstore.mslab.chunksize} is set to 2MB per memstore.
 
 \par
 \begin{table}[htbp]
@@ -116,11 +116,23 @@ Once we have describe how we have tunned our HBase + Hadoop cluster, it is time 
 \subsection{First approach: An HBase client}
 
 As first approach, we have developed a Java application that uses HBase Client API to import the whole data set into our 5 nodes HBase cluster. Basically, it creates the table that will hold the whole data and starts parsing the XML video files one by one. As we showed before, these XML files contain lots of elements. For each file, our client creates a list of Puts objects mapping each obejct to a parsed video, and subsequently, it is sent to the HBase cluster through a call to the \textit{HTable.Put} API method. Once the XML file has been parsed, the client repeats the same process with the next file until all of them are read.
-\par
-\centerline{RESULTS}
+
+\bigskip
+
+Results:
+
+\bigskip
+
+Total time to import XML files to HBase: 8080420353555 nanoseconds ~= 8080.420353555 seconds
+Total elements imported: 12186983
+Elements/sec: 1508.212
+
+\bigskip
+
+
 \par
 
-Later on surveying the results, we can see a few drawbacks of this idea. Let's explain them in order to understand our next approaches to the solution:
+We can see some flaws to this idea. Let's explain them in order to understand our next approaches to the solution:
 
 \begin{enumerate}
 \item \textit{admin.createTable()}:
@@ -156,11 +168,12 @@ HBase client API provides a built-in Write Buffer that allows to cache a group o
 \bigskip
 \begin{figure}[htb]
 \centering
-\includegraphics[width=0.5\textwidth]{./images/putsRegionServer.png}
+\includegraphics[width=0.7\textwidth]{./images/putsRegionServer.png}
 \caption{HBase built-in Write Buffer.} \label{fig:putsRegionServer}
 \end{figure}
 
 To take advantage of this feature, we should \textit{setAutoFlush} to false, instead of true by default.
+
 \bigskip
 \item Write Ahead Log:
 \par
@@ -184,7 +197,7 @@ This is a minor modification to the first approach. Disabling setAutoFlush revea
 
 In this proposal we have improved our first HBase client application by adding it support to Java threads. The idea behind it is very simple: instead of reading and parsing XML video files one at a time, we create now N Java threads and each of them reads and parses one file concurrently. There is no limitation with our hardware since our nodes have twelve cores each one and they can run multiple threads. The issue resides in the HBase API because the \textit{HTable} class we are using is not thread-safe, that is, the local write buffer is not guarded against concurrent modifications. To dodge it, we should use one instance of HTable for each thread we are running in our client application, and that is exactly what \textit{HTablePool} class allows us to do: namely to pool client API instances to the HBase cluster. With \textit{HTablePool(conf, maxSize)} we create a pool with our configuration, while setting the maximum number of HTable instances it is allowed to contain. 
 \par
-Like before, \textit{SetAutoFlush} is turned off for each HTable within the pool as we gain performance with it (this feature is not available in HBase 0.92.X series but now it is possible thanks to the HBASE-5728 patch \cite{HBase5728}). 
+\textit{SetAutoFlush} is turned off for each HTable within the pool as we gain performance with it (this feature is not available in HBase 0.92.X series but now it is possible thanks to the HBASE-5728 patch \cite{HBase5728}). 
 \par
  In our experiments we have tried from 2 to 50 HTable instances / Threads with different numbers of RPC listener threads turning out the following results:
 \bigskip
