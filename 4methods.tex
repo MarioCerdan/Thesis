@@ -28,10 +28,11 @@ HBase is highly configurable when it comes to data-writing with plenty modifiabl
 \item \textbf{JVM related parameters}:
 \bigskip
 
-- \textit{HBASE\_HEAPSIZE}. The maximum amount of heap to use expressed in MB. We have increased this parameter from 1000 to 2000 as HBase is a RAM consumer. Therefore, the more RAM, the better the performance.
+- \textit{HBASE\_HEAPSIZE}: 
 \par
-- \textit{HBASE\_OPTS="-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:gc-hbase.log -XX:+UseConcMarkSweepGC".
-  HBASE\_REGIONSERVER\_OPTS="-XX:+UseParNewGC -Xmx2g -Xms2g -Xmn128m"}
+The maximum amount of heap to allocate expressed in MB. We have increased this parameter from 1000 to 2000 as HBase is a RAM consumer. Therefore, the more RAM, the better the performance.
+\par
+- \textit{HBASE\_OPTS}:
 \par
 We have enabled Java's garbage collector logs as a way to help us to discover how to improve performance by tuning JVM flags and looking for long and short pauses. 
 \par
@@ -45,15 +46,15 @@ The Concurrent-Mark-Sweep collector (CMS) is responsible for cleaning dead objec
 \par
 \begin{table}[htbp]
 \begin{center}
-\caption{}
 \begin{tabular}{|l|}
 \hline
 hbase.hregion.memstore.mslab.enabled  \\ \hline
 hbase.hregion.memstore.mslab.max.allocation \\ \hline
 hbase.hregion.memstore.mslab.chunksize \\ \hline
 \end{tabular}
-\end{center}
 \label{HBase MSLAB parameters.}
+\caption{HBase MSLAB parameters.}
+\end{center}
 \end{table}
 
 \end{enumerate}
@@ -63,7 +64,7 @@ hbase.hregion.memstore.mslab.chunksize \\ \hline
 To get more information about this two modes or how garbage collector and HBase work together, read Todd Lipcon GC blog article \cite{MSLABexplained} and HBase Documentation Chapter 13 Troubleshooting and Debugging Apache HBase \cite{ApacheHBaseLogs}.
 
 \item \textbf{MemStore parameters}:
-\bigskip
+\par
 HBase write operations are applied in the hosting region's MemStore at first, and then flushed to HDFS to save memory space when MemStore size reaches a threshold. This is what happens in a normal write scenario, but in a write-heavy HBase cluster we may observe an unstable write speed and always this situation occurs, it is because updates are being blocked by Region servers. There are three blocking scenarios:
 \begin{itemize}
 \item Size of all MemStores in a Region server reaches a maximum and all the updates are blocked and flushes are forced.
@@ -84,13 +85,7 @@ To avoid these update blockings due to write-heavy workloads, we have tuned MemS
 This tuning has met our needs and therefore, it has allowed us to reduce the chances of update blockings.
 \par
 To know if these parameters are working fine, the user must take a look at the HBase logs. While grepping Region Server logs with the message \textbf{"Blocking updates for"} will uncover block issues, looking for the sentence \textbf{"Flush of region * due to global heap pressure"} will reveal problems to handle the high write rate and the Memstore size limit. 
-\par
-Briefly example of one of our studies of our HBase logs:
-\bigskip
-\[cerdanm1@triton logs-hbase\]\$ grep \textbf{"due to global heap pressure"} hbase-cerdanm1-5072810-regionserver-cn219.log 
-2013-07-23 12:06:22,173 INFO org.apache.hadoop.hbase.regionserver.MemStoreFlusher: globalMemStoreLimit=810.9m, globalMemStoreLimitLowMark=709.5m, maxHeap=2.0g
-\bigskip
-Result: No issues found.
+
 
 \end{enumerate}
 
@@ -123,9 +118,22 @@ Results:
 
 \bigskip
 
-Total time to import XML files to HBase: 8080420353555 nanoseconds ~= 8080.420353555 seconds
-Total elements imported: 12186983
-Elements/sec: 1508.212
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|l|r|}
+\hline
+Total Elements imported & 12186983 \\ \hline
+Elements/Sec & 1508 \\ \hline
+\end{tabular}
+\caption{First solution: Results.}
+\label{First solution: Results}
+\end{center}
+\end{table}
+
+
+
 
 \bigskip
 
@@ -148,10 +156,21 @@ We can wrap up that we will see an improved performance once the region gets spl
 \fixme{Graph with the I/O of nodes, showing only one node working. Ganglia}
 \bigskip
 
+
+\bigskip
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/1regionserveractive.png}
+\caption{Only one active Region Server.} \label{fig:1regionserveractive}
+\end{figure}
+
+
 \item{Region Server handler count:}
 \par
 Region server keeps a number of running threads to answer incoming requests to user tables. To prevent region server running out of memory, this property is set to 10 by default which is a very low number unless you are using large write buffers with a really high number of concurrent clients. So in our case, that our payload per request is low (we have normal \textit{Puts}, no big ones), increasing this number to handle more requests from the client would be beneficial as it will mean more accepted concurrent write requests. On the other hand, setting it to a higher number will consume more Region server's memory, but our cluster has enough to handle this peak. So in order to leverage it, we need not just to change \textit{hbase.regionserver.handler.count} parameter which affects the server-side, but also to make the client to work concurrently by using threads.
+
 \bigskip
+
 \centerline{\textit{hbase.regionserver.handler.count = 10}}
 \bigskip
 \item Compressed data:
@@ -200,14 +219,25 @@ In this proposal we have improved our first HBase client application by adding i
 \textit{SetAutoFlush} is turned off for each HTable within the pool as we gain performance with it (this feature is not available in HBase 0.92.X series but now it is possible thanks to the HBASE-5728 patch \cite{HBase5728}). 
 \par
  In our experiments we have tried from 2 to 50 HTable instances / Threads with different numbers of RPC listener threads turning out the following results:
-\bigskip
-\centerline{\fixme{graphs}}
-\bigskip
-\centerline{Results: - Here results}
-\par
 
-Hint:Logs do not reveal issues with Memstores and related parameters yet.
+
 \bigskip
+
+\centerline{\fixme{graphs}}
+
+
+\bigskip
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/threadsworking.png}
+\caption{Elements per second processed by N Threads.} \label{fig:threadsworking}
+\end{figure}
+
+
+
+
+*Hint:Logs do not reveal issues with Memstores and related parameters yet.
+\par
 
 As we proceed before, it is time to discuss the drawbacks discovered here:
 \begin{enumerate}

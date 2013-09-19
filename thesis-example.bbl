@@ -28,7 +28,7 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock {\em IEEE Data Eng. Bull. 35}, 2 (2012), 4--13.
 
 \bibitem{amazon:aws}
-{\sc Amazon, I.}
+{\sc {Amazon.com Inc.}}
 \newblock Amazon {W}eb {S}ervices web page, 2013.
 \newblock \url{http://aws.amazon.com/}. Accessed 11.6.2013.
 
@@ -37,11 +37,12 @@ ib-a-comparison-of}. Accessed 11.8.2013.
   Saha, B., and Harris, E.}
 \newblock Reining in the {O}utliers in {M}ap-{R}educe {C}lusters using
   {M}antri.
-\newblock In {\em OSDI\/} (2010), vol.~10, p.~24.
+\newblock In {\em Symposium on Operating Systems Design and Implementation
+  (OSDI)\/} (2010), vol.~10, p.~24.
 
 \bibitem{ApacheZooKeeper}
 {\sc {A}pache~{S}oftware {F}oundation, T.}
-\newblock Apache zookeeper web page, January 2012.
+\newblock Apache {Z}ookeeper web page, January 2012.
 \newblock \url{http://zookeeper.apache.org/}. Accessed 15.5.2013.
 
 \bibitem{MemstoreSematext}
@@ -69,6 +70,11 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock {HDFS} {A}rchitecture, June 2012.
 \newblock \url{http://hadoop.apache.org/common/docs/r0.20.0/hdfs_design.html}.
 
+\bibitem{brewer2012cap}
+{\sc Brewer, E.}
+\newblock Cap twelve years later: How the" rules" have changed.
+\newblock {\em Computer\/} (2012), 23--29.
+
 \bibitem{burrows2006chubby}
 {\sc Burrows, M.}
 \newblock The {C}hubby lock service for loosely-coupled distributed systems.
@@ -91,6 +97,17 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock The {K}ey as {D}ictionary {C}ompression {M}ethod of {I}nverted
   {I}ndex {T}able under the {HB}ase database.
 \newblock {\em Journal of Software 8}, 5 (2013), 1086--1093.
+
+\bibitem{ClouderaCDH}
+{\sc {Cloudera, Inc.}}
+\newblock {CDH} web page, 2013.
+\newblock \url{http://www.cloudera.com/content/cloudera/en/products/cdh.html}.
+  Accessed 1.4.2013.
+
+\bibitem{Cloudera}
+{\sc {Cloudera, Inc.}}
+\newblock Cloudera web page, 2013.
+\newblock \url{http://www.cloudera.com/}. Accessed 1.4.2013.
 
 \bibitem{codd2001relational}
 {\sc Codd, E.~F.}
@@ -116,18 +133,23 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock {S}panner: {G}oogle's globally-distributed database.
 \newblock In {\em Proceedings of OSDI\/} (2012), vol.~1.
 
+\bibitem{CloudBees}
+{\sc {CoudBees Inc.}}
+\newblock Cloud{B}ees web page, 2013.
+\newblock \url{http://www.cloudbees.com/}. Accessed 11.6.2013.
+
 \bibitem{dean2008mapreduce}
 {\sc Dean, J., and Ghemawat, S.}
-\newblock Mapreduce: simplified data processing on large clusters.
+\newblock Mapreduce: {S}implified data processing on large clusters.
 \newblock {\em Communications of the ACM 51}, 1 (2008), 107--113.
 
 \bibitem{Dropbox}
-{\sc Dropbox, I.}
+{\sc {Dropbox Inc.}}
 \newblock Dropbox web page, 2008.
 \newblock \url{http://www.dropbox.com}. Accessed 11.6.2013.
 
 \bibitem{Dropbox:sheet}
-{\sc Dropbox, I.}
+{\sc {Dropbox Inc.}}
 \newblock Dropbox {F}act {S}heet, 2012.
 \newblock \url{https://www.dropbox.com/static/docs/DropboxFactSheet.pdf}.
   Accessed 11.6.2013.
@@ -150,6 +172,32 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock In {\em ACM SIGOPS Operating Systems Review\/} (2003), vol.~37, ACM,
   pp.~29--43.
 
+\bibitem{gilbert2012perspectives}
+{\sc Gilbert, S., and Lynch, N.}
+\newblock Perspectives on the cap theorem.
+\newblock {\em Computer 45}, 2 (2012), 30--36.
+
+\bibitem{GZip}
+{\sc {GNU project}}.
+\newblock {GZ}ip web page, 2013.
+\newblock \url{http://www.gnu.org/software/gzip/}. Accessed 25.7.2013.
+
+\bibitem{GoogleApps}
+{\sc {Google Inc.}}
+\newblock Google {A}pps web page, 2008.
+\newblock \url{http://www.google.com/enterprise/apps/business/}. Accessed
+  11.6.2013.
+
+\bibitem{CloudGoogle}
+{\sc {Google Inc.}}
+\newblock Google {C}loud {P}latform web page, 2013.
+\newblock \url{https://cloud.google.com/}. Accessed 11.6.2013.
+
+\bibitem{Snappy}
+{\sc {Google Inc.}}
+\newblock Snappy web page, 2013.
+\newblock \url{https://code.google.com/p/snappy/}. Accessed 25.7.2013.
+
 \bibitem{gray1993transaction}
 {\sc Gray, J., and Reuter, A.}
 \newblock {\em Transaction processing}.
@@ -157,10 +205,10 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 
 \bibitem{Heroku:gigaom}
 {\sc Harris, D.}
-\newblock Heroku boss: 1.5m apps, many not in {R}uby, May 2012.
+\newblock Heroku {B}oss: 1.5m apps, many not in {R}uby, May 2012.
 
 \bibitem{heroku}
-{\sc Heroku, I.}
+{\sc {Heroku Inc.}}
 \newblock Heroku web page, 2013.
 \newblock \url{http://www.heroku.com/}. Accessed 11.6.2013.
 
@@ -172,71 +220,14 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 
 \bibitem{hunt2010zookeeper}
 {\sc Hunt, P., Konar, M., Junqueira, F.~P., and Reed, B.}
-\newblock Zookeeper: wait-free coordination for internet-scale systems.
+\newblock Zookeeper: {W}ait-free coordination for internet-scale systems.
 \newblock In {\em Proceedings of the 2010 USENIX conference on USENIX annual
   technical conference\/} (2010), vol.~8, pp.~11--11.
 
-\bibitem{ClouderaCDH}
-{\sc Inc., C.}
-\newblock {CDH} web page, 2013.
-\newblock \url{http://www.cloudera.com/content/cloudera/en/products/cdh.html}.
-  Accessed 1.4.2013.
-
-\bibitem{CloudBees}
-{\sc Inc., C.}
-\newblock Cloud{B}ees web page, 2013.
-\newblock \url{http://www.cloudbees.com/}. Accessed 11.6.2013.
-
-\bibitem{Cloudera}
-{\sc Inc., C.}
-\newblock Cloudera web page, 2013.
-\newblock \url{http://www.cloudera.com/}. Accessed 1.4.2013.
-
-\bibitem{GoogleApps}
-{\sc Inc., G.}
-\newblock Google {A}pps web page, 2008.
-\newblock \url{http://www.google.com/enterprise/apps/business/}. Accessed
-  11.6.2013.
-
-\bibitem{CloudGoogle}
-{\sc Inc., G.}
-\newblock Google {C}loud {P}latform web page, 2013.
-\newblock \url{https://cloud.google.com/}. Accessed 11.6.2013.
-
-\bibitem{Snappy}
-{\sc Inc., G.}
-\newblock Snappy web page, 2013.
-\newblock \url{https://code.google.com/p/snappy/}. Accessed 25.7.2013.
-
 \bibitem{HyperTable}
-{\sc Inc., H.}
+{\sc {HyperTable Inc.}}
 \newblock Hyper{T}able web page, 2012.
 \newblock \url{http://hypertable.org/}. Accessed 25.5.2013.
-
-\bibitem{MySQL}
-{\sc Inc., O.}
-\newblock My{SQL} web page, 2008.
-\newblock \url{http://www.mysql.com}. Accessed 11.6.2013.
-
-\bibitem{CompressionHadoop}
-{\sc Inc., R.}
-\newblock Data {C}ompression in {H}adoop, 2013.
-\newblock \url{http://comphadoop.weebly.com/}. Accessed 11.8.2013.
-
-\bibitem{Force.com}
-{\sc Inc., S.}
-\newblock Force.com web page, 2008.
-\newblock \url{https://www.force.com /}. Accessed 11.6.2013.
-
-\bibitem{Salesforce.com}
-{\sc Inc., S.}
-\newblock Salesfoce.com web page, 2008.
-\newblock \url{http://www.salesforce.com}. Accessed 11.6.2013.
-
-\bibitem{DBEnginesRanking}
-{\sc IT, S.}
-\newblock {DB}-{E}ngines {R}anking of {DBMS}, 2013.
-\newblock \url{http://db-engines.com/en/ranking}. Accessed 6.5.2013.
 
 \bibitem{jiang2012hbase}
 {\sc Jiang, Y.}
@@ -256,7 +247,7 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 
 \bibitem{kwon2012skewtune}
 {\sc Kwon, Y., Balazinska, M., Howe, B., and Rolia, J.}
-\newblock Skewtune: mitigating skew in mapreduce applications.
+\newblock Skewtune: {M}itigating skew in {M}ap{R}educe applications.
 \newblock In {\em Proceedings of the 2012 ACM SIGMOD International Conference
   on Management of Data\/} (2012), ACM, pp.~25--36.
 
@@ -264,12 +255,6 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 {\sc Kwon, Y., Ren, K., Balazinska, M., Howe, B., and Rolia, J.}
 \newblock Managing {S}kew in {H}adoop.
 \newblock {\em IEEE Data Eng. Bull 36}, 1 (2013), 24--33.
-
-\bibitem{YCSB}
-{\sc Labs, Y.}
-\newblock {YCSB} web page, 2010.
-\newblock \url{http://labs.yahoo.com/Web_Information_Management/YCSB/}.
-  Accessed 5.6.2013.
 
 \bibitem{ComputerworldNoSQL}
 {\sc Lai, E.}
@@ -288,20 +273,15 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock Avoiding full {GC}s with {M}em{S}tore-{L}ocal {A}llocation {B}uffers
   {C}loudera {P}resentation, February 2012.
 
-\bibitem{lynch2008cloud}
-{\sc Lynch, M.}
-\newblock The {C}loud {W}ars: \$100+ billion at stake.
-\newblock {\em Merrill Lynch\/} (2008).
-
 \bibitem{Forqlift}
-{\sc McCallum, Q.~E.}
+{\sc McCallum, E.}
 \newblock Forqlift web page, 2013.
 \newblock \url{http://www.exmachinatech.net/projects/forqlift/}. Accessed
   20.4.2013.
 
 \bibitem{mell2011nist}
 {\sc Mell, P., and Grance, T.}
-\newblock The {NIST} definition of cloud computing (draft).
+\newblock The {NIST} definition of cloud computing.
 \newblock {\em NIST special publication 800\/} (2011), 145.
 
 \bibitem{MemstoreGBif}
@@ -309,14 +289,14 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock {O}ptimizing {W}rites in {HB}ase, July 2012.
 
 \bibitem{Azure:description}
-{\sc Microsoft, I.}
+{\sc {Microsoft Inc.}}
 \newblock Windows {A}zure {D}ocumentation, 2013.
 \newblock
   \url{http://www.windowsazure.com/en-us/develop/net/fundamentals/intro-to-win%
 dows-azure/}. Accessed 11.6.2013.
 
 \bibitem{Azure}
-{\sc Microsoft, I.}
+{\sc {Microsoft Inc.}}
 \newblock Windows {A}zure web page, 2013.
 \newblock \url{http://www.microsoft.com/en-us/server-cloud/windows-azure.aspx}.
   Accessed 11.6.2013.
@@ -332,6 +312,11 @@ dows-azure/}. Accessed 11.6.2013.
 \newblock The log-structured merge-tree ({LSM}-tree).
 \newblock {\em Acta Informatica 33}, 4 (1996), 351--385.
 
+\bibitem{MySQL}
+{\sc {Oracle Inc.}}
+\newblock My{SQL} web page, 2008.
+\newblock \url{http://www.mysql.com}. Accessed 11.6.2013.
+
 \bibitem{padhy2011rdbms}
 {\sc Padhy, R.~P., Patra, M.~R., and Satapathy, S.~C.}
 \newblock {RDBMS} to {N}o{SQL}: {R}eviewing {S}ome {N}ext-{G}eneration
@@ -344,13 +329,8 @@ dows-azure/}. Accessed 11.6.2013.
 \newblock Base: {A}n acid alternative.
 \newblock {\em Queue 6}, 3 (2008), 48--55.
 
-\bibitem{GZip}
-{\sc project, G.}
-\newblock {GZ}ip web page, 2013.
-\newblock \url{http://www.gnu.org/software/gzip/}. Accessed 25.7.2013.
-
 \bibitem{RackSpace}
-{\sc Rackspace, I.}
+{\sc {Rackspace Inc.}}
 \newblock Rackspace web page, 2013.
 \newblock \url{http://www.rackspace.com/}. Accessed 25.4.2013.
 
@@ -361,15 +341,35 @@ dows-azure/}. Accessed 11.6.2013.
 \newblock {\em Journal of Global Research in Computer Science 4}, 7 (2013),
   43--46.
 
+\bibitem{CompressionHadoop}
+{\sc {RainStor Inc.}}
+\newblock Data {C}ompression in {H}adoop, 2013.
+\newblock \url{http://comphadoop.weebly.com/}. Accessed 11.8.2013.
+
+\bibitem{lynch2008cloud}
+{\sc Rangan, K., Cooke, A., Post, J., and Schindler, N.}
+\newblock The {C}loud {W}ars: \$100+ billion at stake.
+\newblock Tech. rep., Tech. rep., Merrill Lynch, 2008.
+
 \bibitem{OpenShiftOrigin}
-{\sc Red~Hat, I.}
+{\sc {Red Hat Inc.}}
 \newblock Openshift origin source code, 2011.
 \newblock \url{https://github.com/openshift}. Accessed 11.6.2013.
 
 \bibitem{OpenShift}
-{\sc Red~Hat, I.}
-\newblock Openshift web page, 2011.
+{\sc {Red Hat Inc.}}
+\newblock Open{S}hift web page, 2011.
 \newblock \url{https://www.openshift.com/}. Accessed 11.6.2013.
+
+\bibitem{Force.com}
+{\sc {Salesforce Inc.}}
+\newblock Force.com web page, 2008.
+\newblock \url{https://www.force.com /}. Accessed 11.6.2013.
+
+\bibitem{Salesforce.com}
+{\sc {Salesforce.com Inc.}}
+\newblock Salesfoce.com web page, 2008.
+\newblock \url{http://www.salesforce.com}. Accessed 11.6.2013.
 
 \bibitem{samar2011scalable}
 {\sc Samar, T., Berberich, K., and Weikum, G.}
@@ -386,10 +386,15 @@ dows-azure/}. Accessed 11.6.2013.
 \newblock In {\em Mass Storage Systems and Technologies (MSST), 2010 IEEE 26th
   Symposium on\/} (2010), IEEE, pp.~1--10.
 
+\bibitem{DBEnginesRanking}
+{\sc {Solid IT}}.
+\newblock {DB}-{E}ngines {R}anking of {DBMS}, 2013.
+\newblock \url{http://db-engines.com/en/ranking}. Accessed 6.5.2013.
+
 \bibitem{strauch2011nosql}
-{\sc Strauch, C., Sites, U.-L.~S., and Kriha, W.}
+{\sc Strauch, C.}
 \newblock No{SQL} databases.
-\newblock {\em URL: http://www. christof-strauch. de/nosqldbs. pdf\/} (2011).
+\newblock {\em \url{http://www. christof-strauch. de/nosqldbs.pdf}\/} (2011).
 
 \bibitem{Strozzi}
 {\sc Strozzi, C.}
@@ -453,8 +458,13 @@ dows-azure/}. Accessed 11.6.2013.
 
 \bibitem{ApacheHBase}
 {\sc {T}he {A}pache~{S}oftware {F}oundation}.
-\newblock Apache hbase web page, 2012.
+\newblock Apache {HB}ase web page, 2012.
 \newblock \url{http://hbase.apache.org/}. Accessed 25.4.2013.
+
+\bibitem{Xen}
+{\sc {T}he~{X}en {P}roject}.
+\newblock Xen {P}roject web page, 2013.
+\newblock \url{http://www.xen.org/}. Accessed 11.6.2013.
 
 \bibitem{white2012hadoop}
 {\sc Tom, W.}
@@ -494,10 +504,11 @@ dows-azure/}. Accessed 11.6.2013.
 \newblock Consistency model --- {W}ikipedia{,} the free encyclopedia, 2013.
 \newblock Online; accessed 10-June-2013.
 
-\bibitem{Xen}
-{\sc {X}en {P}roject, T.}
-\newblock Xen {P}roject web page, 2013.
-\newblock \url{http://www.xen.org/}. Accessed 11.6.2013.
+\bibitem{YCSB}
+{\sc {Yahoo! Labs}}.
+\newblock {YCSB} web page, 2010.
+\newblock \url{http://labs.yahoo.com/Web_Information_Management/YCSB/}.
+  Accessed 5.6.2013.
 
 \bibitem{LoadBalancer}
 {\sc Yu, T.}
