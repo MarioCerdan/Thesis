@@ -43,7 +43,7 @@
 \contentsline {section}{\numberline {4.3}MySQL}{43}{section.4.3}
 \contentsline {section}{\numberline {4.4}Yahoo! Cloud Serving Benchmark - YCSB}{43}{section.4.4}
 \contentsline {section}{\numberline {4.5}Hannibal}{43}{section.4.5}
-\contentsline {section}{\numberline {4.6}Presenting our Dataset}{43}{section.4.6}
+\contentsline {section}{\numberline {4.6}Introducing our Dataset}{43}{section.4.6}
 \contentsline {subsection}{\numberline {4.6.1}HBase storage schema design}{44}{subsection.4.6.1}
 \contentsline {chapter}{\numberline {5}Methods}{46}{chapter.5}
 \contentsline {section}{\numberline {5.1}HBase cluster at a glance}{46}{section.5.1}

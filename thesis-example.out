@@ -40,7 +40,7 @@
 \BOOKMARK [1][-]{section.4.3}{4.3 MySQL}{chapter.4}
 \BOOKMARK [1][-]{section.4.4}{4.4 Yahoo! Cloud Serving Benchmark - YCSB}{chapter.4}
 \BOOKMARK [1][-]{section.4.5}{4.5 Hannibal}{chapter.4}
-\BOOKMARK [1][-]{section.4.6}{4.6 Presenting our Dataset}{chapter.4}
+\BOOKMARK [1][-]{section.4.6}{4.6 Introducing our Dataset}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.6.1}{4.6.1 HBase storage schema design}{section.4.6}
 \BOOKMARK [0][]{chapter.5}{5 Methods}{}
 \BOOKMARK [1][-]{section.5.1}{5.1 HBase cluster at a glance}{chapter.5}
