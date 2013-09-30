@@ -4,8 +4,6 @@
 \section{Benchmarking: HBase vs MySQL}
 
 In this section we compare our tuned HBase cluster against a standard MySQL cluster.
-\par
-The MySQL cluster has been compiled and subsequently deployed onto Triton with the same characteristics we have used for our HBase cluster deployment (Allocated RAM, Xeon nodes, etc). Therefore, our MySQL cluster is composed of five nodes and the data is spread evenly among them using a simple sharding function S(key), S = hash(key) \% numberOfNodes, because by default MySQL has no built-in clustering capabilites, as HBase has.
 
 \bigskip
 
@@ -15,7 +13,15 @@ The purpose of the benchmark is to compare HBase against MySQL in a variety of d
 \par
 YCSB works with its own data, which is represented as a table of records, each record has a unique key and an amount of fields which represent record values.
 \par
-Despite it does not allow users to load their own data, YCSB data is really configurable in terms of how many records user wants, how many fields has each record and the size of them. So although we can not play with the prior real data, we can almost reproduce it.
+Despite it does not allow users to load their own data, YCSB data is really configurable in terms of how many records user wants, how many fields has each record and the size of them. So although we can not play with the prior real data, we can almost reproduce it. Our HBase table looks really similar to the used in the whole experiment, it has the same number of fields and the size of each field is the average size of our real data fields. BloomFilters, In\_Memory and blocksize properties are enable just as in our experiments. The rest of HBase parameters looks like the ones we discussed earlier.
+\par
+The MySQL cluster has been compiled and subsequently deployed onto Triton with the same characteristics we have used for our HBase cluster deployment (Allocated RAM, Xeon nodes, etc). Therefore, our MySQL cluster is composed of five nodes and the data is spread evenly among them using a simple sharding function S(key), S = hash(key) \% numberOfNodes, because by default MySQL has no built-in clustering capabilites as HBase has. The MySQL table looks exactly alike the HBase table; ten fields by row, size of each one is the average size of our real data.
+
+\bigskip
+
+In the conducted benchmarks,  all fields are always read. The number of operations is always 1000000 and the records to operate on follow a uniform distribution in order to be as close as possible to our real scenario.
+
+
 
 Table 7.1 summarizes the types of workload that were chosen for benchmarking.
 

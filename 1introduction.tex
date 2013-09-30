@@ -56,6 +56,14 @@ Cloud Providers offer resources of three different types: In \textbf{SaaS}, the 
 
 
 \section{Cloud providers}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.8\textwidth]{./images/clouds.jpg}
+\caption{Amazon Web Services, Google Cloud and Microsoft's Azure Services: the Cloud providers leaders} \label{fig:bigData}
+\end{figure}
+
+
 There are many cloud computing companies. Amazon and Google are two major players in this field, in which they offer Amazon Web Services (AWS) and Google Cloud Platform (GCP) cloud platforms, respectively. In order to have a more clear view of the actual Cloud landscape, we proceed to explain these two big cloud solutions, among some others in the following paragraphs.
 
 \subsection{Amazon}
@@ -165,7 +173,15 @@ Unlike Dropbox or many other SaaS solutions, Salesforce.com is built on its own 
 Until now, we have showed the three most popular cloud paradigms: Infrastructure as a Service (IaaS), Platform as a Service (PaaS), and Software as a Service (SaaS) and how Google, Amazon, Microsoft and Rackspace among other companies offer their Cloud Services. Now it is time to move to one problem that has born with the outbreak of the Cloud Computing.
 \par
 Thanks to the features that Cloud Computing has brought with itself (pay-on-demand, elasticity, etc), lot of new applications have seen the light. Thanks to the new cloud business, they are now economically viable and before not. More and more novel applications harness the Cloud Computing paradigm every day, which means a never seen increase in the amount of generated as well as consumed data, called Big Data. Thus, scalable Database Management Systems (DBMS) have become a fundamental and critical part of cloud infrastructures \cite{agrawal2010big}.
-\par
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.8\textwidth]{./images/bigData.png}
+\caption{Growth of data from the beginning of 2010 to 2020. Figure extracted from IDC's Digital Universe Study, December 2012} \label{fig:bigData}
+\end{figure}
+
+Figure 1.X depicts how fast generated data is growing. International Data Corporation (IDC) estimates that by 2020, the digital universe will grow to 40,000 exabytes, in more understandable words, 40 trillion gigabytes. From now until 2020, the generated data will double every two years \cite{gantz2012digital}.
+
 Google has been one of the first companies that has addressed the Big Data problem, which is handling large amounts of data. Google has designed its own MapReduce programming paradigm \cite{dean2008mapreduce}, allowing them to do scalable distributed batch processing of large amounts of data: Web request logs, crawled documents, etc. Related to this field, Google designed and implemented their own distributed file system to be used in combination with their MapReduce framework, which was called Google File System (GFS) \cite{ghemawat2003google}. These are systems designed to run on a large cluster of commodity machines and are highly scalable, but both implementations remain private to Google \footnote{Colossus is the new version of the GFS as mentioned in the Spanner paper on OSDI 2012 \cite{corbett2012spanner}}.
 \par
 After the publication of MapReduce and the GFS, Apache Hadoop \cite{ApacheHadoop} entered the scene as the open-source alternative to Google MapReduce and Google File System. Apache Hadoop is an Apache project that includes implementations of a distributed file system, namely Hadoop Distributed File System (HDFS)  \cite{white2012hadoop, shvachko2010hadoop}, and Hadoop MapReduce \cite{ApacheHadoop}, both inspired by Google projects. Hadoop was initially created in 2004 by Doug Cutting (and named after his son's toy elephant). In January 2008, Hadoop became a top-level Apache Software Foundation project. Nowadays it has many contributors, both academic and commercial (Yahoo being the largest commercial contributor), and continues growing.

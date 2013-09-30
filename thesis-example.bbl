@@ -1,4 +1,4 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{100}
 
 \bibitem{abadi2012consistency}
 {\sc Abadi, D.}
@@ -44,6 +44,12 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 {\sc {A}pache~{S}oftware {F}oundation, T.}
 \newblock Apache {Z}ookeeper web page, January 2012.
 \newblock \url{http://zookeeper.apache.org/}. Accessed 15.5.2013.
+
+\bibitem{babu2010towards}
+{\sc Babu, S.}
+\newblock Towards automatic optimization of mapreduce programs.
+\newblock In {\em Proceedings of the 1st ACM symposium on Cloud computing\/}
+  (2010), ACM, pp.~137--142.
 
 \bibitem{MemstoreSematext}
 {\sc Baranau, A.}
@@ -161,6 +167,12 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock {\em Dept. Electrical Eng. and Comput. Sciences, University of
   California, Berkeley, Rep. UCB/EECS 28\/} (2009).
 
+\bibitem{gantz2012digital}
+{\sc Gantz, J., and Reinsel, D.}
+\newblock The digital universe in 2020: {Big} {D}ata, bigger digital shadows,
+  and biggest growth in the far east.
+\newblock {\em IDC iView: IDC Analyze the Future\/} (2012).
+
 \bibitem{george2011hbase}
 {\sc George, L.}
 \newblock {\em {HB}ase: The {D}efinitive {G}uide}.
@@ -206,6 +218,10 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \bibitem{Heroku:gigaom}
 {\sc Harris, D.}
 \newblock Heroku {B}oss: 1.5m apps, many not in {R}uby, May 2012.
+
+\bibitem{heger2013hadoop}
+{\sc Heger, D.}
+\newblock Hadoop performance tuning-a pragmatic \& iterative approach.
 
 \bibitem{heroku}
 {\sc {Heroku Inc.}}
@@ -272,6 +288,13 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 {\sc Lipcon, T.}
 \newblock Avoiding full {GC}s with {M}em{S}tore-{L}ocal {A}llocation {B}uffers
   {C}loudera {P}resentation, February 2012.
+
+\bibitem{liu2009implementing}
+{\sc Liu, X., Han, J., Zhong, Y., Han, C., and He, X.}
+\newblock Implementing {WebGIS} on {H}adoop: {A} case study of improving small
+  file {I/O} performance on {HDFS}.
+\newblock In {\em Cluster Computing and Workshops, 2009. CLUSTER'09. IEEE
+  International Conference on\/} (2009), IEEE, pp.~1--8.
 
 \bibitem{Forqlift}
 {\sc McCallum, E.}
@@ -390,6 +413,11 @@ dows-azure/}. Accessed 11.6.2013.
 {\sc {Solid IT}}.
 \newblock {DB}-{E}ngines {R}anking of {DBMS}, 2013.
 \newblock \url{http://db-engines.com/en/ranking}. Accessed 6.5.2013.
+
+\bibitem{NoSQLdatabases}
+{\sc Strauch, C.}
+\newblock No{SQL} databases, 2010.
+\newblock \url{http://nosql-database.org/}.
 
 \bibitem{strauch2011nosql}
 {\sc Strauch, C.}

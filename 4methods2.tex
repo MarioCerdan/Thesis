@@ -16,29 +16,40 @@ The use case we performance is fetching 1, 10, 25, 50 or more random video detai
 \subsection{Studying random read performance}
 
 Now that we have characterized reads, lets study a bit how we can enhance them. 
-\\
+\par
 First of all, the number of requested rows is really low if we compare with the total number of rows our data has, almost 45 millions counting duplicated ones. So we discard the idea of creating a \textit{Scan} instance (previously described in HBase background chapter) instead of \textit{Gets} objects, since it will be helpful if we were requesting a high number of rows or if the keys would cover a small key range, but the row keys we are looking for do not represent it and above all, they are not sequential ones, so they are not even in the same region. Therefore, using \textit{Scan} would not help. 
 \par
-About whether to use Gets or Scan methods, Lars George quantifies it specifying when it worths using one or the other. Its studies demostrate that translating many \textit{Gets} into a \textit{Scan+Filter} is beneficial if the \textit{Scan} would return at least 1\%-2\% of the total rows to the client \cite{http://permalink.gmane.org/gmane.comp.java.hadoop.hbase.user/33133}\. In our particular case, that we seek a maximum of 50 rows, it only represents 0.00064\% of the total rows without the duplicates, so using \textit{Gets} will be likely more efficient.
+About whether to use Gets or Scan methods, Lars George, an authorized HBase voice, quantifies it specifying when it worths using one or the other. Its studies demostrate that translating many \textit{Gets} into a \textit{Scan+Filter} is beneficial if the \textit{Scan} would return at least 1\%-2\% of the total rows to the client \footnote{ L. George Scan or Get study - http://permalink.gmane.org/gmane.comp.java.hadoop.hbase.user/33133}\. In our particular case, that we seek a maximum of 50 rows, it only represents 0.00064\% of the total rows without the duplicates, so using \textit{Gets} will be likely more efficient.
 \par
 Another keypoint to have in mind is that since the desired row keys are totally random, some times our lookups can be touching most of the regions and others just hitting the same region, in spite of the fact that our data is evenly distributed accross the regions. But this last thought is something we can not avoid, it depends upon the nature of the chosen row keys.
 \par
 One good idea could be using \textit{HBaseFilters} to limit the search. Filters allow to do fine-grained searches such as combing values bigger than X, rows with a certain timestamp, rows with a specified column, etc. But since all our rows have all columnFamiles completely filled and we merely want all the fields of a certain columnFamiliy there is no possibility to use filters to avoid some row seeks. Given the nature of our searches, we only need to look into a few HFiles, the ones containing the desired columnFamily. To narrow the scope of the search and thus speed up the process, we can use \textit{Get.addFamily()} method to just process the valid columnFamily files and no others. Its equivalent HBase filter would be \textit{FamilyFilter} which filters on the columnFamily, but it is better to use the prior method.
 \par
 
-An additional improvement we can make is batching \textit{Gets} objects, instead of sending one by one. Using it is as simple as running the \textit{multi-get} method HBase supplies. We just need to write all the \textit{Get} instances within a list and then call \textit{Htable.get(List<Get> gets)}. This method first sort the requests by RegionServer and then serially goes to the RegionServer to process the multi-get. It is done in a parallelized way across RegionServers. 
+An additional improvement we can make is batching \textit{Gets} objects, instead of sending one by one. Using it is as simple as running the \textit{multi-get} method HBase supplies. We just need to write all the \textit{Get} instances within a list and then call \textit{Htable.get(List \textless{Get}\textgreater gets)}. This method first sort the requests by RegionServer and then serially goes to the RegionServer to process the multi-get. It is done in a parallelized way across RegionServers. 
 This method could be optimized by changing it to a multi-threading behaviour. Instead of going one by one RegionServer, it could sort the requests by RegionServer as before, and then could spin up as many threads as target RegionServers \cite{http://comments.gmane.org/gmane.comp.java.hadoop.hbase.user/34417}. But it does not worth for our little multi-get operation.
+
 \bigskip
+
 Using Hbase table as the source for a MapReduce job is discarded due to the little number of requested keys per examination. But of course it is another type of reading that HBase supports, which is incredibly useful in many situations. 
 \par
 
 \subsection{Proceding with random read}
 
-Once we have studied what our searches are going to require and how we must act, we can proceed. Our first try is simple, we create a list of \textit{Gets} objects (List<Get> gets), each one with a random key row obtained from a prior insertion, and we add them the columnFamily we want to check by calling to \textit{Get.addFamily()} method for each one. Then we execute it, \textit{Htable.get(List<Get> gets)}, and we measure the time it takes to carry out.
+Once we have studied what our searches are going to require and how we must act, we can proceed. Our first try is simple, we create a list of \textit{Gets} objects (List \textless{Get}\textgreater gets), each one with a random key row obtained from a prior insertion, and we add them the columnFamily we want to check by calling to \textit{Get.addFamily()} method for each one. Then we execute it, \textit{Htable.get(List \textless{Get}\textgreater gets)}, and we measure the time it takes to carry out.
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/randomReads.png}
+\caption{Random Row Keys Reads.} \label{fig:randomReads}
+\end{figure}
+
+
+
+
 \bigskip
-Here we show the outcome:
-\fixme{RESULTS}
-\bigskip
+
 Results are not that bad, but we can do some more improvements:
 \begin{itemize}
 \item Configuring block cache:
@@ -47,71 +58,68 @@ HBase has a built-in cache to improve read performance. It just left data blocks
 \par
  This cache is configurable at columnFamily level, which means that user can choose which columnFamily can be settled in the block cache and which ones not, even user can choose between different cache priorities: \textit{In-Memory}, to try to keep the block in memory more aggresively, \textit{blockCache} = True, the block will be placed within the cache if there is room remaining, and \textit{blockCache} = False, blocks from that columnFamily will not be cached.
 \par 
-To leverage this feature, we have to change how our HBase table is created: 
+To leverage this feature, we have had to change how our HBase table is created: 
 \begin{itemize}
 \item For the columnFamily CF1, which is the one we want to fetch data, we include \textit{blockCache} = true, and we set it to the highest priority with \textit{In-Memory} = true
 \item The rest of the columnFamilies continues as before.
 \end{itemize}
 
-Without a doubt that if we just read once, and our requested data is not within the same block, it will be difficult to see how block cache helps, but in a scenario were we were continuosly retrieving 25 row keys per time, this feature will help for sure.
+Without a doubt that if we just read once, and our requested data is not within the same block, it will be difficult to see how block cache helps, but in a scenario were we were continuosly retrieving 25/50 or more row keys per time, this feature will be helpful.
+
 
 
 \item Tuning HFIle's block size:
 \par
-HFile are the actual HBase storage files. Each one is composed of blocks which are the smallest unit of data HBase reads and places in the Block Cache. These blocks store key/value pairs and have a minimum size, which is by default 64KB. To achieve better performance, we can modified its minimum block size. If we want to improve random reads, we should decrease this value to avoid too many key/value pairs within each block, because the read operation always loads entire blocks and then look inside the block for the key/value, so setting it to a lower value will decrease the amount of data fetched by each seek operation, thus decreasing IO and time needed for decompression. On the other hand, it will require more memory to hold the block index, now bigger due to the rise in the number of blocks.
+HFile are the actual HBase storage files. Each one is composed of blocks which are the smallest unit of data HBase reads and places in the Block Cache. These blocks store key/value pairs and have a minimum size, which is by default 64KB. To achieve better performance, we can modified its minimum block size. If we want to improve random reads, we should decrease this value to avoid too many key/value pairs within each block, because the read operation always loads entire blocks and subsequently it looks inside the block for the key/value, so setting it to a lower value will decrease the amount of data fetched by each seek operation, thus decreasing IO and time needed for decompression. On the other hand, it will require more memory to hold the block index, now bigger due to the raise in the number of blocks.
 \bigskip
-To get the best block size, we compute the average key/value size of our desired columnFamily (CF1) by using the \textbf{HFile tool} (\textit{org.apache.hadoop.hbase.io.hfile.HFile}). It allows us to go through the metadata of each HFile (see figure X.X) where the key/value average is displayed
+To get the best block size, we have compute the average key/value size of our desired columnFamily (CF1) by using the \textbf{HFile tool} (\textit{org.apache.hadoop.hbase.io.hfile.HFile}), that allows users to go through the metadata of the HFiles. 
+\par
+According to our studies, the average Key/Value size of the columnFamily CF1 is hfile.AVG\_KEY\_LEN = 158 bytes + hfile.AVG\_VALUE\_LEN = 52 bytes. For this case the average Key/Value is 210 bytes.
+\par
+64KB size turned out to be good enough when dealing with our predefined random reads. Testing it with bigger values (128KB, 256KB) was increasing the latency as expected. In contrast, testing with smaller blocks (32KB, 16KB or 8KB) gave out same or even worse results as with the 64KB value due to HBase is ultimately bound by disk read latency causing bottlenecks when fetching data from disks.
 
-\bigskip
-\fixme{figure HFile Tool}
-\bigskip
-
-Thanks to it, now we can set the best block size for our columnFamily (CF1) and thus, we will achieve better random read performance.
+%we had already achieved the level of being bounded by slow disk read latency causing bottlenecks when doing single disk I/O to fetch %data.
 
 \item Bloom Filters:
 
-HBase supports Bloom Filter \cite{bloom1970space}. Bloom Filters are a space-efficient and constant-time mechanism to figure out whether an HFIle/storeFile stores a specific row, rowCol cell or not without loading the entire file and scanning the block (64KB by default, explained before). They avoid the process of going through each HFile's block index, which has the start row key of each block inside it, to check whether the row can be there or not, and if it does, then HBase needs to load the block and start scanning in order to confirm if the row is there or not. The drawback of using Bloom Filter is that these filters have to be stored within the HFile and consequently, HFile's size will be boosted. 
+HBase supports Bloom Filter \cite{bloom1970space}. Bloom Filters are a space-efficient and constant-time mechanism to figure out whether an HFile/storeFile stores a specific row, rowCol cell or not without loading the entire file and scanning the block. They avoid the process of going through each storeFile's block index, which has the start row key of each block inside it, to check whether the row can be there or not, and if it does, then HBase needs to load the block and start scanning it in order to confirm if the row is there or not. The drawback of using Bloom Filter is that these filters have to be stored within the HFile and consequently, HFile's size will be boosted. 
 \par
-By default Bloom Filter is disabled. User just need to alter the table or create a new one adding the BLOOMFILTER => 'ROW' or 'ROWCOL' parameter to enable it. Bloom Filters are configurable at columnFamily level and within it, Bloom Filters can be at row or at row + column level. We set up it at row level because we are not looking for specific cells.
+By default Bloom Filter is disabled. User just needs to alter the table or create a new one adding the BLOOMFILTER =\textgreater 'ROW' or 'ROWCOL' parameter to enable it. Bloom Filters are configurable at columnFamily level and within it, Bloom Filters can be at row or at row + column level. We set up it at ROW level for the columnFamily CF1 because we are not looking for specific cells, just rows.
 \bigskip
 
-Our results:
-
-
-This does not translate into an immediate performance gain on indi-
-vidual get operations, since HBase does the reads in parallel, and is
-ultimately bound by disk read latency. Reducing the number of unnec-
-essary block loads improves the overall throughput of the cluster.
+Our results do not show and immediate performance gain on our random Get operations, since our MapReduce Bulk Load job creates the only neccesary and final storeFiles, that is one storeFile per column family and per Region. In our scenario, we have everything as after a major compaction and HBase does not need to go through each storeFile to get a row since there is only one storeFile to go through. In other scenarios, where there would be a bigger number of storeFiles due to the daily and normal insertions, Bloom Filter mechanism would help skipping the load of lots of storeFiles which would not have the desired row.
+\par
+Nevertheless, Bloom filters reduce the number of unnecessary block loads, which translate into an improvement in the overall throughput of the entire cluster and that is the reason why we use them.
 
 
 
-
+\fixme{Due to the fact that no immediate performance gain from using Bloom Filters, should I put graphs or not?}
  
 
 
 \end{itemize}
 
-SUBIR EL ARCHIVO PUT CON -DFG.BLOCKSIZE = 128...256 y listo calisto.
+%SUBIR EL ARCHIVO PUT CON -DFG.BLOCKSIZE = 128...256 y listo calisto.
 
 
-hbase.mapreduce.hfileoutputformat.blocksize
-The mapreduce HFileOutputFormat writes storefiles/hfiles. This is the minimum hfile blocksize to emit. Usually in hbase, writing hfiles, the blocksize is gotten from the table schema (HColumnDescriptor) but in the mapreduce outputformat context, we don't have access to the schema so get blocksize from Configuration. The smaller you make the blocksize, the bigger your index and the less you fetch on a random-access. Set the blocksize down if you have small cells and want faster random-access of individual cells.
-
-
-
+%hbase.mapreduce.hfileoutputformat.blocksize
+%The mapreduce HFileOutputFormat writes storefiles/hfiles. This is the minimum hfile blocksize to emit. Usually in hbase, writing hfiles, the blocksize is gotten from the table schema (HColumnDescriptor) but in the mapreduce outputformat context, we don't have access to the schema so get blocksize from Configuration. The smaller you make the blocksize, the bigger your index and the less you fetch on a random-access. Set the blocksize down if you have small cells and want faster random-access of individual cells.
 
 
 
 
 
-Meter lo de usar row keys menores etc...longint...en vez de string etc.
-----------------------
-Using bloom filter is almost mandatory there;
-You might also want to try Short Circuit Reads and be sure you get 100\%
-data locality (major compact your table first)
--------------------
-describir mejor el dataset que tengo..que hay mil de videos repetidos como se puede ver al mirar reduce input groups compare to map output records.
------
-lo de los tres ttl (timestamp solo tres)
 
-\fixme{la tabla de medeiros para test environment, violin-memory (http://www.violin-memory.com/wp-content/uploads/hadoop-benchmark.pdf?d=1)para sacar info de ycsb y read con filter de solo familia. Slurm que caracteristicas pido para mi cluster...}
+
+
+%Meter lo de usar row keys menores etc...longint...en vez de string etc.
+%----------------------
+%Using bloom filter is almost mandatory there;
+%You might also want to try Short Circuit Reads and be sure you get 100\%
+%data locality (major compact your table first)
+%-------------------
+%describir mejor el dataset que tengo..que hay mil de videos repetidos como se puede ver al mirar reduce input groups compare to map output records.
+%-----
+%lo de los tres ttl (timestamp solo tres)
+
+%\fixme{la tabla de medeiros para test environment, violin-memory (http://www.violin-memory.com/wp-content/uploads/hadoop-benchmark.pdf?d=1)para sacar info de ycsb y read con filter de solo familia. Slurm que caracteristicas pido para mi cluster...}

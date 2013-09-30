@@ -5,9 +5,14 @@
 
 In the next two chapters, we will discuss about the steps taken for importing our dataset into a fully tuned HBase cluster deployed on top of Triton. We will go through a basic version of importing data to the most fine-grain solution we managed to get, but before going into the different approaches, let us depict the workflow taken, doing your reading more satisfactory and easier.
 
+
 \bigskip
-\centerline{\fixme{!PICTURE!}}
-\bigskip
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/approaches.png}
+\caption{Workflow.} \label{fig:approaches}
+\end{figure}
+
 
 
 
@@ -72,7 +77,7 @@ HBase write operations are applied in the hosting region's MemStore at first, an
 \item A Store has more than \textit{hbase.hstore.blockingStoreFiles} number of StoreFiles (one StoreFile per MemStore flushed).
 \end{itemize}
 
-To avoid these update blockings due to write-heavy workloads, we have tuned MemStore size and related parameters, such as upper and lower limits of it before flushing and blocking times, following the configuration parameters for an HBase heavy-write load cluster  proposed on chapter 9 "Advanced configurations and Tuning" of the book "HBase Administration Cookbook" \cite{jiang2012hbase}, experiences from Sematext \cite{MemstoreSematext} and GBif companies \cite{MemstoreGBif} and the most important, following our studies about own HBase logs:
+To avoid these update blockings due to write-heavy workloads, we have tuned MemStore size and related parameters, such as upper and lower limits of it before flushing and blocking times, following the configuration parameters for an HBase heavy-write load cluster proposed on chapter 9 "Advanced configurations and Tuning" of the book "HBase Administration Cookbook" \cite{jiang2012hbase}, experiences from Sematext \cite{MemstoreSematext} and GBif companies \cite{MemstoreGBif} and the most important, following our studies about own HBase logs:
 \bigskip
 \begin{enumerate}
 \item \textit{hbase.regionserver.global.memstore.upperLimit} set to 40\% (default one)
@@ -84,7 +89,7 @@ To avoid these update blockings due to write-heavy workloads, we have tuned MemS
 
 This tuning has met our needs and therefore, it has allowed us to reduce the chances of update blockings.
 \par
-To know if these parameters are working fine, the user must take a look at the HBase logs. While grepping Region Server logs with the message \textbf{"Blocking updates for"} will uncover block issues, looking for the sentence \textbf{"Flush of region * due to global heap pressure"} will reveal problems to handle the high write rate and the Memstore size limit. 
+To know if these parameters are working fine, the user must take a look at the HBase logs. While grepping Region Server logs with the message \textbf{"Blocking updates for"} will uncover block issues, looking for the sentence \textbf{"Flush of region * due to global heap pressure"} will reveal problems to handle the high write rate and the Memstore size limit.
 
 
 \end{enumerate}
@@ -152,9 +157,9 @@ To understand this feature we can reproduce Ted Yu's explanation from his techni
 \par
 We can wrap up that we will see an improved performance once the region gets splitted and the Load Balancer starts to work.
 
-\bigskip
-\fixme{Graph with the I/O of nodes, showing only one node working. Ganglia}
-\bigskip
+%\bigskip
+%\fixme{Graph with the I/O of nodes, showing only one node working. Ganglia}
+%\bigskip
 
 
 \bigskip
@@ -237,7 +242,8 @@ In this proposal we have improved our first HBase client application by adding i
 
 
 *Hint:Logs do not reveal issues with Memstores and related parameters yet.
-\par
+
+\bigskip
 
 As we proceed before, it is time to discuss the drawbacks discovered here:
 \begin{enumerate}
@@ -260,10 +266,9 @@ Hbase includes several methods to support loading data into HBase. The two most 
 
 First of all is get to know how MapReduce really works and what drawbacks it has. If we want to leverage the power of the MapReduce framework at its maximum, we must place all our XML video files into the Hadoop HDFS file system, because is how MapReduce achieves its best performance. The place where MapReduce really shines is if data gets stored on several different nodes (a distributed file system) and its mappers can access different partitioned data on different nodes in parallel. But, before copying the data from the local file system to HDFS, we have to deal with Hadoop HDFS and MapReduce small files problem.
 
-\paragraph{The small files problem}
-In terms of Hadoop HDFS, a small file is one which is smaller than the HDFS block size (in our case, 64MB). The problem with them is that HDFS is not designed to handle a lot of files due to every file, directory and block in this distributed file system is represented as an objects in the namenode's memory, so having lots of files would use too much memory. Thus, HDFS is not geared up to efficiently accessing small files, but for streaming access of large files. 
+\paragraph{The Small Files problem \cite{liu2009implementing}:} In terms of Hadoop HDFS, a small file is one which is smaller than the HDFS block size (in our case, 64MB). The problem with them is that HDFS is not designed to handle a lot of files due to every file, directory and block in this distributed file system is represented as an objects in the namenode's memory, so having lots of files would use too much memory. Thus, HDFS is not geared up to efficiently accessing small files, but for streaming access of large files. 
 \par
-MapReduce also suffers the same issue, due to mappers usually proccess a block of input at a time. If there are lots of small files, then there will be a lot of more mappers, with their corresponding bookkeeping overhead. To overcome this pitfall and to be able to exploit the real power of MapReduce we have rewritten all the XML files together into a big single \textit{SequenceFile} (a Hadoop-specific archive format) \cite{ApacheHadoopSequenceFile}, in which the name of each file is the key and its file contents is the value. 
+MapReduce also suffers the same issue due to mappers usually proccess a block of input at a time. If there are lots of small files, then there will be a lot of more mappers, with their corresponding bookkeeping overhead. To overcome this pitfall and to be able to exploit the real power of MapReduce we have rewritten all the XML files together into a big single \textit{SequenceFile} (a Hadoop-specific archive format) \cite{ApacheHadoopSequenceFile}, in which the name of each file is the key and its file contents is the value. 
 \par
 \textit{SequenceFiles} are spittable, so MapReduce can cut them into chunks and interact with each one autonomously. They support compression and splitting as well, which is another advantage to keep in mind since MapReduce jobs performance is increased when working with splittable files (they can be processed in parallel by many mappers)  \cite{SmallFiles}. Figure 4.2 samples the SequenceFile file layout \footnote{This figure is obtained from Cloudera Small FIles Problem article.}
 
@@ -284,9 +289,9 @@ At this point we have managed to get our data ready to efficiently feed our MapR
 
 \bigskip
 
-\fixme{what about some MapReduce code here ?.}
+%\fixme{what about some MapReduce code here ?.}
 
-\bigskip
+%\bigskip
 
 In our MapReduce Java code we first create a Job instance and then we set different parameters to it, such as the InputFormatClass, OutputFormatClass, MapOutputKeyClass, MapOutputValueClass ,etc. One of these parameters is the mapper class. Our map tasks receive \textit{Text} keys, and \textit{Text} values one at a time. The key is the name of a XML file and the value is its file contents. Each spawned map task parses the XML content, creates the corresponding Put objects, adds parsed data to the Put object with the method \textit{video.toPut()} and finally, unlike previous approaches where the Put objects were written directly to the HBase table, here the map task passes fully completed Put objects to the reducers by calling \textit{context.write()} method.
 \par
@@ -294,10 +299,10 @@ Along with Bulk Load feature,we use \textit{configureIncrementalLoad}, a method 
 
 \subsubsection{Third approach second version: Compression}
 
-Finally, after some approaches, we have try compression. For this solution we have used the final code we got from the previous approach, the MapReduce client version as our baseline. Compression has been enabled in both mappers output and reducers final outputs (HFiles) by setting these parameters to the job:
+Finally, after some approaches, we have try compression. For this solution we have used the final code we got from the previous approach; the MapReduce client version as our baseline. Compression has been enabled in both mappers output and reducers final outputs (HFiles) by setting these parameters to the job:
 
 \begin{table}[htbp]
-\caption{}
+
 \begin{tabular}{|l|}
 \hline
 job.getConfiguration().setBoolean("mapred.compress.map.output", true); \\ \hline
@@ -308,6 +313,7 @@ job.getConfiguration().set("hfile.compression", \\ \hline
 org.apache.hadoop.hbase.io.hfile.Compression.Algorithm.XXX.getName()); \\ \hline
 \end{tabular}
 \label{}
+\caption{MapReduce compression parameters}
 \end{table}
 
 One extra benefit on using compression in the reducer side within the Bulk Load feature is that the final outputs we will get from it, which will be internal HBase files which will constitute our database (HFiles), will be already compressed. All of this will give us an HBase cluster with all the data it stores compressed.
@@ -315,35 +321,34 @@ One extra benefit on using compression in the reducer side within the Bulk Load 
 As we justified in the first approach, using compression is beneficial for us. It reduces the size of our final data and the amount of data  exchanged between mappers and reducers by losing just some CPU cycles. Using compression makes even more sense in MapReduce jobs since they are nearly always IO-bound processes and not CPU-bound.
 \bigskip
 \par
-Hadoop allows to use a variety of compression algorithms, but the more adopted are DEFLATE, GZip \cite{GZip}, LZO \cite{oberhumer2005lzo} and Snappy \cite{Snappy}:
+Hadoop allows to use a variety of compression algorithms, although the more adopted ones are DEFLATE, GZip \cite{GZip}, LZO \cite{oberhumer2005lzo} and Snappy \cite{Snappy} \footnote{Hint = Snappy is nonspittable out of Hadoop, but it can be used for block compression within lot of Hadoop file formats, such as HBase tables, Avro Data Files and SequenceFiles.}:
 
 \fixme{table with common input formats, better to change this one to the one seen in HBASE THE DEFINITIVE guide.}
 \begin{table}[htbp]
-\caption{}
+
 \begin{tabular}{|l|l|l|l|l|}
 \hline
 Compression format  & Tool  & Algorithm File  & Extension  & Splittable \\ \hline
 gzip &  gzip  & DEFLATE  & .gz &  No \\ \hline
-bzip2  & bizp2  & bzip2  & .bz2  & Yes \\ \hline
 LZO &  lzop &  LZO  & .lzo &  Yes if indexed \\ \hline
 Snappy  & N/A  & Snappy  & .snappy  & No \\ \hline
 \end{tabular}
 \label{}
+\caption{HBase Compression formats}
 \end{table}
 
 
-*Hint = Snappy is nonspittable out of Hadoop, but it can be used for block compression within lot of Hadoop file formats, such as HBase tables, Avro Data Files and SequenceFiles.
-
-\bigskip
-
-All compression algorithms exhibit a space/time trade-off. Gzip is a general purpose compressor, and sits in the middle of the space/time trade-off. Bzip2 ratio compression is higher than gzip ratio, but it is slower. Bzip2's decompression speed is faster than its compression speed, but it is still lower than the other formats. LZO and Snappy are optimized for speed, which means less effective compression but more faster than its competitors. Snappy is also faster than LZO for decompression \cite{CompressionHadoop}.
-\par
-Here we show the outcome from our benchmarks:
+All compression algorithms exhibit a space/time trade-off. Gzip is a general purpose compressor, and sits in the middle of the space/time trade-off. LZO and Snappy are optimized for speed, which means less effective compression but more faster than its competitors. Snappy is also faster than LZO for decompression \cite{CompressionHadoop}. Lets take a look at our results:
 
 
-\bigskip
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/codecs.png}
+\caption{Total time to Import the dataset with different compression codecs.} \label{fig:codecs}
+\end{figure}
 
 
+Although LZO is close to Snappy, this later gives out the best speed up. GZIP is far slower than its competitors.
 
 Hence, given our results and reading other studies about compression codecs conducted in HBase \cite{CompressionComparison}, we have chosen Snappy as our compression format for both intermediate files of the map phase and final MapReduce output (HFiles) in this approach and also for the next rounds of studies.
 
@@ -363,26 +368,50 @@ INFO mapreduce.HFileOutputFormat: \textbf{Configuring 1 reduce partitions to mat
 
 The \textit{HFileOutputFormat.configureIncrementalLoad} method looks up the current regions for our table and finds one, that is why it configures  only one reduce partition (one reduce partition per region). Only one reducer task will be spawned, while the rest of the nodes will stay idle.
 
-\bigskip
 
-\fixme{image from Hannibal after completebulkload with one reducer.}
 
-\bigskip
 
-In the image we can see how the whole data ends up within a single region in one server. If we create an HBase table with only one region, all clients will only be able to write out to the same region until it gets splitted and distributed across our cluster. The solution is to pre-create a table with the desired number of empty regions; \textit{Admin.createTable(table, startKey, endKey, numberOfRegions)} method allows us to do exactly what we want. It creates a table with \textit{numberOfRegions} regions and as first split the passed startKey and as last split the endKey.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/1reducer.png}
+\caption{One single Region.} \label{fig:oneRegion}
+\end{figure}
 
-\bigskip
 
-\fixme{results with an image from Hannibal showing the regions and its sizes}
-\fixme{results}
 
-\bigskip
+Looking at the figure 5.6, we can see how the whole data ends up within a single region in one Region Server. If we create an HBase table with only one region, all clients will only be able to write out to the same region until it gets splitted and distributed across our cluster. The solution is to pre-create a table with the desired number of empty regions; \textit{Admin.createTable(table, startKey, endKey, numberOfRegions)} method allows us to do exactly what we want. It creates a table with \textit{numberOfRegions} regions and as first split the passed startKey and as last split the endKey. We have configured it to pre-create 24 Regions in order to match the number of total Reduce slots our cluster allows and thereby to complete the job spawning only one single wave of reducers. Figure 5.7 reveals a slight improvement in the needed time to import the whole data into HBase.
 
-The results show a huge improvement in the performance, decreasing the total time needed to import the whole data to only X seconds, but a closer look at the tasktracker logs reveals some issues. Albeit all nodes are working now, some nodes are working harder than others.
 
-\bigskip
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/1-24regions.png}
+\caption{Time to import the dataset with different number of pre-created Regions.} \label{fig:regions}
+\end{figure}
 
- \fixme{paste reducer logs: 1 working with x records and other working with x*10 records, and another screenshot with the average times of reducers and mappers...with the worst ones}. 
+Despite the performance enhancement, however, a closer look at the tasktracker logs reveals some issues. Albeit all nodes are working now, some nodes are working harder than others. The graph 5.8 depicts the Region distribution across the four Region Servers of our 5 nodes HBase cluster. Node cn212 stores the 72.22\% of the total data, making an uneven distribution of it across the Region Servers. Next graph, 5.9, shows the sizes of the 24 regions created. As before, data has been uneven distributed: Region 1 stores the 70\% of the dataset.
+
+
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/regiondistribution.png}
+\caption{Uneven Region distribution.} \label{fig:regionDistribution}
+\end{figure}
+
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/24regions.png}
+\caption{24 uneven Regions.} \label{fig:oneRegion}
+\end{figure}
+
+Tasktracker logs uncovers what is the problem: some reducers are working with more than 10 times the amount of records others are dealing with, which translates to different execution times of the reducers, while some finish within less than a dozen of seconds, others takes more than 5 minutes. Figure 5.10 illustrates this behaviour.
+
+\bigskip 
+
+ \fixme{FIGURE 5.10 or too much?}. 
 
 \bigskip
 
@@ -398,48 +427,73 @@ Balazinska \textit{et al.} identified a specific type of skew, referred to as \t
 \par
 According to our Hadoop cluster logs, data skew happens in the reducer phase because almost all mappers take the same time to complete their tasks but not the reducers. In figure \fixme{from tasktracker logs reducers mean time} we can see how some reducers are taking too much time. A deeper insight into logs reveals some reducers taking significantly larger number of keys than the other reducers. This is what is causing the imbalance situation and is referred to as \textit{Reduce phase: Partitioning skew} \cite{kwon2012skewtune}.
 \par
-In our MapReduce job, the outputs of map tasks are distributed among reduce tasks via \textit{TotalOrderPartitioner}, which partition the map output into ranges of the key space, which correspond to the region boundaries of our HBase table created by the \textit{Bytes.split} method. This is not adequate for our data because it is not evenly distributed. There are lot of duplicated keys and a big part of the keys 
-belongs to the same url, ending up in the same region.
+In our MapReduce job, the outputs of map tasks are distributed among reduce tasks via \textit{TotalOrderPartitioner}, which partition the map output into ranges of the key space, which correspond to the region boundaries of our HBase table created by the \textit{Bytes.split} method. This is not adequate for our data because it is not evenly distributed. There are lot of duplicated keys and a big part of the keys  belongs to the same url, ending up in the same region.
 \par
-To cope with this problem, we have to somehow find a good partitioning function that ensures total ordering, like TotalOrderPartitioner does, and splits the data into equal partitions as well. Hadoop provides a partitioning function called \textit{InputSampler}, which sample the input at random or what user choose to estimate what is the best way to partition. But since it samples the map input, this does not fit our needs. What we need to sample is the map output, which will be the keys of our table. That is why we have developed a MapReduce Java code that samples map output keys and gives us a file describing the best partition for our dataset. Subsequently, this file can be used in combination with \textit{TotalOrderPartitioner} to know which key/value pairs to send to which reducers, or even better in MapReduce-HBase environments, it can be used in combination with \textit{admin.createTable(table, splitPoints)} method to create a table with the best split points for regions. This file will be able to evenly span the key space creating an even distribution of records across the reducers and to create regions with almost the same size, therefore having a well apportioned HBase cluster.
+To cope with this problem, we have to somehow find a good partitioning function that ensures total ordering, like TotalOrderPartitioner does, and splits the data into equal partitions as well. Hadoop provides a partitioning function called \textit{InputSampler}, which sample the input at random or what user choose to estimate what is the best way to partition. But since it samples the map input data, it does not fit our needs. What we need to sample is the map output, which will be the keys of our table. That is why we have developed a MapReduce Java job that samples map output keys and gives us a file describing the best partition for our dataset. Subsequently, this file can be used in combination with \textit{TotalOrderPartitioner} to know which key/value pairs to send to which reducers, or even better in MapReduce-HBase environments, it can be used in combination with \textit{admin.createTable(table, splitPoints)} method to create a table with the best split points for regions. This file will be able to evenly span the key space creating an even distribution of records across the reducers and to create regions with almost the same size, therefore having a well apportioned HBase cluster.
 \par
-Our sampling code uses a wrapper input format that makes a record reader which passes few key/value pairs to the mapper. The rate at which key/value pairs are passed to the mapper can be modified according to user needs. In order to obtain a significant sampling of the entire data, adjust it to ten has been tested to be valid enough for us. Ten gives a good speed/significant-sample ratio. Also the mappers of the sampling job only emit keys, while the values are always null. In order to reduce the total amount of generated data, the XML files are not completely parsed, it just need the ids of each video. Finally, our code also overwrites the input format with a sampling reducer that emits the exact number of samples needed for the creation of the regions of the HBase table. 
+Our sampling tool uses a wrapper input format that makes a record reader which passes few key/value pairs to the mapper. The rate at which key/value pairs are passed to the mapper can be modified according to user needs. In order to obtain a significant sampling of the entire data, adjust it to ten has been tested to be valid enough for us. Ten gives a good speed/significant-sample ratio. Also the mappers of the sampling job only emit keys, while the values are always null. In order to reduce the total amount of generated data, the XML files are not completely parsed, it just needs the ids of each Element. Finally, our code also overwrites the input format with a sampling reducer that emits the exact number of samples needed for the creation of the regions of the HBase table. 
 
 \bigskip
 
-Here we can see how fast it is done: RESULTS.
-\bigskip
+Next table shows how fast the sampling tool gets his job done: 
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Sampling input dataset & 91 sec \\ \hline
+\end{tabular}
+\caption{Sampling time result.}
+\end{center}
+\label{Results}
+\end{table}
 
 We have modified the old MapReduce job to accept the text file created by the sampling MapReduce job and to create the HTable with that splits thanks to the \textit{admin.createTable(table, splitPoints)} method. The rest of the code stays intact.
 \par
 The maximum number of reduce tasks that will be run simultaneously by a task tracker is set to 6 (\textit{mapred.tasktracker.reduce.tasks.maximum}). Hence we create 24 regions in our table. 4 regions per node (6 simultaneous reducer tasks \* 4 nodes = 24). Therefore, the job will only need one single wave of reducers to complete it. On the other hand, each map tasks will read off one DFS block, so multiple map waves will be used getting hide shuffle latency.
 
-\bigskip
 
-HERE RESULTS, with Hannibal screenshot and saying that now regions are equally distributed, same sizes...and of course the time! and logs from tasktracker showing a better distribution of the keys = better reducers times. 
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/24regionsChartSampling.png}
+\caption{Total time to import data with and without using our Sampling Tool.} \label{fig:regionDistribution3}
+\end{figure}
 
-\bigskip
+Figure 5.10 shows the outcome of our tests. Using our Sampling Tool we have reduced the total time to import data to only 552 seconds, which is 34.29\% faster than our previous results with pre-created Regions. Next figure, 5.11, shows the Region distribution obtained using the Sampling Tool. Now, data is much even distributed through the four Region Servers. Digging into logs reveals more uniform reducers' execution time.
 
 
-Give thanks to Chase Bradford for the idea.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/usingSampling.png}
+\caption{Region Distribution Using our Sampling Tool.} \label{fig:regionDistribution2}
+\end{figure}
+
+
+\fixme{Give thanks to Chase Bradford for the idea.}
 
 
 \section{Performance Tunning Hadoop}
 
-Until this point, we have reached the best possible importing performance level in our HBase cluster without going to deep into Hadoop parameters, so now we can start to fine tuning these configuration details in order to maximize the performance of our Hadoop workload. This tuning has been performed by taking the last approach as our baseline. In the following lines, we explain which parameters we have tune and why:
+At this point, we have reached the best possible importing performance level in our HBase cluster without going to deep into Hadoop parameters, so now we can start to fine tuning these configuration details in order to maximize the performance of our Hadoop workload. This tuning has been performed by taking the last approach as our baseline and following well-known studies about Hadoop performance tuning \cite{babu2010towards} \cite{heger2013hadoop}. In the following lines, we explain which parameters we have tune and why:
 
 \begin{itemize}
-\item \textbf{HDFS block size}: In our Hadoop cluster, each mapper receives an input split whose size is determined by \textit{dfs.block.size} (by default, 64MB). If we increase it, the number of mappers spawned will decrease and less overhead will be created as there will be less map output splits to merge and less map tasks to run. On the other hand, the execution time taken by each mapper will increase. 
+\item \textbf{HDFS block size}: In our Hadoop cluster, each mapper receives an input split whose size is determined by \textit{dfs.blocksize} (by default, 64MB). If we increase it, the number of mappers spawned will decrease and less overhead will be created as there will be less map output splits to merge and less map tasks to run. On the other hand, the execution time taken by each mapper will increase. 
 \par
-Figure \fixme{number} shows performance with different HDFS block sizes. Our optimal size comes out to be 256MB.
+Figure 5.12 shows the performance with different HDFS block sizes. Our optimal size comes out to be 128MB.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/HDFSBlockSize.png}
+\caption{HDFS Block Size Setting.} \label{fig:HDFSBlockSize}
+\end{figure}
 
 
-\fixme{http://developer.amd.com.php53-23.ord1-1.websitetestlink.com/wordpress/media/2012/10/Hadoop\_Tuning\_Guide-Version5.pdf}
+%\fixme{http://developer.amd.com.php53-23.ord1-1.websitetestlink.com/wordpress/media/2012/10/Hadoop\_Tuning\_Guide-Version5.pdf}
 
 
 \item \textbf{Spilled records}: While mappers are running the generated intermediate output of map tasks is hold in buffers. Mappers have assigned a portion of memory of the Map JVM heap in which they store their results, but if they get completely filled up, contents of these buffers are spilled to disk. If this situation happens multiple times, it leads to additional overhead, which means more time to complete the phase. 
 \par
-If we study our logs, we can see that the total "Map output records" is much lower than the "Spilled records", which indicates that we are not setting an appropiate size for the buffers. They are spilled to disk many times. To avoid this, we hack the value of the parameter \textit{io.sort.mb} to be big enough to hold all the records. By doing some calculations, setting it to 1280 MB fits our needs. Less records are spilled to disk and only the compulsory and final spill is done once the mapper is complete.
+If we study our logs, we can see that the total \textit{Map output records} is much lower than the \textit{Spilled records}, which indicates that we are not setting an appropiate size for the buffers, they are spilled to disk many times. To avoid this, we hack the value of the parameter \textit{io.sort.mb}, which is by default 100MB to be big enough to hold all the records. By doing some calculations, setting it to 1280 MB fits our needs. Less records are spilled to disk and only the compulsory and final spill is done once the mapper is complete.
 \par
 If the input size of each mapper, which is determined by the block size, is 64MB:
 \bigskip
@@ -455,22 +509,27 @@ If the input size of each mapper, which is determined by the block size, is 256M
 
 \bigskip
 \centerline{Our records have 3202.81 bytes/record in average}
-\centerline{so if the block size is 256MB we have 83812.48 records/input}
-\centerline{Every spilled record takes 16 bytes of metadata in buffer, so 20953.12 * 16 = 1.28MB}
-\centerline{io.sort.mb = 256MB data + 1.28MB metadata = 257.28MB needed.}
+\centerline{so if the block size is 128MB we have 41906.24 records/input}      
+\centerline{Every spilled record takes 16 bytes of metadata in buffer, so 41906.24 * 16 = 0.64MB}
+\centerline{io.sort.mb = 128MB data + 0.64MB metadata = 128.64MB needed.}
 \bigskip
 \par
-We are still far away from the spill threshold. 
+We are still far away from the spill threshold setting. 
 \par
 \fixme{Screenshot demostrating no spilled records in one random mapper. Before and after}
 \par
 Same happens with the reducers, before applying the reduce function they needs to copy, merge and sort the map outputs, so they start copying records from mappers and storing them in a buffer until a threshold is reached and then, these records are spilled to disk. The size of this buffer is governed by \textit{mapred.job.shuffle.input.buffer.percent} and its default value is 66\% of the Reduce JVM heap space. The ideal scenario would be one where this buffer would be big enough to hold all map output records, but since it is a too high size or sometimes is even impossible to reach, increasing this percent to a higher number will be enough for our purposes. Finally, after running several experiments, we saw performance improvements by increasing this parameter to 90\%.
 \par 
-Another related parameter is \textit{mapred.job.reduce.input.buffer.percent}, set by default to 0\%. It imposes the size of the Reduce JVM heap that is allocated to the final reduce function. Since our reduce function is not memory-bound, we can use a JVM heap's percent  to retain some records and thus reduce the number of IO operations, consequently, we set it to 80\%.
+Another related parameter is \textit{mapred.job.reduce.input.buffer.percent}, set by default to 0\%. It imposes the size of the Reduce JVM heap that is allocated to the final reduce function. Since our reduce function is not memory-bound, we can use a JVM heap's percent to retain some records and thus reduce the number of IO operations, consequently, we set it to 80\%.
 
 
-\fixme{Screenshot with this parameters and without. Number of spilled records has been reduced.}
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/spilledReducerRecords.png}
+\caption{Spilled Records in Reducer side.} \label{fig:spilledReducerRecords}
+\end{figure}
 
+The left side of the figure 5.13 reveals that all the reduce input records (1780322 records) were spilled to disk within a given reducer task, while the right side of the figure shows that only 1238964 of a total of 1780322 records were spilled to disk. For the left side, the default settings described above where used, while for the right side, we hacked them whit the ones stated before.
 
 
 \item \textbf{Compression}: Already adopted.
@@ -486,27 +545,30 @@ Another related parameter is \textit{mapred.job.reduce.input.buffer.percent}, se
 
 
 
-SUBE EL MALDITO IO.SORT.MB Y FS.INMEMORYSIZE.MB
+%SUBE EL MALDITO IO.SORT.MB Y FS.INMEMORYSIZE.MB
 
-ANYADIR CITA DE LA BIBLIA DE HADOOP, ese libro aunque sea mapreduce compression chapter.
+%ANYADIR CITA DE LA BIBLIA DE HADOOP, ese libro aunque sea mapreduce compression chapter.
 
-Maps 
-- Usually as many as the number of HDFS blocks being 
-processed, this is the default 
+%Maps 
+%- Usually as many as the number of HDFS blocks being 
+%processed, this is the default 
 
-Reduces 
-- Unless the amount of data being processed is small 
-0.95\*num\_nodes\*mapred.tasktracker.reduce.tasks.maximum
+%Reduces 
+%- Unless the amount of data being processed is small 
+%0.95\*num\_nodes\*mapred.tasktracker.reduce.tasks.maximum
 
-The number of reducers is best set to be the number of reduce slots in the cluster (minus a few to allow for failures). This allows the reducers to complete in a single wave.
+%The number of reducers is best set to be the number of reduce slots in the cluster (minus a few to allow for failures). This allows the reducers to complete in a single wave.
 
-So long as each task runs for at least 30-40 seconds, increase the number of mapper tasks to some multiple of the number of mapper slots in the cluster. If you have 100 map slots in your cluster, try to avoid having a job with 101 mappers - the first 100 will finish at the same time, and then the 101st will have to run alone before the reducers can run. This is more important on small clusters and small jobs.
+%So long as each task runs for at least 30-40 seconds, increase the number of mapper tasks to some multiple of the number of mapper slots in the cluster. If you have 100 map slots in your cluster, try to avoid having a job with 101 mappers - the first 100 will finish at the same time, and then the 101st will have to run alone before the reducers can run. This is more important on small clusters and small jobs.
 
--DECIR QUE EN ESTE APPROACH EL WAL ESTA DESACTIVADO AL USAR BULK LOAD POR DEFECTO.
+%-DECIR QUE EN ESTE APPROACH EL WAL ESTA DESACTIVADO AL USAR BULK LOAD POR DEFECTO.
 
-ANYADIR A APPROACH 1 Y 2 QUE EL METODO LLAMADO Y QUE HACE ES EL VIDEO.PUT() COMO EN ESTE APPROACH
+%ANYADIR A APPROACH 1 Y 2 QUE EL METODO LLAMADO Y QUE HACE ES EL VIDEO.PUT() COMO EN ESTE APPROACH
 
-HABLAR SOBRE LA BIBLIOTECA DE PARSEO!
+%HABLAR SOBRE LA BIBLIOTECA DE PARSEO!
+
+%Hablar de Zipfian
+
 
 
 
