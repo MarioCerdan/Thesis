@@ -274,13 +274,13 @@
 % ``twoinstructors'' to the aalto-thesis package so that the titles are in
 % plural.
 % Example of one supervisor:
-\newcommand{\SUPERVISOR}{Professor Keijo Heljanko}
+\newcommand{\SUPERVISOR}{Assoc. Prof. Keijo Heljanko}
 % Example of twosupervisors:
 %\newcommand{\SUPERVISOR}{Professor Keijo Heljanko}
 
 
 % If you have only one instructor, just write one name here
-\newcommand{\INSTRUCTOR}{Professor Keijo Heljanko}
+\newcommand{\INSTRUCTOR}{Assoc. Prof. Keijo Heljanko}
 % If you have two instructors, separate them with \\ to create linefeeds
 % \newcommand{\INSTRUCTOR}{Olli Ohjaaja M.Sc. (Tech.)\\
 %  Elli Opas M.Sc. (Tech)}
@@ -306,7 +306,7 @@
 \newcommand{\PROFESSORSHIP}{Distributed Computation Group}
 % Professorship code is the same in all languages
 \newcommand{\PROFCODE}{T-110}
-\newcommand{\KEYWORDS}{cloud, datastore, HBase, Riak, Hadoop, Benchmarks}
+\newcommand{\KEYWORDS}{Cloud, database, NoSQL, HBase, Hadoop, MapReduce, CAP,  Skew Data, YCSB}
 \newcommand{\LANGUAGE}{English}
 
 % Author is the same for all languages
@@ -394,7 +394,16 @@
 % ------------------------------------------------------------------
 \thesisabstract{english}{
 
+Cloud computing has opened the doors to a new era of enterprises that harness the new Cloud business. They are economically feasible and before not. 
+\par
+More and more novel applications are leveraging the Cloud Computing paradigm every day, which translates to a never seen increase in the amount data. This phenomenon is commonly known as Big Data; the presence of rapidly expanding high-volume data sets. Many of these applications bring new challenges to databases and therefore the scalability of the Cloud-based databases has become a top-research issue of the Cloud infrastructure. As an alternative to the well-known relational databases, NoSQL databases have born to fit Big Data applications requirements. Traditional relational databases as they are often implemented are not sufficient anymore for lInternet scale distributed systems dealing with Big Data. Nevertheless, NoSQL databases have proved to be robust in Big Data applications.
+\par
+The purpose of this project is to scaling out the data of PacketVideo Corporation, a San Diego-based company that produces software for wireless multimedia, which is implemented on MySQL cluster. In order to improve the performance of the computation, we proposes a solution using Apache HBase, a NoSQL database.
+\par
+This final project proposes implementations as well as comparison details of a number of computation techniques conducted in HBase along with different open-source distributed computing components like Hadoop HDFS and MapReduce, and presents benchmarks of our developed solution.
 
+
+What about skew data?, our two tools...hannibal...ycsb...mysql vs hbase...or enough?..say REAL SCENARIO! Excels in a real scenario!
 %\fixme{Abstract text goes here (and this is an example how to use fixme).} 
 %Fixme is a command that helps you identify parts of your thesis that still
 %require some work. When compiled in the custom \texttt{mydraft} mode, text
