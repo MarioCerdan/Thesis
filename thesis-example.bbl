@@ -1,4 +1,4 @@
-\begin{thebibliography}{100}
+\begin{thebibliography}{10}
 
 \bibitem{abadi2012consistency}
 {\sc Abadi, D.}
@@ -11,8 +11,8 @@
 \newblock {LZO} vs {Snappy} vs {LZF} vs {ZLIB}, {A} comparison of compression
   algorithms for fat cells in hbase, 2013.
 \newblock
-  \url{http://blog.erdemagaoglu.com/post/4605524309/lzo-vs-snappy-vs-lzf-vs-zl%
-ib-a-comparison-of}. Accessed 11.8.2013.
+  \url{http://blog.erdemagaoglu.com/post/4605524309/lzo-vs-snappy-vs-lzf-vs-zlib-a-comparison-of}.
+  Accessed 11.8.2013.
 
 \bibitem{agrawal2010big}
 {\sc Agrawal, D., Das, S., and El~Abbadi, A.}
@@ -296,12 +296,6 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock In {\em Cluster Computing and Workshops, 2009. CLUSTER'09. IEEE
   International Conference on\/} (2009), IEEE, pp.~1--8.
 
-\bibitem{Forqlift}
-{\sc McCallum, E.}
-\newblock Forqlift web page, 2013.
-\newblock \url{http://www.exmachinatech.net/projects/forqlift/}. Accessed
-  20.4.2013.
-
 \bibitem{mell2011nist}
 {\sc Mell, P., and Grance, T.}
 \newblock The {NIST} definition of cloud computing.
@@ -315,8 +309,8 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 {\sc {Microsoft Inc.}}
 \newblock Windows {A}zure {D}ocumentation, 2013.
 \newblock
-  \url{http://www.windowsazure.com/en-us/develop/net/fundamentals/intro-to-win%
-dows-azure/}. Accessed 11.6.2013.
+  \url{http://www.windowsazure.com/en-us/develop/net/fundamentals/intro-to-windows-azure/}.
+  Accessed 11.6.2013.
 
 \bibitem{Azure}
 {\sc {Microsoft Inc.}}

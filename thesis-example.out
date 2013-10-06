@@ -1,0 +1,75 @@
+\BOOKMARK [0][]{bookmark.0.cover.0}{Cover page}{}% 1
+\BOOKMARK [0][]{chapter*.1}{Abbreviations and Acronyms}{}% 2
+\BOOKMARK [0][]{bookmark.0.contents.0}{Contents}{}% 3
+\BOOKMARK [0][]{chapter.1}{1 Introduction}{}% 4
+\BOOKMARK [1][-]{section.1.1}{1.1 Cloud providers}{chapter.1}% 5
+\BOOKMARK [2][-]{subsection.1.1.1}{1.1.1 Amazon}{section.1.1}% 6
+\BOOKMARK [2][-]{subsection.1.1.2}{1.1.2 Google}{section.1.1}% 7
+\BOOKMARK [2][-]{subsection.1.1.3}{1.1.3 Microsoft}{section.1.1}% 8
+\BOOKMARK [2][-]{subsection.1.1.4}{1.1.4 RackSpace}{section.1.1}% 9
+\BOOKMARK [1][-]{section.1.2}{1.2 Behind the big Cloud providers}{chapter.1}% 10
+\BOOKMARK [2][-]{subsection.1.2.1}{1.2.1 IaaS}{section.1.2}% 11
+\BOOKMARK [2][-]{subsection.1.2.2}{1.2.2 PaaS}{section.1.2}% 12
+\BOOKMARK [2][-]{subsection.1.2.3}{1.2.3 SaaS}{section.1.2}% 13
+\BOOKMARK [1][-]{section.1.3}{1.3 Big Data}{chapter.1}% 14
+\BOOKMARK [0][]{chapter.2}{2 Background}{}% 15
+\BOOKMARK [1][-]{section.2.1}{2.1 Datastores: from SQL to NoSQL systems}{chapter.2}% 16
+\BOOKMARK [2][-]{subsection.2.1.1}{2.1.1 The basic principles of NoSQL}{section.2.1}% 17
+\BOOKMARK [2][-]{subsection.2.1.2}{2.1.2 Key features of NoSQL Datastores}{section.2.1}% 18
+\BOOKMARK [2][-]{subsection.2.1.3}{2.1.3 Types of NoSQL Datastores}{section.2.1}% 19
+\BOOKMARK [0][]{chapter.3}{3 Technical background}{}% 20
+\BOOKMARK [1][-]{section.3.1}{3.1 Column-Oriented Datastores}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.2}{3.2 HBase}{chapter.3}% 22
+\BOOKMARK [2][-]{subsection.3.2.1}{3.2.1 Data Model}{section.3.2}% 23
+\BOOKMARK [2][-]{subsection.3.2.2}{3.2.2 Storage}{section.3.2}% 24
+\BOOKMARK [2][-]{subsection.3.2.3}{3.2.3 Architecture}{section.3.2}% 25
+\BOOKMARK [3][-]{subsubsection.3.2.3.1}{3.2.3.1 Storage layer}{subsection.3.2.3}% 26
+\BOOKMARK [3][-]{subsubsection.3.2.3.2}{3.2.3.2 Server layer}{subsection.3.2.3}% 27
+\BOOKMARK [3][-]{subsubsection.3.2.3.3}{3.2.3.3 Client layer}{subsection.3.2.3}% 28
+\BOOKMARK [2][-]{subsection.3.2.4}{3.2.4 Write}{section.3.2}% 29
+\BOOKMARK [2][-]{subsection.3.2.5}{3.2.5 Read}{section.3.2}% 30
+\BOOKMARK [2][-]{subsection.3.2.6}{3.2.6 Delete}{section.3.2}% 31
+\BOOKMARK [2][-]{subsection.3.2.7}{3.2.7 HBase API}{section.3.2}% 32
+\BOOKMARK [2][-]{subsection.3.2.8}{3.2.8 HBase properties}{section.3.2}% 33
+\BOOKMARK [1][-]{section.3.3}{3.3 HDFS}{chapter.3}% 34
+\BOOKMARK [1][-]{section.3.4}{3.4 MapReduce}{chapter.3}% 35
+\BOOKMARK [2][-]{subsection.3.4.1}{3.4.1 Hadoop MapReduce}{section.3.4}% 36
+\BOOKMARK [0][]{chapter.4}{4 Environment}{}% 37
+\BOOKMARK [1][-]{section.4.1}{4.1 Triton}{chapter.4}% 38
+\BOOKMARK [1][-]{section.4.2}{4.2 Cloudera's Distribution Including Apache Hadoop - CDH}{chapter.4}% 39
+\BOOKMARK [1][-]{section.4.3}{4.3 MySQL}{chapter.4}% 40
+\BOOKMARK [1][-]{section.4.4}{4.4 Yahoo! Cloud Serving Benchmark - YCSB}{chapter.4}% 41
+\BOOKMARK [1][-]{section.4.5}{4.5 Hannibal}{chapter.4}% 42
+\BOOKMARK [1][-]{section.4.6}{4.6 Introducing our Dataset}{chapter.4}% 43
+\BOOKMARK [2][-]{subsection.4.6.1}{4.6.1 HBase storage schema design}{section.4.6}% 44
+\BOOKMARK [0][]{chapter.5}{5 Design and Implementation}{}% 45
+\BOOKMARK [1][-]{section.5.1}{5.1 HBase cluster at a glance}{chapter.5}% 46
+\BOOKMARK [1][-]{section.5.2}{5.2 HBase: tunning parameters for a write-heavy cluster}{chapter.5}% 47
+\BOOKMARK [2][-]{subsection.5.2.1}{5.2.1 Hadoop baseline parameters}{section.5.2}% 48
+\BOOKMARK [1][-]{section.5.3}{5.3 The import experiment}{chapter.5}% 49
+\BOOKMARK [2][-]{subsection.5.3.1}{5.3.1 First approach: An HBase client}{section.5.3}% 50
+\BOOKMARK [3][-]{subsubsection.5.3.1.1}{5.3.1.1 Second version: An HBase client without AutoFlush}{subsection.5.3.1}% 51
+\BOOKMARK [2][-]{subsection.5.3.2}{5.3.2 Second approach: A multithread HBase client}{section.5.3}% 52
+\BOOKMARK [2][-]{subsection.5.3.3}{5.3.3 Third approach: Using MapReduce algorithm}{section.5.3}% 53
+\BOOKMARK [3][-]{subsubsection.5.3.3.1}{5.3.3.1 Building the solution}{subsection.5.3.3}% 54
+\BOOKMARK [3][-]{subsubsection.5.3.3.2}{5.3.3.2 Third approach second version: Compression}{subsection.5.3.3}% 55
+\BOOKMARK [3][-]{subsubsection.5.3.3.3}{5.3.3.3 Third approach third version: Pre-creating regions}{subsection.5.3.3}% 56
+\BOOKMARK [2][-]{subsection.5.3.4}{5.3.4 Fourth approach:Skew data}{section.5.3}% 57
+\BOOKMARK [1][-]{section.5.4}{5.4 Performance Tunning Hadoop}{chapter.5}% 58
+\BOOKMARK [0][]{chapter.6}{6 Methods}{}% 59
+\BOOKMARK [1][-]{section.6.1}{6.1 Random Reads in HBase}{chapter.6}% 60
+\BOOKMARK [2][-]{subsection.6.1.1}{6.1.1 Random Reads in our heavy-write cluster}{section.6.1}% 61
+\BOOKMARK [2][-]{subsection.6.1.2}{6.1.2 Studying random read performance}{section.6.1}% 62
+\BOOKMARK [2][-]{subsection.6.1.3}{6.1.3 Proceding with random read}{section.6.1}% 63
+\BOOKMARK [0][]{chapter.7}{7 Methods III}{}% 64
+\BOOKMARK [1][-]{section.7.1}{7.1 Benchmarking: HBase vs MySQL}{chapter.7}% 65
+\BOOKMARK [2][-]{subsection.7.1.1}{7.1.1 Insert phase}{section.7.1}% 66
+\BOOKMARK [2][-]{subsection.7.1.2}{7.1.2 Predominant reads}{section.7.1}% 67
+\BOOKMARK [2][-]{subsection.7.1.3}{7.1.3 Reads mixed with Updates}{section.7.1}% 68
+\BOOKMARK [0][]{chapter.8}{8 Implementation}{}% 69
+\BOOKMARK [0][]{chapter.9}{9 Evaluation}{}% 70
+\BOOKMARK [0][]{chapter.10}{10 Discussion}{}% 71
+\BOOKMARK [0][]{chapter.11}{11 Conclusions}{}% 72
+\BOOKMARK [0][]{appendix.A}{A First appendix}{}% 73
+\BOOKMARK [1][-]{section.A.1}{A.1 XML video file}{appendix.A}% 74
+\BOOKMARK [1][-]{section.A.2}{A.2 Hbase storage schema design}{appendix.A}% 75
