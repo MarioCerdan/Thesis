@@ -1,6 +1,6 @@
-\chapter{Methods}
-\label{chapter:methods II}
- 
+\chapter{Design and Implementation - Retrieval}
+\label{chapter:Design and Implementation - Retrieval}
+
 \section{Random Reads in HBase}
 
 Unlike some Cloud-based databases which are optimized for random reads like PNUTS, HBase is write-optimized by using on-disk structure that can be maintained using sequential IO. Its records are never overwritten, instead, updates are written sequentially to new files in disk. That means that multiple updates of the same record will be spread over many files, so when reading it, multiple IO operations will be needed to merge the separate updates. On the other hand, as we already explained, all writing is sequential, so HBase excels at writing and consequently, in scans, which are sequential reads. This is a simple trade-off between optimizing for reads and optimizing for writes.
@@ -41,8 +41,8 @@ Once we have studied what our searches are going to require and how we must act,
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=1\textwidth]{./images/randomReads.png}
-\caption{Random Row Keys Reads.} \label{fig:randomReads}
+\includegraphics[width=1\textwidth]{./images/randomReads2.png}
+\caption{Random row keys reads.} \label{fig:randomReads}
 \end{figure}
 
 
@@ -64,8 +64,15 @@ To leverage this feature, we change how our HBase table is created:
 \item The rest of the columnFamilies continues as before.
 \end{itemize}
 
-Without a doubt that if we just read once, and our requested data is not within the same block, it will be difficult to see how block cache helps, but in a scenario were we were continuously retrieving 25/50 or more row keys per time, this feature will be helpful.
 
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./images/inMemory2.png}
+\caption{Random row keys Read with and without \textit{In-Memory}.} \label{fig:inMemoryReads}
+\end{figure}
+
+
+Figure 6.2 characterizes \textit{In-Memory} behavior. The total execution time gets reduced if more than 5 rows are retrieved. If we just read once and our requested data is not within the same block, it will be difficult to see how block cache helps, but in a scenario were we would be continuously retrieving 25/50 or more row keys per time this feature would be helpful as there will be data within caches and they will not be empty. 
 
 
 \item Tuning HFile's block size:

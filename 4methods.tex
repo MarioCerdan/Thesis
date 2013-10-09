@@ -1,5 +1,5 @@
-\chapter{Design and Implementation}
-\label{chapter:Design and Implementation}
+\chapter{Design and Implementation - Import}
+\label{chapter:Design and Implementation - Import}
 
 
 
@@ -10,7 +10,7 @@ In the next two chapters, we will discuss about the steps taken to import our da
 \begin{figure}[htb]
 \centering
 \includegraphics[width=1\textwidth]{./images/approaches.png}
-\caption{Work-flow.} \label{fig:approaches}
+\caption{Import research workflow.} \label{fig:approaches}
 \end{figure}
 
 
@@ -166,7 +166,7 @@ We can wrap up that we will see an improved performance once the region gets spl
 \begin{figure}[htb]
 \centering
 \includegraphics[width=1.2\textwidth,height=0.41\textheight]{./images/1regionserveractive1.png}
-\caption{Only one active Region Server.} \label{fig:1regionserveractive}
+\caption{HBase one active Region Server.} \label{fig:1regionserveractive}
 \end{figure}
 
 
@@ -229,7 +229,7 @@ In this proposal we have improved our first HBase client application by adding s
 \begin{figure}[htb]
 \centering
 \includegraphics[width=1\textwidth]{./images/threadsworking.png}
-\caption{Elements per second processed by N Threads.} \label{fig:threadsworking}
+\caption{Elements per second processed.} \label{fig:threadsworking}
 \end{figure}
 
 
@@ -246,13 +246,15 @@ As we proceed before, it is time to discuss the drawbacks we discovered here:
 \item Still facing the problem of regions and Load Balancer.
 
 \item Data continues uncompressed.
+
+\item Above all drawbacks and most important point: thread job is bounded by disk seeks. Currently, XML files are stored over the underlying system ext4 and not over a distributed file system such as Hadoop HDFS.
 \end{enumerate}
 
 
 \subsection{Third approach: Using MapReduce algorithm}
 
 
-Until now, we have used Hadoop HDFS as the distributed file system for our HBase cluster, but we have not take advantage of the processing framework Hadoop provides, which is MapReduce and its tight integration with HDFS and these two with HBase.
+Up to this point, we use Hadoop HDFS as the distributed file system for our HBase cluster, but we have not taken advantage of the processing framework Hadoop provides, which is MapReduce and its tight integration with HDFS and these two with HBase.
 \par
 Hbase includes several methods to support loading data into HBase. The two most straightforward solution are either to use the \textit{TableOutputFormat} class from a MapReduce job to write data into an HBase table or to use the default HBase client APIs. If there is not too much data to transfer, using the latter one is the best and also the simplest option, but when data is voluminous, using \textit{TableOutputFormat} MapReduce job to load data makes more sense. Even more, instead of using the last one, is more efficient to generate the internal HBase format files (HFiles) within our MapReduce job and then load the generated files into our HBase cluster. This feature is namely \textbf{Bulk Load} and it uses less CPU and network resources than simply using the \textit{TableOutputFormat} API or any other HBase client APIs \cite{ApacheHBaseBulkLoad}. Therefore, our third approach is based on \textbf{Bulk Loading}. In the following lines we explain what steps we took to get this third solution and which were the issues we have to cope with.
 
@@ -335,7 +337,7 @@ All compression algorithms exhibit a space/time trade-off. Gzip is a general pur
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=1\textwidth]{./images/codecs.png}
+\includegraphics[width=1\textwidth]{./images/codecs1.png}
 \caption{Total time to Import the dataset with different compression codecs.} \label{fig:codecs}
 \end{figure}
 
@@ -365,8 +367,8 @@ The \textit{HFileOutputFormat.configureIncrementalLoad} method looks up the curr
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=1\textwidth]{./images/1reducer.png}
-\caption{One single Region.} \label{fig:oneRegion}
+\includegraphics[width=1\textwidth,height=0.34\textheight]{./images/1regionserveractive1.png}
+\caption{HBase one single Region Server.} \label{fig:oneRegion}
 \end{figure}
 
 
@@ -376,8 +378,8 @@ Looking at the figure 5.7, we can see how the whole data ends up within a single
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=1\textwidth]{./images/1-24regions.png}
-\caption{Time to import the dataset with different number of pre-created Regions.} \label{fig:regions}
+\includegraphics[width=1\textwidth]{./images/1-24regions1.png}
+\caption{Execution time to import the dataset with different number of pre-created regions.} \label{fig:regions}
 \end{figure}
 
 Despite the performance enhancement, however, a closer look at the taskTracker logs reveals some issues. Albeit all nodes are working now, some nodes are working harder than others. The graph 5.9 depicts the Region distribution across the four region servers. Node cn212 stores the 72.22\% of the total data, making an uneven distribution of it across the Region Servers. Next graph, 5.10, shows the sizes of the 24 regions created. As before, data has been uneven distributed: Region 1 stores the 70\% of the dataset.
@@ -387,16 +389,16 @@ Despite the performance enhancement, however, a closer look at the taskTracker l
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=1\textwidth]{./images/regiondistribution.png}
-\caption{Uneven Region distribution.} \label{fig:regionDistribution}
+\includegraphics[width=1\textwidth,height=0.31\textheight]{./images/regiondistribution1.png}
+\caption{Uneven region server distribution.} \label{fig:regionDistribution}
 \end{figure}
 
 
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=1\textwidth]{./images/24regions.png}
-\caption{24 uneven Regions.} \label{fig:oneRegion}
+\includegraphics[width=1\textwidth,height=0.31\textheight]{./images/24regions1.png}
+\caption{24 uneven regions.} \label{fig:24evenRegions}
 \end{figure}
 
 TaskTrackers logs uncovers what is the problem: some reducers are working with more than 10 times the amount of records others are dealing with, which translates to different reducer execution times. While some finish within less than a dozen of seconds, others takes more than 5 minutes. Figure 5.10 illustrates this behavior.
@@ -456,8 +458,8 @@ Figure 5.11 shows the outcome of our tests. Using our Sampling Tool we have redu
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=1\textwidth]{./images/usingSampling.png}
-\caption{Region Distribution Using our Sampling Tool.} \label{fig:regionDistribution2}
+\includegraphics[width=1\textwidth,height=0.31\textheight]{./images/usingSampling1.png}
+\caption{Region distribution using our sampling tool.} \label{fig:regionDistribution2}
 \end{figure}
 
 
@@ -476,7 +478,7 @@ Figure 5.12 shows the performance with different HDFS block sizes. Our optimal s
 \begin{figure}[htb]
 \centering
 \includegraphics[width=1\textwidth]{./images/HDFSBlockSize.png}
-\caption{HDFS Block Size Setting.} \label{fig:HDFSBlockSize}
+\caption{HDFS block size setting.} \label{fig:HDFSBlockSize}
 \end{figure}
 
 
@@ -518,7 +520,7 @@ Another related parameter is \textit{mapred.job.reduce.input.buffer.percent}, se
 \begin{figure}[htb]
 \centering
 \includegraphics[width=1\textwidth]{./images/spilledReducerRecords.png}
-\caption{Spilled Records in Reducer side.} \label{fig:spilledReducerRecords}
+\caption{Spilled records in reducer side.} \label{fig:spilledReducerRecords}
 \end{figure}
 
 The left side of the figure 5.14 reveals that all the reduce input records (1780322 records) were spilled to disk within a given reducer task, while the right side of the figure shows that only 1238964 of a total of 1780322 records were spilled to disk. For the left side, the default settings described above where used, while for the right side, we hacked them whit the ones stated before.

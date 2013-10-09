@@ -11,8 +11,8 @@
 \newblock {LZO} vs {Snappy} vs {LZF} vs {ZLIB}, {A} comparison of compression
   algorithms for fat cells in hbase, 2013.
 \newblock
-  \url{http://blog.erdemagaoglu.com/post/4605524309/lzo-vs-snappy-vs-lzf-vs-zlib-a-comparison-of}.
-  Accessed 11.8.2013.
+  \url{http://blog.erdemagaoglu.com/post/4605524309/lzo-vs-snappy-vs-lzf-vs-zl%
+ib-a-comparison-of}. Accessed 11.8.2013.
 
 \bibitem{agrawal2010big}
 {\sc Agrawal, D., Das, S., and El~Abbadi, A.}
@@ -40,10 +40,10 @@
 \newblock In {\em Symposium on Operating Systems Design and Implementation
   (OSDI)\/} (2010), vol.~10, p.~24.
 
-\bibitem{ApacheZooKeeper}
-{\sc {A}pache~{S}oftware {F}oundation, T.}
-\newblock Apache {Z}ookeeper web page, January 2012.
-\newblock \url{http://zookeeper.apache.org/}. Accessed 15.5.2013.
+\bibitem{awasthi2012hybrid}
+{\sc Awasthi, A., Nandini, A., Bhattacharya, A., and Sehgal, P.}
+\newblock Hybrid {HB}ase: {L}everaging {F}lash {SSD}s to improve cost per
+  throughput of {HB}ase.
 
 \bibitem{babu2010towards}
 {\sc Babu, S.}
@@ -78,7 +78,7 @@
 
 \bibitem{brewer2012cap}
 {\sc Brewer, E.}
-\newblock Cap twelve years later: How the" rules" have changed.
+\newblock Cap twelve years later: How the "rules" have changed.
 \newblock {\em Computer\/} (2012), 23--29.
 
 \bibitem{burrows2006chubby}
@@ -154,11 +154,10 @@
 \newblock Dropbox web page, 2008.
 \newblock \url{http://www.dropbox.com}. Accessed 11.6.2013.
 
-\bibitem{Dropbox:sheet}
-{\sc {Dropbox Inc.}}
-\newblock Dropbox {F}act {S}heet, 2012.
-\newblock \url{https://www.dropbox.com/static/docs/DropboxFactSheet.pdf}.
-  Accessed 11.6.2013.
+\bibitem{fan2009diskreduce}
+{\sc Fan, B., Tantisiriroj, W., Xiao, L., and Gibson, G.}
+\newblock Disk{R}educe: {RAID} for {D}ata-{I}ntensive {S}calable {C}omputing
+  ({CMU}-{PDL}-09-112).
 
 \bibitem{fox2009above}
 {\sc Fox, A., Griffith, R., Joseph, A., Katz, R., Konwinski, A., Lee, G.,
@@ -215,10 +214,6 @@
 \newblock {\em Transaction processing}.
 \newblock Kaufmann, 1993.
 
-\bibitem{Heroku:gigaom}
-{\sc Harris, D.}
-\newblock Heroku {B}oss: 1.5m apps, many not in {R}uby, May 2012.
-
 \bibitem{heger2013hadoop}
 {\sc Heger, D.}
 \newblock Hadoop performance tuning-a pragmatic \& iterative approach.
@@ -227,12 +222,6 @@
 {\sc {Heroku Inc.}}
 \newblock Heroku web page, 2013.
 \newblock \url{http://www.heroku.com/}. Accessed 11.6.2013.
-
-\bibitem{Dropbox:thanks}
-{\sc Houston, D.}
-\newblock Dropbox {T}hanks a (hundred) million, 2012.
-\newblock \url{https://blog.dropbox.com/2012/11/thanks-a-hundred-million/}.
-  Accessed 11.6.2013.
 
 \bibitem{hunt2010zookeeper}
 {\sc Hunt, P., Konar, M., Junqueira, F.~P., and Reed, B.}
@@ -255,11 +244,21 @@
 \newblock Cloud types and services.
 \newblock In {\em Handbook of Cloud Computing}. Springer, 2010, pp.~335--355.
 
+\bibitem{joshi2012apache}
+{\sc Joshi, S.~B.}
+\newblock Apache {H}adoop performance-tuning methodologies and best practices.
+\newblock In {\em Proceedings of the third joint WOSP/SIPEW international
+  conference on Performance Engineering\/} (2012), ACM, pp.~241--242.
+
 \bibitem{junqueira2011zab}
 {\sc Junqueira, F.~P., Reed, B.~C., and Serafini, M.}
 \newblock Zab: High-performance broadcast for primary-backup systems.
 \newblock In {\em Dependable Systems \& Networks (DSN), 2011 IEEE/IFIP 41st
   International Conference on\/} (2011), IEEE, pp.~245--256.
+
+\bibitem{kangcase}
+{\sc Kang, S.-H., Koo, D.-H., Kang, W.-H., and Lee, S.-W.}
+\newblock A {C}ase for {F}lash {M}emory {SSD} in {H}adoop {A}pplications.
 
 \bibitem{kwon2012skewtune}
 {\sc Kwon, Y., Balazinska, M., Howe, B., and Rolia, J.}
@@ -304,13 +303,6 @@
 \bibitem{MemstoreGBif}
 {\sc Meyn, O.}
 \newblock {O}ptimizing {W}rites in {HB}ase, July 2012.
-
-\bibitem{Azure:description}
-{\sc {Microsoft Inc.}}
-\newblock Windows {A}zure {D}ocumentation, 2013.
-\newblock
-  \url{http://www.windowsazure.com/en-us/develop/net/fundamentals/intro-to-windows-azure/}.
-  Accessed 11.6.2013.
 
 \bibitem{Azure}
 {\sc {Microsoft Inc.}}
@@ -368,11 +360,6 @@
 \newblock The {C}loud {W}ars: \$100+ billion at stake.
 \newblock Tech. rep., Tech. rep., Merrill Lynch, 2008.
 
-\bibitem{OpenShiftOrigin}
-{\sc {Red Hat Inc.}}
-\newblock Openshift origin source code, 2011.
-\newblock \url{https://github.com/openshift}. Accessed 11.6.2013.
-
 \bibitem{OpenShift}
 {\sc {Red Hat Inc.}}
 \newblock Open{S}hift web page, 2011.
@@ -391,11 +378,6 @@
 \bibitem{samar2011scalable}
 {\sc Samar, T., Berberich, K., and Weikum, G.}
 \newblock Scalable {D}istributed {T}ime-{T}ravel {T}ext {S}earch.
-
-\bibitem{Rackspace:forbes}
-{\sc Savitz, E.}
-\newblock Rackspace {S}lides {A}fter {H}ours {A}s {Q}4 {R}evs {M}iss {S}treet
-  {V}iews, February 2013.
 
 \bibitem{shvachko2010hadoop}
 {\sc Shvachko, K., Kuang, H., Radia, S., and Chansler, R.}
@@ -416,7 +398,7 @@
 \bibitem{strauch2011nosql}
 {\sc Strauch, C.}
 \newblock No{SQL} databases.
-\newblock {\em \url{http://www. christof-strauch. de/nosqldbs.pdf}\/} (2011).
+\newblock {\em \url{http://www. christof-strauch.de/nosqldbs.pdf}\/} (2011).
 
 \bibitem{Strozzi}
 {\sc Strozzi, C.}
@@ -424,10 +406,6 @@
 \newblock {WWW} page of the article:
   \url{http://www.strozzi.it/cgi-bin/CSA/tw7/I/en_US/nosql/Home\%20Page}.
   Accessed 10 Apr 2013.
-
-\bibitem{TFile}
-{\sc Tang, H.}
-\newblock {TF}ile {S}pecification.
 
 \bibitem{ApacheHadoop}
 {\sc {T}he {A}pache~{S}oftware {F}oundation}.
@@ -437,7 +415,7 @@
 \bibitem{ApacheCassandra}
 {\sc {T}he {A}pache~{S}oftware {F}oundation}.
 \newblock Apache {C}assandra web page, 2009.
-\newblock \url{http://accumulo.apache.org/}. Accessed 25.5.2013.
+\newblock \url{http://cassandra.apache.org/}. Accessed 25.5.2013.
 
 \bibitem{ApacheAccumulo}
 {\sc {T}he {A}pache~{S}oftware {F}oundation}.
@@ -483,6 +461,11 @@
 \newblock Apache {HB}ase web page, 2012.
 \newblock \url{http://hbase.apache.org/}. Accessed 25.4.2013.
 
+\bibitem{ApacheZooKeeper}
+{\sc {T}he {A}pache~{S}oftware {F}oundation}.
+\newblock Apache {Z}ookeeper web page, January 2012.
+\newblock \url{http://zookeeper.apache.org/}. Accessed 15.5.2013.
+
 \bibitem{Xen}
 {\sc {T}he~{X}en {P}roject}.
 \newblock Xen {P}roject web page, 2013.
@@ -525,12 +508,6 @@
 {\sc Wikipedia}.
 \newblock Consistency model --- {W}ikipedia{,} the free encyclopedia, 2013.
 \newblock Online; accessed 10-June-2013.
-
-\bibitem{YCSB}
-{\sc {Yahoo! Labs}}.
-\newblock {YCSB} web page, 2010.
-\newblock \url{http://labs.yahoo.com/Web_Information_Management/YCSB/}.
-  Accessed 5.6.2013.
 
 \bibitem{LoadBalancer}
 {\sc Yu, T.}

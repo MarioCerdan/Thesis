@@ -1,67 +1,61 @@
 \chapter{Environment}
 \label{chapter:environment}
 
-Here we describe the environment we has worked in. We describe the cluster used for testing, the software deployed and the dataset of our experiments.
+In the next chapter we characterize the environment we has worked in. We describe the cluster used for testing, the software deployed and the dataset of our experiments.
 
 \section{Triton}
 
-For this final project we have been using Triton for testing solutions as well as doing performance evaluation tests. Triton is a high performance cluster owned by Aalto University School of Science and used by its members \cite(wiki de triton).
+For this final project we use Triton for testing solutions as well as doing performance evaluation tests. Triton is a high performance cluster owned by Aalto University School of Science. It is composed by more than 238 nodes. We use five identical compute nodes from Triton. The hardware of these compute nodes is described in Table 4.1.  
 
-As of July 2013, Triton has 238 compute nodes divided in 5 big groups:
 
-\begin{enumerate}
-\item Frontend node: HP SL390s G7 with 48GB of memory. The login node through which rest of the cluster is accessible to users.
-\item 109 compute nodes HP ProLiant BL465c G6, each equipped with 2x Six-Core AMD Opteron 2435 2.6GHz processors. 80 compute nodes cn[01-80] have 32GB (cn[65-67] used for NFS servers needs), 32 others have 64GB cn[81-112], 4xDDR Infiniband port and local SATA drive with diskspace available ~215GB.
-\item 118 compute nodes cn[113-224], tb[003-008] are HP SL390s G7, each equipped with 2x Intel Xeon X5650 2.67GHz (Westmere six-core each). Every SL390s G7 node has 48 GB of DDR3-1066 memory, 4xQDR Infiniband port and about 830 GB of local diskspace (2 mirrored drives). 16 nodes have by two additional SATA drives.
-\item 8 compute nodes gpu[001-008] are HP SL390s G7 for gpu computing.
-\item 2 fat nodes HP DL580 G7 4U, 4x Xeon, 6x SATA drives, 1TB of DDR3-1066 memory each and 4xQDR Infiniband port.
-\end{enumerate}
 
-Triton has two internal networks: Infiniband for MPI and Lustre filesystem and Gigabit Ethernet for everything else.
+%As of July 2013, Triton has 238 compute nodes divided in 5 big groups:
 
-About storage, all nodes are connected to DDN SFA10k storage system: large disk arrays with the Lustre filesystem on top of it.
+%\begin{enumerate}
+%\item Frontend node: HP SL390s G7 with 48GB of memory. The login node through which rest of the cluster is accessible to users.
+%\item 109 compute nodes HP ProLiant BL465c G6, each equipped with 2x Six-Core AMD Opteron 2435 2.6GHz processors. 80 compute nodes cn[01-80] have 32GB (cn[65-67] used for NFS servers needs), 32 others have 64GB cn[81-112], 4xDDR Infiniband port and local SATA drive with diskspace available ~215GB.
+%\item 118 compute nodes cn[113-224], tb[003-008] are HP SL390s G7, each equipped with 2x Intel Xeon X5650 2.67GHz (Westmere six-core each). Every SL390s G7 node has 48 GB of DDR3-1066 memory, 4xQDR Infiniband port and about 830 GB of local diskspace (2 mirrored drives). 16 nodes have by two additional SATA drives.
+%\item 8 compute nodes gpu[001-008] are HP SL390s G7 for gpu computing.
+%\item 2 fat nodes HP DL580 G7 4U, 4x Xeon, 6x SATA drives, 1TB of DDR3-1066 memory each and 4xQDR Infiniband port.
+%\end{enumerate}
 
-Triton runs Scientific Linux 6 and SLURM as a scheduler and batch system.
+%Triton has two internal networks: Infiniband for MPI and Lustre filesystem and Gigabit Ethernet for everything else.
 
-\bigskip
-While the number of nodes used for each experiment in this project has been changing according to the needs, the used nodes have always been Intel Xeon while the Gigabit Ethernet internal network has been our choice as networking.
+%About storage, all nodes are connected to DDN SFA10k storage system: large disk arrays with the Lustre filesystem on top of it.
+
+%Triton runs Scientific Linux 6 and SLURM as a scheduler and batch system.
+
+%While the number of nodes used for each experiment in this project has been changing according to the needs, the nodes have always been Intel Xeon and the Gigabit Ethernet internal network has been our choice as networking.
 
 \begin{table}[htbp]
 \caption{}
+\begin{center}
 \begin{tabular}{|l|l|}
 \hline
-Processor &  2x Intel Xeon X5650 2.67GHz \\ \hline
+Processor  & 2x Intel Xeon X5650 2.67GHz \\ \hline
 RAM  & 48 GB of DDR3-1066 memory \\ \hline
 Storage  & About 830 GB of local diskspace (software RAID 0) \\ \hline
 Chassis/Mobo  & HP SL390s G7 \\ \hline
+Networking & Gigabit Ethernet \\ \hline
 \end{tabular}
-\label{}
+\end{center}
+\label{Hardware description of the machines used for the experiments.}
 \end{table}
 
 
+
 \section{Cloudera's Distribution Including Apache Hadoop - CDH}
-For the purpose of this project, we have used Cloudera \cite{Cloudera} open source solution CDH.
-As Cloudera states in their website \cite{ClouderaCDH}, Cloudera's Distribution Including Apache Hadoop (CDH) is one of the most used and tested distribution of Apache Hadoop. CDH is open source and is backed by Cloudera's organization. CDH contains the core elements of Hadoop, all of them tested and integrated.
+For the purpose of this project, we use Cloudera \cite{Cloudera} open source solution CDH. As Cloudera states in their website \cite{ClouderaCDH}, Cloudera's Distribution Including Apache Hadoop (CDH) is one of the most used and tested distribution of Apache Hadoop. CDH is open source and is backed by Cloudera's organization. CDH contains the core elements of Hadoop, all of them tested and integrated.
 \par
-In 26 February 2013, coinciding with the start of this project, Cloudera released CDH 4.1.3, which included HBase 0.92.1, the last stable version of HBase with a bunch of fixes, Hadoop 2.0 along with lot of fixes and Apache MapReduce version one (MRv1). This is the software used although now you can find newer versions in Cloudera website.
+In 26 February 2013, coinciding with the start of this project, Cloudera released CDH 4.1.3, which included HBase 0.92.1, the last stable version of HBase with a bunch of fixes, Hadoop 2.0 along with lot of fixes and Apache MapReduce version one (MRv1). This is the software used although now readers can find newer versions in Cloudera website.
 
 \section{MySQL}
 
-MySQL \cite{MySQL} has been chosen as the open source RDBMS to test against HBase. The version used for the experiments has been MySQL Community Server 5.6.12, which is the last stable release offered by MySQL.
+MySQL \cite{MySQL} is chosen as the open source RDBMS to test against HBase. The MySQL version is Community Server 5.6.12.
 
 \section{Yahoo! Cloud Serving Benchmark - YCSB}
 
-YCSB\cite{cooper2010benchmarking} is a standard open-source benchmark tool developed by Yahoo! Labs, its aim is to provide a general framework for evaluating the performance of distributed key/value and cloud storage systems, such as HBase, Cassandra, and PNUTS. YCSB allows one to define different workload scenarios by mixing reads, writes, updates and table scans, and then measures the performance of the system on a particular workload.
-\par
-\fixme{Screenshot from 2013-08-15 14:34:45.png }
-\par
-YCSB latest version \cite{YCSB} used: ycsb 0.1.4.
-
-\section{Hannibal}
-
-\fixme{should I talk about Hannibal tool for monitoring..as well as DStats for plotting?} 
-
-
+We use YCSB as our benchmark framework. YCSB\cite{cooper2010benchmarking} is a standard open-source benchmark tool developed by Yahoo! Labs, its aim is to provide a general framework for evaluating the performance of distributed key/value and cloud storage systems, such as HBase, Cassandra, and PNUTS. YCSB allows one to define different workload scenarios by mixing reads, writes, updates and table scans, and then measures the performance of the system on a particular workload. As of July 2013, YCSB latest version is YCSB 0.1.4.
 
 \section{Introducing our Dataset}
 
