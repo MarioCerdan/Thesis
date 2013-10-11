@@ -44,7 +44,7 @@
 \BOOKMARK [0][]{chapter.5}{5 Design and Implementation - Import}{}
 \BOOKMARK [1][-]{section.5.1}{5.1 HBase cluster at a glance}{chapter.5}
 \BOOKMARK [1][-]{section.5.2}{5.2 HBase: tunning parameters for a write-heavy cluster}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.2.1}{5.2.1 Hadoop baseline parameters}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.1}{5.2.1 Hadoop baseline}{section.5.2}
 \BOOKMARK [1][-]{section.5.3}{5.3 The import experiment}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.3.1}{5.3.1 First approach: An HBase client}{section.5.3}
 \BOOKMARK [3][-]{subsubsection.5.3.1.1}{5.3.1.1 Second version: An HBase client without AutoFlush}{subsection.5.3.1}
@@ -63,8 +63,8 @@
 \BOOKMARK [0][]{chapter.7}{7 Design and Implementation - Benchmark}{}
 \BOOKMARK [1][-]{section.7.1}{7.1 Benchmarking: HBase vs MySQL}{chapter.7}
 \BOOKMARK [2][-]{subsection.7.1.1}{7.1.1 Load phase}{section.7.1}
-\BOOKMARK [2][-]{subsection.7.1.2}{7.1.2 Predominant Reads}{section.7.1}
-\BOOKMARK [2][-]{subsection.7.1.3}{7.1.3 Reads mixed with Updates}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.2}{7.1.2 Reads mixed with Updates}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.3}{7.1.3 Predominant Reads}{section.7.1}
 \BOOKMARK [0][]{chapter.8}{8 Conclusions}{}
 \BOOKMARK [1][-]{section.8.1}{8.1 Future work}{chapter.8}
 \BOOKMARK [1][-]{section.8.2}{8.2 Discussion}{chapter.8}

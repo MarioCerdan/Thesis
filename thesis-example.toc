@@ -47,14 +47,14 @@
 \contentsline {chapter}{\numberline {5}Design and Implementation - Import}{48}{chapter.5}
 \contentsline {section}{\numberline {5.1}HBase cluster at a glance}{49}{section.5.1}
 \contentsline {section}{\numberline {5.2}HBase: tunning parameters for a write-heavy cluster}{49}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Hadoop baseline parameters}{52}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.1}Hadoop baseline}{51}{subsection.5.2.1}
 \contentsline {section}{\numberline {5.3}The import experiment}{53}{section.5.3}
 \contentsline {subsection}{\numberline {5.3.1}First approach: An HBase client}{53}{subsection.5.3.1}
 \contentsline {subsubsection}{\numberline {5.3.1.1}Second version: An HBase client without AutoFlush}{56}{subsubsection.5.3.1.1}
 \contentsline {subsection}{\numberline {5.3.2}Second approach: A multithread HBase client}{56}{subsection.5.3.2}
 \contentsline {subsection}{\numberline {5.3.3}Third approach: Using MapReduce algorithm}{58}{subsection.5.3.3}
 \contentsline {subsubsection}{\numberline {5.3.3.1}Building the solution}{58}{subsubsection.5.3.3.1}
-\contentsline {paragraph}{\numberline {5.3.3.1.1}The Small Files problem \cite {liu2009implementing}:}{59}{paragraph.5.3.3.1.1}
+\contentsline {paragraph}{\numberline {5.3.3.1.1}The Small Files problem \cite {liu2009implementing}:}{58}{paragraph.5.3.3.1.1}
 \contentsline {subsubsection}{\numberline {5.3.3.2}Third approach second version: Compression}{60}{subsubsection.5.3.3.2}
 \contentsline {subsubsection}{\numberline {5.3.3.3}Third approach third version: Pre-creating regions}{61}{subsubsection.5.3.3.3}
 \contentsline {subsection}{\numberline {5.3.4}Fourth approach:Skew data}{63}{subsection.5.3.4}
@@ -67,11 +67,11 @@
 \contentsline {chapter}{\numberline {7}Design and Implementation - Benchmark}{77}{chapter.7}
 \contentsline {section}{\numberline {7.1}Benchmarking: HBase vs MySQL}{77}{section.7.1}
 \contentsline {subsection}{\numberline {7.1.1}Load phase}{78}{subsection.7.1.1}
-\contentsline {subsection}{\numberline {7.1.2}Predominant Reads}{79}{subsection.7.1.2}
-\contentsline {subsection}{\numberline {7.1.3}Reads mixed with Updates}{80}{subsection.7.1.3}
-\contentsline {chapter}{\numberline {8}Conclusions}{82}{chapter.8}
-\contentsline {section}{\numberline {8.1}Future work}{82}{section.8.1}
-\contentsline {section}{\numberline {8.2}Discussion}{83}{section.8.2}
-\contentsline {chapter}{\numberline {A}First appendix}{93}{appendix.A}
-\contentsline {section}{\numberline {A.1}XML video file}{93}{section.A.1}
-\contentsline {section}{\numberline {A.2}Hbase storage schema design}{95}{section.A.2}
+\contentsline {subsection}{\numberline {7.1.2}Reads mixed with Updates}{79}{subsection.7.1.2}
+\contentsline {subsection}{\numberline {7.1.3}Predominant Reads}{80}{subsection.7.1.3}
+\contentsline {chapter}{\numberline {8}Conclusions}{83}{chapter.8}
+\contentsline {section}{\numberline {8.1}Future work}{83}{section.8.1}
+\contentsline {section}{\numberline {8.2}Discussion}{84}{section.8.2}
+\contentsline {chapter}{\numberline {A}First appendix}{94}{appendix.A}
+\contentsline {section}{\numberline {A.1}XML video file}{94}{section.A.1}
+\contentsline {section}{\numberline {A.2}Hbase storage schema design}{96}{section.A.2}

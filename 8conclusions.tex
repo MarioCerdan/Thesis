@@ -1,7 +1,7 @@
 \chapter{Conclusions}
 \label{chapter:conclusions}
 
-In this chapter we discuss opportunities for improvement in Section 11.1 and review the work done for the final project in Section 11.2.
+In this chapter we discuss opportunities for improvement in Section 8.1 and review the work done for the final project in Section 8.2.
 
 \section{Future work}
 
@@ -20,7 +20,7 @@ In this final project we present methods related with scaling-out the data of a 
 \par
 This project evaluates the obtained performance from three different points of view: Firstly, the main problem of importing a really big dataset to a new Cloud-based datastore. Several approaches have been developed and carefully tested, uncovering its benefits and drawbacks in order to improve the obtained approach. Secondly,  the performance of reading random data in a write-optimized database like HBase. Once more, conceptual ideas have been developed and tested and the results have been exposed. Finally, the tuned HBase cluster has been benchmarked against a MySQL cluster similar to the one the company where the data comes from uses.
 \par
-We have been able to improve the default performance in every area. Importing data we have passed from an API client whose execution time is more than five hours to a MapReduce-based client which enables us to reduce the processing time to only nine minutes. There are lot of improvements behind these simple numbers, such as HDFS issues, skew data, compression, JVM issues, etc. As of reading random data, we have also improved default results by using concepts such as Bloom filters, HFile's block sizes or block caches. All obtained results have been studied and improved when possible.
+We have been able to improve the default performance in every area. Importing data we have passed from an API client whose execution time is more than five hours to a MapReduce-based client which enables us to reduce the processing time to only nine minutes. There are lot of improvements behind these simple numbers, such as HDFS issues, skew data, compression, JVM issues, etc. As of retrieving random data, we have also improved default results by using concepts such as Bloom filters, HFile's block sizes or block caches. All obtained results have been studied and improved when possible.
 \par
 Setting aside the results, one main tool has been developed not only to fit the uneven data issue our dataset has, but also every MapReduce/HBase job suffering from skew data in the mapper outputs. In a brief way, it samples the whole dataset in a lightweightly way with a confident level defined by the user and returns the best split points which removes the uneven distribution of mappers output.  
 \par

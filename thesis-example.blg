@@ -4,7 +4,6 @@ The style file: acm.bst
 Database file #1: sources.bib
 Warning--I didn't find a database entry for "CAP"
 Warning--I didn't find a database entry for "ProbeCAP"
-Warning--I didn't find a database entry for "http://comments.gmane.org/gmane.comp.java.hadoop.hbase.user/34417"
 Warning--can't use both volume and number fields in ananthanarayanan2010reining
 Warning--empty journal in awasthi2012hybrid
 Warning--empty journal in fan2009diskreduce
@@ -15,7 +14,7 @@ Warning--empty journal in samar2011scalable
 Warning--empty publisher in white2012hadoop
 You've used 95 entries,
             2253 wiz_defined-function locations,
-            1001 strings with 17914 characters,
+            1000 strings with 17849 characters,
 and the built_in function-call counts, 27443 in all, are:
 = -- 2566
 > -- 1215
@@ -54,4 +53,4 @@ warning$ -- 8
 while$ -- 269
 width$ -- 97
 write$ -- 937
-(There were 11 warnings)
+(There were 10 warnings)

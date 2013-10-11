@@ -5,18 +5,18 @@ In the following section we focus on the Column-oriented datastores, explained b
 
 \section{Column-Oriented Datastores}
 
-When referring to Column-Oriented datastores, also called Extensible Record Stores, BigTable is the pioneer. BigTable and many other datastores of this type present a simple and flexible data model that can be extended at any moment.
-Some famous Column-Oriented datastores are Apache HBase \cite{ApacheHBase}, HyperTable \cite{HyperTable}, Apache Accumulo \cite{ApacheAccumulo}, and Apache Cassandra \cite{ApacheCassandra} between many others.
+When referring to Column-Oriented datastores, also called Extensible Record Stores, where BigTable is the pioneer. BigTable and many other datastores of this type present a simple and flexible data model that can be extended at any moment.
+Some famous Column-Oriented datastores are Apache HBase \cite{ApacheHBase}, HyperTable \cite{HyperTable}, Apache Accumulo \cite{ApacheAccumulo}, and Apache Cassandra \cite{ApacheCassandra} in addition to many others.
 \par
 Among all these solutions, HBase \cite{george2011hbase} is likely the most popular open-source Column-Oriented datastore and is the one that we are going to use for our experiments.
 \par
-In the next section, we will describe HBase and how it works in order to fully understand this thesis.
+In the next section, we will describe HBase and how it works in order to fully understand this Thesis.
 
 
 \section{HBase}
 
 
-HBase is an important Apache Hadoop-based project, which, as we stated before, is modeled on Google's BigTable database. Hbase can be characterized as a distributed, fault tolerant scalable database built on top of the HDFS file system. It belongs to the group of column-oriented datastores and uses Zookeeper for management of partial failures.
+HBase is an important Apache Hadoop-based project, which, as we stated before, is modeled on Google's BigTable database. HBase can be characterized as a distributed, fault tolerant scalable database built on top of the HDFS file system. It belongs to the group of column-oriented datastores and uses  Apache ZooKeeper for management of partial failures.
 \par
 Below, all must-known aspects of HBase are presented: HBase data model, storage, architecture, write/read/delete paths and the client API.
 
@@ -30,8 +30,9 @@ Summarizing, a key is commonly represented as the tuple (row, column, timestamp)
 \bigskip
 
 			\centerline{\textbf{(row, column, timestamp) -\textgreater value}}
-\bigskip 
 
+\bigskip 
+\par
 where column equals (column family, column qualifier), timestamp is a 64-bit integer and row, column family, column qualifier and value are uninterpreted array strings, since in HBase everything is store as bytes.
 
 \begin{table}[htbp]
@@ -45,22 +46,22 @@ where column equals (column family, column qualifier), timestamp is a 64-bit int
 "com.cnn" & t5 & contents:html = "" &   \\ \cline{1-2}
 "com.cnn" & t3 & contents:html = "" &   \\ \hline
 \end{tabular}
-\caption{Example Hbase table given by \cite{ApacheHBaseDataModel}}
+\caption{Example HBase table given by \cite{ApacheHBaseDataModel}}
 \end{center}
 \end{table}
 
-A cell is a set of data items with a common row and column key (remember that column key stands for (column family:column qualifier)), being the cell key = (row,column). Each data item in a cell is called a version of that cell.
+A cell is a set of data items with a common row and column key (remember that column key stands for (column family:column qualifier)), being the cell key = (row, column). Each data item in a cell is called a version of that cell.
 \par
-HBase supports multi-version of cells. Each version of a cell is stored as a separated cell, next to others versions of that cell. Versions of a cell are sorted descending by the timestamp so that users will see the newest value first while reading it.
+HBase supports multiple versions of cells. Each version of a cell is stored as a separated cell, next to other versions of that cell. Versions of a cell are sorted descending by the timestamp so that users will see the newest value first while reading it.
 Another HBase table feature is that it does not store NULL values as RDBMSs do. Files storing the data only contain data explicitly set.
 \par
 A table is organized by grouping cells into rows. These cells are sorted lexicographically by row key first and then by column key, so row keys lexicographically close will be stored near to each other. The sorting allows the table to be partitioned into the denominated \textit{regions}, which hold exclusive ranges of row keys. The regions of a table are distributed between different nodes.
 
 \subsection {Storage}
 
-The real view of tables differs from the conceptual view explained before. Physically, tables are stored on a per-column family basis, which means that all column family members are stored together in files called HFiles/StoreFiles. Such a thing brings an advantage, which is that they can be compressed together. Column families must be declared while creating the table, whereas column qualifiers can be added to column families at any time.
+The real view of tables differs from the conceptual view explained before. Physically, tables are stored on a per-column family basis, which means that all column family members are stored together in files called HFiles/StoreFiles. Such an approach brings advantages, one of which is that they can be compressed together. Column families must be declared while creating the table, whereas column qualifiers can be added to column families at any time.
 \par
-As written before, the HBase storage files are called HFiles. They are based on Hadoop's TFile \footnote{{TF}ile {S}pecification - \url{https://issues.apache.org/jira/secure/attachment/12396286/TFile+Specification+20081217.pdf}} class and mimic the SSTable format used in Google's BigTable system. What is stored inside them is called KeyValue instances. They are the physical view of the conceptual cells. The whole cell, with its structured data (row length, key type, etc.) is what is a KeyValue object. Figure 3.1 shows a conceptual depiction of the KeyValue format.
+As written before, the HBase storage files are called HFiles. They are based on Hadoop's TFile\footnote{{TF}ile {S}pecification - \url{https://issues.apache.org/jira/secure/attachment/12396286/TFile+Specification+20081217.pdf}} class and mimic the SSTable format used in Google's BigTable system. What is stored inside them is called KeyValue instances. They are the physical view of the conceptual cells. The whole cell, with its structured data (row length, key type, etc.) is what is a KeyValue object. Figure 3.1 shows a conceptual depiction of the KeyValue format.
 \par
 
 \begin{figure}[htb]
@@ -86,7 +87,7 @@ HBase consists of three layers: the client, the server and the storage layers. T
 The storage layer is composed of a chosen file system for the HBase cluster and a coordination service:
 
 \begin{itemize}
-\item File system: HDFS \cite{ApacheHadoop, HDFSarchitecture} is the default file system when deploying an HBase cluster, but optionally it can be replaced by any other file system. For HBase, HDFS is the primary option as it is scalable, fail safe, has automatic replication and is built to run on a set of commodity hardware. It fits with the needs of a distributed system. 
+\item File system: HDFS \cite{ApacheHadoop, HDFSarchitecture} is the default file system when deploying an HBase cluster, but optionally it can be replaced by any other file system. For HBase, HDFS is the primary option as it is scalable, fail safe, has automatic replication and is built to run on commodity hardware. It fits with the needs of a distributed system. 
 
 % Hadoop MapReduce is always used with HDFS as the underlying file system, thereby HDFS performance when dealing % with a huge amount of data, as Hadoop MapReduce does, is optimized. 
 
@@ -96,15 +97,15 @@ Master server and region servers communicate with ZooKeeper to keep track of the
 \subsubsection{Server layer}
 Server layer is compound of two parts:
 \begin{itemize}
-\item Master: The master server does not store any actual data and is not part of the retrieval path. It is responsible for assigning regions to region servers, handling load balancing of regions across region servers, unloading busy servers and moving regions to servers that are freer, and performing garbage collection of files. Since it never stores or provides data to clients or region servers, is slightly loaded. Further, it takes care of all administrative operations such as schema changes or creation of tables or column families.
+\item Master: The master server does not store any actual data and is not part of the retrieval path. It is responsible for assigning regions to region servers, handling load balancing of regions across region servers, unloading busy servers and moving regions to servers that are freer, and performing garbage collection of files. Since it never stores or provides data to clients or region servers, is usually slightly loaded. Furthermore, it takes care of all administrative operations such as schema changes or creation of tables or column families.
 \par
-If the master server goes down, the cluster can still work as the HBase client does not talk with it directly. Nevertheless, master should be restart as soon as possible.
-\item Region: As Lars George states in his book HBase: The definitive guide \cite{george2011hbase}, a \textit{region} is the basic unit of scalability and load balancing in HBase and is responsible for storing the actual data. Inside it, we can see contiguous ranges of rows stored together. Clients communicate directly with region servers to run all retrieve / write data operations. Each region is served by only one region server, although those ones can store multiple regions. These region servers also split regions into two pieces at the row key which is in the middle of the whole region once they have exceeded the maximum region size.
+If the master server goes down, the cluster can still work as the HBase client does not talk with it directly. Nevertheless, master should be restarted as soon as possible.
+\item Region: As Lars George states in his book HBase: The definitive guide \cite{george2011hbase}, a \textit{region} is the basic unit of scalability and load balancing in HBase and is responsible for storing the actual data. Inside it, we can see contiguous ranges of rows stored together. Clients communicate directly with region servers to run all retrieve / write data operations. Each region is served by only one region server, although each region server can store multiple regions. The region servers also split regions into two pieces at the row key which is in the middle of the whole region once they have exceeded the maximum allowed region size.
 \end{itemize}
 
 \subsubsection{Client layer}
 
-Client needs to be able to find the region server which has a specific key. In order to achieve that, client communicates with the Zookeeper server and then retrieves the location of a table called "-ROOT-" table from there. This table stores information about all regions in the ".META." table, which is another table storing where regions are and its row key ranges. So client reads the ".META." table and receives the exact address of the correct region handling a determined key or key range. Thanks to this three level lookup, client is able to find the correct region server and perform his operations. For optimizing the process, client caches region locations because once the user table region is known, it can be accessed straightforwardly without the three level lookup.
+Client needs to be able to find the region server which has a specific key. In order to achieve that, client communicates with the Zookeeper server and then retrieves the location of a table called "-ROOT-" table from there. This table stores information about all regions in the ".META." table, which is another table storing where regions are and its row key ranges. So client reads the ".META." table and receives the exact address of the correct region handling a determined key or key range. Thanks to this three level lookup, the client is able to find the correct region server and perform its operations. For optimizing the process, client caches region locations because once the user table region is known, it can be accessed straightforwardly without the three level lookup. Only if the region server informs the client that it is no longer serving a region, does the client a new three level lookup.
 
 
 \subsection {Write}
