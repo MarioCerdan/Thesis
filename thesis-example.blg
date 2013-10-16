@@ -12,45 +12,45 @@ Warning--empty journal in heger2013hadoop
 Warning--empty journal in kangcase
 Warning--empty journal in samar2011scalable
 Warning--empty publisher in white2012hadoop
-You've used 95 entries,
+You've used 96 entries,
             2253 wiz_defined-function locations,
-            1000 strings with 17849 characters,
-and the built_in function-call counts, 27443 in all, are:
-= -- 2566
-> -- 1215
+            1006 strings with 17960 characters,
+and the built_in function-call counts, 27647 in all, are:
+= -- 2588
+> -- 1222
 < -- 0
-+ -- 518
-- -- 410
-* -- 1775
-:= -- 4404
-add.period$ -- 275
-call.type$ -- 95
-change.case$ -- 486
++ -- 521
+- -- 412
+* -- 1785
+:= -- 4445
+add.period$ -- 278
+call.type$ -- 96
+change.case$ -- 490
 chr.to.int$ -- 0
-cite$ -- 103
-duplicate$ -- 1029
-empty$ -- 2421
-format.name$ -- 410
-if$ -- 5785
+cite$ -- 104
+duplicate$ -- 1038
+empty$ -- 2436
+format.name$ -- 412
+if$ -- 5825
 int.to.chr$ -- 0
-int.to.str$ -- 95
+int.to.str$ -- 96
 missing$ -- 53
-newline$ -- 466
-num.names$ -- 190
-pop$ -- 735
+newline$ -- 471
+num.names$ -- 192
+pop$ -- 737
 preamble$ -- 1
-purify$ -- 394
+purify$ -- 397
 quote$ -- 0
-skip$ -- 767
+skip$ -- 773
 stack$ -- 0
-substring$ -- 1279
-swap$ -- 288
+substring$ -- 1284
+swap$ -- 289
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 372
+type$ -- 376
 warning$ -- 8
-while$ -- 269
-width$ -- 97
-write$ -- 937
+while$ -- 271
+width$ -- 98
+write$ -- 949
 (There were 10 warnings)

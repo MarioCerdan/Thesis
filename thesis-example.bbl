@@ -295,6 +295,11 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock In {\em Cluster Computing and Workshops, 2009. CLUSTER'09. IEEE
   International Conference on\/} (2009), IEEE, pp.~1--8.
 
+\bibitem{HAcid}
+{\sc Medeiros, A.}
+\newblock {HAcid: A lightweight transaction for HBase}.
+\newblock Master's thesis, Aalto {U}niversity, {D}ept. of {ICS}, Finland, 2012.
+
 \bibitem{mell2011nist}
 {\sc Mell, P., and Grance, T.}
 \newblock The {NIST} definition of cloud computing.

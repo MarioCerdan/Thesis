@@ -111,23 +111,21 @@ Client needs to be able to find the region server which has a specific key. In o
 \subsection {Write}
 This subsection clarifies how writes and related stuff are done in a such a complex system as HBase is.
 \par
-Write requests are hold by Region Servers. Those components have three main elements: Write-Ahead Log (WAL), Memstore and HFiles. The WAL acts as a log for all modifications done to data in that exactly region, guaranteeing atomicity and durability. The WAL allows regions to recover from server failures. It contains all previous modifications and can be used to replay the data, achieving the last known stable stage. Memstore is an in-memory buffer that contains recently updated data items sorted by key. It works similar to how caches work on microprocessors, MemStore caches data items, thus reducing read and write latencies. There is one MemStore for each column family of a table in the region. HFiles stores actual HBase's data.
+Write requests are served by Region Servers. These components have three main elements: Write-Ahead Log (WAL), Memstore and HFiles. The WAL acts as a log for all modifications done to data in that exact region, guaranteeing atomicity and durability. The WAL allows regions to recover from server failures. It contains all previous modifications and can be used to recover from and to replay the data, achieving the last known stable stage. Memstore is an in-memory buffer that contains recently updated data items sorted by key. It works similar to how write buffers work on microprocessors, MemStore buffers writings, thus reducing write latencies. There is one MemStore for each column family of a table in the region. HFiles stores actual HBase's data.
 \par
-HBase stores data to disk similar to how a Log-Structured Merge Tree works \cite{o1996log}. First, when new data arrives at the region server it is put on the Write-Ahead Log (WAL). If the write to the WAL is achieved, the region server writes the data into the memory store. Region continues writing data to the Memstore until a configured maximum size. Once that threshold is reached, Memstore flushes the data to disk. When flushing, multiple HFiles are created, one per column family, which affects negatively to HBase's performance. Massive amount of tiny files stands for more seeks and thus, higher latencies while reading. Due to that fact, HBase monitors the number and size of these files and does compactions from time to time. A compaction is the process of merging multiple HFiles together, there are two types:
+HBase stores data to disk in a way similar to how a Log-Structured Merge Tree works \cite{o1996log}. First, when new data arrives at the region server it is put on the Write-Ahead Log (WAL). If the write to the WAL is achieved, the region server writes the data into the memory store. Region continues writing data to the Memstore until a configured maximum size. Once that threshold is reached, Memstore flushes the data to disk. When flushing, multiple HFiles are created, one per column family, which can affect negatively to HBase performance. Massive amounts of tiny files stand for more seeks and thus, higher latencies while reading. Due to that fact, HBase monitors the number and size of these files and does compactions from time to time. A compaction is the process of merging multiple HFiles together,  and there are two types:
 \begin{itemize}
 \item Minor compaction: It is responsible for rewriting the last few files into a larger one. It is triggered when certain properties and ratios are reached.
-\item Major compaction: It merges all files of a region into one single file. It is usually triggered every twenty-four hours or even more due to its heavy load. Sometimes, it is recommended to disable major compactions and manage them manually as they rewrite all files.
+\item Major compaction: It merges all files of a region into one single file. It is usually triggered every twenty-four hours or even more due to heavy load. Sometimes, it is recommended to disable major compactions and manage them manually as they incur a high performance penalty due to rewriting all of the database contents.
 \end{itemize}
 
-HFile files store an index at the end of the file to locate blocks. The index is loaded into memory when the HFile is opened allowing look-ups to be performed with a single disk seek. For a more complete overview of how these files are designed refer to \cite{white2012hadoop}.
+HFile files store an index at the end of the file to locate blocks within the HFile. The index is loaded into memory when the HFile is opened allowing look-ups to be performed with a single disk seek. For a more complete overview of how these files are designed refer to \cite{white2012hadoop}.
 
 \subsection{Read}
-Next paragraph explains reads in HBase.
-\par
-First of all, when a Region Server receives a Get request, it checks whether the desired row is in the MemStore or not. If not, it starts to search through the HFiles starting from the newest working towards older HFiles, which means to take a look through the disk contents because the data could be spread over multiple files.
+This paragraph explains reads in HBase. First of all, when a Region Server receives a Get request, it checks whether the desired row is in the MemStore or not. If not, it starts to search through the HFiles starting from the newest working towards older HFiles, which means to take a look through the disk contents because the data could be spread over multiple files.
 
 \subsection{Delete}
-Here we explain how data is deleted from a HBase cluster. We must have clear that rows are never directly erased from HBase. When a Region Server receives a Delete request, it looks for the row and writes a delete marker to it. Whenever a Get request tries to access a row that has been previously deleted, it will find the delete marker and will not be returned. During the next major compaction, rows with the delete marker will finally be deleted.
+Here we explain how data is deleted from a HBase cluster. We must be clear that rows are never directly erased from HBase. When a Region Server receives a Delete request, it looks for the row and writes a delete marker to it. Whenever a Get request tries to access a row that has been previously deleted, it will find the delete marker and data will not be returned. During the next major compaction, rows with the delete marker will finally be deleted.
 
 \subsection {HBase API}
 
@@ -136,7 +134,7 @@ HBase provides a powerful client API written in Java as HBase does. It provides 
 \bigskip
 
 
-\textbf{Definition 1. }Put 
+\textbf{Put Operation} 
 
 There are two groups of Put operations, first one works on single rows and the other works on a list of rows, both allow users to store data into HBase's tables in a transparently manner. Defined as:
 \par
@@ -157,7 +155,7 @@ Unlike column families, new column qualifiers, version numbers and row keys can 
 The HBase API allows to use a built-in client-side write buffer that collects sets of Put operations before sending them as a unique RPC connection to the corresponding server. Hence, less RPC connections are needed resulting in an increase of the overall performance. HBase is smart enough to group and sort Puts by Region Server. If write buffer is not used,  any time a Put operation is completed, HBase's API will submit it to the right Region Server.
 
 \bigskip
-\textbf{Definition 2. }Atomic Compare-and-Set
+\textbf{Atomic Compare-and-Set Operation}
 
 As a variation to the Put calls, the user can use Check and Put operation, defined as:
 \par
@@ -169,7 +167,7 @@ This method allows users to issue Puts with a checking point. Only if the check 
 All rows inside the Put object must be equal to the given row. The user can not use this operation to check different row keys. Otherwise, Check and Put operation will fail.
 
 \bigskip
-\textbf{Definition 3.} Get
+\textbf{Get Operation}
 
 Like in HBase Put method, there are two groups of Get operations, the ones that work on a single row and the others that operate with multiple rows. Both allows the user to retrieve data stored in HBase's tables.
 \par
@@ -191,7 +189,7 @@ Lastly, there are methods, acting as filters, that allow users to specify how ma
 Like in Put method, the user can retrieve a list of Gets, instead of only one row. The main difference is that the user issues a list of Gets, instead of one Get object. The result will be an array of Results, one for each Get instance.
 
 \bigskip
-\textbf{Definition 4. }Delete
+\textbf{Delete Operation}
 
 HBase client API provides a method to delete data from its tables. Delete method is defined as:
 
@@ -211,13 +209,13 @@ As with Get and Put calls, the user has to create a Delete instance and then add
 A row is provided. Subsequently, what user wants to be removed is added to it using different methods. Most important ones are \textit{Delete.deleteFamily()} method, used to remove an entire column family, including all its columns, and \textit{Delete.deleteColumns()} method, which operates on one column of a given column family, deleting all versions contained or just the cells matching the timestamp if it is provided. There are other types of Delete methods, but less used.
 
 \bigskip
-\textbf{Definition 5. }Atomic Compare-and-delete
+\textbf{Atomic Compare-and-delete Operation}
 
 As a variation to the Delete call, the user can use Check and Delete operation. It is defined as:
 
 \par
 \bigskip
-\centerline{\textit{checkAndDelete(byte[] row, byte[] family, byte[] qualifier, byte[] value, Delete delete)}}
+\centerline{\textit{checkAndDelete(byte[] row, byte[] family, byte[] qualifier, byte[] value, Del del)}}
 \bigskip
 
 It works as a Delete operation but adding a previous step in which a specify row key, column family, column qualifier and value are checked before deleting the desired row.
@@ -230,7 +228,7 @@ Users can only check and delete on the same row. If the row key differs from the
 Previous operations: Put, Delete and CheckAndDelete are executed in such a way that they guarantee row level atomicity. They are executed entirely. A row lock is provided by the corresponding Region Server, protecting the row from other users trying to access it. Not from users trying to read it, only for those submitting row mutations operations.
 
 \bigskip
-\textbf{Definition 6. }Scans
+\textbf{Scan Operation}
 
 Scan operation allows the user to scan a range of data, from one row to a determinate stop row, taking advantage of the underlying sequential storage layout HBase has. The scan returns every row between the chosen range of rows. This operation is not executed atomically, it can be partially executed. Hence, returned data can be outdated if there has been a write operation during the scan. 
 \par
@@ -269,7 +267,7 @@ HBase offers Partition Tolerance as it survives message loss due to server failu
 Regarding consistency, HBase does trade some availability to achieve a stronger level of consistency. After a write completes, the next read will see the lastest value because at any given time only one region server is responsible for that key.
 Availability is given up because if a region server dies, its data will be unavailable until another region server comes up and picks up the died regions.
 \par
-HBase is not an ACID compliant database, but it guarantees some ACID properties, such as atomicity within a single row but not across multiple rows, or strong consistency thanks to the design of regions only being hosted in one region server at any one time, which creates only one responsible for serving a given data and also thanks to the Multi-Version Concurrency Control (MVCC) \footnote{MVCC \cite{bernstein1983multiversion} is a solution that keeps a list of versions of each data item. From the point of view of the user, he or she will only see one data item, but from the system side, each update of the data item will correspond to a newer version number of the same data item. Thus there will be multiple versions stored, but only one is the latest.} used by HBase to manage concurrent access to the database (no locks are used as in old ACID SQL databases, instead timestamps \footnote{Timestamps, also called version numbers, are the MVCC data structures} offers all HBase needs to get all of ACID).
+HBase is not an ACID compliant database, but it guarantees some ACID properties, such as atomicity within a single row but not across multiple rows, or strong consistency thanks to the design of regions only being hosted in one region server at any one time, which creates only one responsible for serving a given data and also thanks to the Multi-Version Concurrency Control (MVCC) \footnote{MVCC \cite{bernstein1983multiversion} is a solution that keeps a list of versions of each data item. From the point of view of the user, he or she will only see one data item, but from the system side, each update of the data item will correspond to a newer version number of the same data item. Thus there will be multiple versions stored, but only one is the latest.} used by HBase to manage concurrent access to the database (no locks are used as in old ACID SQL databases, instead timestamps \footnote{Timestamps, also called version numbers, are the MVCC data structures} offers all HBase needs to get all of ACID). HAcid is a project developed by A. Medeiros which implements a system transaction for HBase. HAcid gets an ACID compliant HBase database version. In order to understand how ACID can be implemented in HBase refer to HAcid \cite{HAcid} .
 
 
 
