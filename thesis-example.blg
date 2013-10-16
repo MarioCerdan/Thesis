@@ -1,0 +1,56 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: thesis-example.aux
+The style file: acm.bst
+Database file #1: sources.bib
+Warning--I didn't find a database entry for "CAP"
+Warning--I didn't find a database entry for "ProbeCAP"
+Warning--can't use both volume and number fields in ananthanarayanan2010reining
+Warning--empty journal in awasthi2012hybrid
+Warning--empty journal in fan2009diskreduce
+Warning--can't use both volume and number fields in ghemawat2003google
+Warning--empty journal in heger2013hadoop
+Warning--empty journal in kangcase
+Warning--empty journal in samar2011scalable
+Warning--empty publisher in white2012hadoop
+You've used 96 entries,
+            2253 wiz_defined-function locations,
+            1006 strings with 17960 characters,
+and the built_in function-call counts, 27647 in all, are:
+= -- 2588
+> -- 1222
+< -- 0
++ -- 521
+- -- 412
+* -- 1785
+:= -- 4445
+add.period$ -- 278
+call.type$ -- 96
+change.case$ -- 490
+chr.to.int$ -- 0
+cite$ -- 104
+duplicate$ -- 1038
+empty$ -- 2436
+format.name$ -- 412
+if$ -- 5825
+int.to.chr$ -- 0
+int.to.str$ -- 96
+missing$ -- 53
+newline$ -- 471
+num.names$ -- 192
+pop$ -- 737
+preamble$ -- 1
+purify$ -- 397
+quote$ -- 0
+skip$ -- 773
+stack$ -- 0
+substring$ -- 1284
+swap$ -- 289
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 376
+warning$ -- 8
+while$ -- 271
+width$ -- 98
+write$ -- 949
+(There were 10 warnings)

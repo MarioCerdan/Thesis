@@ -1,0 +1,43 @@
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces AWS, GCP and Microsoft's Azure Services: the Cloud providers leaders}}{13}{figure.1.1}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Growth of data from the beginning of 2010 to 2020.}}{20}{figure.1.2}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces The CAP theorem.}}{26}{figure.2.1}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces CA, CP, AP real solutions.}}{26}{figure.2.2}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces The KeyValue format, extracted from HBase: The definitive guide \cite {george2011hbase}.}}{32}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces HBase architecture overview}}{33}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces HDFS overview}}{41}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces MapReduce workflow}}{43}{figure.3.4}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Import research workflow.}}{48}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces HBase one active Region Server.}}{54}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces HBase built-in Write Buffer.}}{56}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Elements per second processed.}}{57}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces SequenceFile File Layout.}}{59}{figure.5.5}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Total time to Import the dataset with different compression codecs.}}{62}{figure.5.6}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces HBase one single Region Server.}}{63}{figure.5.7}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Execution time to import the dataset with different number of pre-created regions.}}{64}{figure.5.8}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Uneven region server distribution.}}{65}{figure.5.9}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces 24 uneven regions.}}{66}{figure.5.10}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Total time to import data with and without using our Sampling Tool.}}{67}{figure.5.11}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Region distribution using our sampling tool.}}{68}{figure.5.12}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces HDFS block size setting.}}{69}{figure.5.13}
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Spilled records in reducer side.}}{70}{figure.5.14}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Random row keys reads.}}{73}{figure.6.1}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Random row keys Read with and without \textit {In-Memory}.}}{74}{figure.6.2}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Latency vs throughput comparison.}}{79}{figure.7.1}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Workload 50\% read 50\% update - Update.}}{80}{figure.7.2}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Workload 50\% read 50\%update - Read.}}{81}{figure.7.3}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Workload 95\% read 5\% - Read.}}{81}{figure.7.4}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Workload 95\% read 5\% - Update.}}{82}{figure.7.5}
+\addvspace {10\p@ }
+\addvspace {10\p@ }

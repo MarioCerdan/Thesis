@@ -1,5 +1,30 @@
 \chapter{Conclusions}
 \label{chapter:conclusions}
 
-Time to wrap it up
+In this chapter we discuss opportunities for improvement in Section 8.1 and review the work done for the final project in Section 8.2.
+
+\section{Future work}
+
+Dealing with data, no matter whether it is import or retrieval operation, has been carefully studied and discussed. Nonetheless, some improvements not tested arise here:
+\begin{itemize}
+\item Followed scheme design for our HBase table has proven to work well. However, we may consider a redesign of it. A schema with only one columnFamily would be beneficial as we would have a better control over the HBase behavior; easier manage of storeFiles, reads/block caches and similar opportunities derivated from having only one columnFamily. 
+\item Dataset has lot of duplicates elements. By now, we just import them, it does not matter whether they are already stored or not. Nonetheless, we could create a combiner class to get rid of duplicates in the mapper side. It would reduce the amount of IO operations between mappers and reducers and would reduce the total execution time of the job. The drawback would be that only one version of each element would be stored in the database.
+\item In HBase, it is possible for a client to read directly from disk instead of going through the DataNode. This action is called a \textit{short-circuit} read. Region servers read directly off the local node data disks instead of asking to the DataNode. This feature has been tested to work well, with little or no drawback, hence we could use it instead the default HBase built-in read behavior.
+\item Relationship between data disks and Hadoop / HBase ecosystems has been and continuous being the focus of a lot of research activity \cite{kangcase} \cite{fan2009diskreduce} \cite{awasthi2012hybrid}. Researcher Shrinivas B. Joshi points out the advantages of using more than one data disk in Hadoop workloads (achieved more than 50 \% performance improvement) \cite{joshi2012apache}. It is well-known Hadoop performance scales with the number of available data disks, however, we were not able to check it owing to our hardware boundaries, but it may be worth trying it out. 
+\end{itemize}
+
+
+\section{Discussion}
+
+In this final project we present methods related with scaling-out the data of a commercial company. In order to improve the performance we implement an HBase cluster, a Cloud-based datastore, along with solutions based on Big Data algorithms, such as MapReduce.
+\par
+This project evaluates the obtained performance from three different points of view: Firstly, the main problem of importing a really big dataset to a new Cloud-based datastore. Several approaches have been developed and carefully tested, uncovering its benefits and drawbacks in order to improve the obtained approach. Secondly,  the performance of reading random data in a write-optimized database like HBase. Once more, conceptual ideas have been developed and tested and the results have been exposed. Finally, the tuned HBase cluster has been benchmarked against a MySQL cluster similar to the one the company where the data comes from uses.
+\par
+We have been able to improve the default performance in every area. Importing data we have passed from an API client whose execution time is more than five hours to a MapReduce-based client which enables us to reduce the processing time to only nine minutes. There are lot of improvements behind these simple numbers, such as HDFS issues, skew data, compression, JVM issues, etc. As of retrieving random data, we have also improved default results by using concepts such as Bloom filters, HFile's block sizes or block caches. All obtained results have been studied and improved when possible.
+\par
+Setting aside the results, one main tool has been developed not only to fit the uneven data issue our dataset has, but also every MapReduce/HBase job suffering from skew data in the mapper outputs. In a brief way, it samples the whole dataset in a lightweightly way with a confident level defined by the user and returns the best split points which removes the uneven distribution of mappers output.  
+\par
+The conducted benchmarks shows how our tuned HBase cluster performances against a MySQL cluster. Three main scenarios are developed and the outcomes are discussed. HBase outperforms in writes and is really close to MySQL in random reads. It is worth to state we have improved the Yahoo! Cloud Benchmark Tool by developing some tools to overcome pitfalls already presented in its solution and thus letting us enhance HBase results (not hack them, but get closer results to real scenarios).
+\par
+We can conclude that we have achieved enough good results as to change the company datastore backend system to HBase.
 

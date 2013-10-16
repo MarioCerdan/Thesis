@@ -174,6 +174,8 @@
 % Longtable provides a tabular environment that can span multiple 
 % pages. This is used in the example acronyms file. 
 \usepackage{longtable}
+\usepackage{acronym}
+
 
 % The fancyhdr package allows you to set your the page headers 
 % manually, and allows you to add separator lines and so on. 
@@ -260,8 +262,8 @@
 % You can just fix the texts there. Just remember to check all the language
 % variants you use (they are all there in the same place). 
 % ------------------------------------------------------------------
-\newcommand{\TITLE}{Cloud-Based Data Stores:}
-\newcommand{\SUBTITLE}{Study and Benchmarks}
+\newcommand{\TITLE}{Scalability of a Cloud-Based Data Store:}
+\newcommand{\SUBTITLE}{Improving HBase performance}
 \newcommand{\DATE}{August 24, 2013}
 
 % Supervisors and instructors
@@ -272,13 +274,13 @@
 % ``twoinstructors'' to the aalto-thesis package so that the titles are in
 % plural.
 % Example of one supervisor:
-\newcommand{\SUPERVISOR}{Professor Keijo Heljanko}
+\newcommand{\SUPERVISOR}{Assoc. Prof. Keijo Heljanko}
 % Example of twosupervisors:
 %\newcommand{\SUPERVISOR}{Professor Keijo Heljanko}
 
 
 % If you have only one instructor, just write one name here
-\newcommand{\INSTRUCTOR}{Professor Keijo Heljanko}
+\newcommand{\INSTRUCTOR}{Assoc. Prof. Keijo Heljanko}
 % If you have two instructors, separate them with \\ to create linefeeds
 % \newcommand{\INSTRUCTOR}{Olli Ohjaaja M.Sc. (Tech.)\\
 %  Elli Opas M.Sc. (Tech)}
@@ -301,10 +303,10 @@
 
 % Other stuff
 % ------------------------------------------------------------------
-\newcommand{\PROFESSORSHIP}{Distributed Computation Group}
+\newcommand{\PROFESSORSHIP}{Computer Science and Engineering}
 % Professorship code is the same in all languages
 \newcommand{\PROFCODE}{T-110}
-\newcommand{\KEYWORDS}{cloud, datastore, HBase, Riak, Hadoop, Benchmarks}
+\newcommand{\KEYWORDS}{Cloud-based, datastore, NoSQL, HBase, Hadoop, MapReduce, CAP,  Skew Data, YCSB}
 \newcommand{\LANGUAGE}{English}
 
 % Author is the same for all languages
@@ -391,7 +393,12 @@
 % Abstract in English
 % ------------------------------------------------------------------
 \thesisabstract{english}{
-Todo pruebas para ver si se usar Latex, comandos tipo fixme y demas
+
+Cloud computing has opened doors to a new era of enterprises that harness the new Cloud enabled business. More and more novel applications are leveraging the Cloud Computing paradigm every day, which translates to a never seen increase in the amount of stored data. This phenomenon is commonly known as Big Data; the presence of rapidly expanding high-volume data sets. Many of these applications bring new challenges to databases and therefore the scalability of the Cloud-based databases has become a top-research issue of the Cloud Computing infrastructure. As an alternative to the well-known relational databases, NoSQL databases have born to fit Big Data application requirements. Traditional relational databases as they are often implemented are not sufficient anymore for lInternet scale distributed systems dealing with Big Data. Nevertheless, NoSQL databases have proved to be robust in Big Data applications.
+\par
+The purpose of this project is to scaling out the data of a company that produces software for wireless multimedia, which is currently implemented on MySQL cluster. In order to improve the performance of the computation, we proposes a solution using Apache HBase, a NoSQL database.
+\par
+This final project proposes implementations as well as comparison details of a number of computation techniques conducted in HBase along with different open-source distributed computing components like Hadoop HDFS and MapReduce, and presents benchmarks of our developed solution.
 
 %\fixme{Abstract text goes here (and this is an example how to use fixme).} 
 %Fixme is a command that helps you identify parts of your thesis that still
@@ -428,9 +435,13 @@ Todo pruebas para ver si se usar Latex, comandos tipo fixme y demas
 % show up in the TOC
 \chapter*{Acknowledgements}
 
-Thanks, thanks and more thanks.
+This work would not have been completed without help and support of many individuals. I would like to thank to my supervisor Keijo Heljanko for providing me an opportunity to conduct my thesis under his invaluable guidance and support over the course of it. 
+I am grateful to Aalto University for giving me the chance of finishing my studies in Finland and for the opportunity of using Triton cluster for this thesis. I would like also to thank to my roommates at Aalto: Bailo, Canellas and Guillermo for all the unforgettable moments we shared.
 
-Thank you, and keep up the good work!
+\bigskip
+
+This Thesis is dedicated to the three pillars of my life: my mother and her indefatigable support, my father and  his efforts of making me happy no matter what happens and to my brother Jorge because without him I would be lost. To my family, to whom I owe my life. Thanks.
+
 \vskip 10mm
 
 \noindent Espoo, \DATE
@@ -460,15 +471,15 @@ Thank you, and keep up the good work!
 % ------------------------------------------------------------------
 % You only need a list of tables for your thesis if you have very 
 % many tables. If you do, uncomment the following two lines.
-% \cleardoublepage
+ %\cleardoublepage
 % \listoftables
 
 % Table of figures
 % ------------------------------------------------------------------
 % You only need a list of figures for your thesis if you have very 
 % many figures. If you do, uncomment the following two lines.
-% \cleardoublepage
-% \listoffigures
+ \cleardoublepage
+ \listoffigures
 
 % The following label is used for counting the prelude pages
 \label{pages-prelude}
@@ -500,11 +511,11 @@ Thank you, and keep up the good work!
 
 \input{4method3.tex}
  
-\input{5implementation.tex}
+%\input{5implementation.tex}
 
-\input{6evaluation.tex}
+%\input{6evaluation.tex}
  
-\input{7discussion.tex}
+%\input{7discussion.tex}
  
 \input{8conclusions.tex}
 

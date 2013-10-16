@@ -1,0 +1,23 @@
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Example Hbase table given by \cite {ApacheHBaseDataModel}}}{32}{table.3.1}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces }}{45}{table.4.1}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces HBase MSLAB parameters.}}{51}{table.5.1}
+\contentsline {table}{\numberline {5.2}{\ignorespaces First solution: Results.}}{54}{table.5.2}
+\contentsline {table}{\numberline {5.3}{\ignorespaces MapReduce compression parameters}}{61}{table.5.3}
+\contentsline {table}{\numberline {5.4}{\ignorespaces HBase Compression formats}}{62}{table.5.4}
+\contentsline {table}{\numberline {5.5}{\ignorespaces Sampling time result.}}{67}{table.5.5}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces YCSB Workloads}}{79}{table.7.1}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {A.1}{\ignorespaces Our HBase table schema with a sample stored. Different timestamps due to updates.}}{97}{table.A.1}
