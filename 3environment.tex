@@ -1,7 +1,7 @@
 \chapter{Environment}
 \label{chapter:environment}
 
-In the next chapter we characterize the environment we has worked in. We describe the cluster used for testing, the software deployed and the dataset of our experiments.
+In this chapter we characterize the environment we have been working in. We describe the cluster used for testing, the software deployed, and the dataset of our experiments.
 
 \section{Triton}
 
@@ -55,11 +55,11 @@ MySQL \cite{MySQL} is chosen as the open source RDBMS to test against HBase. The
 
 \section{Yahoo! Cloud Serving Benchmark - YCSB}
 
-We use YCSB as our benchmark framework. YCSB\cite{cooper2010benchmarking} is a standard open-source benchmark tool developed by Yahoo! Labs, its aim is to provide a general framework for evaluating the performance of distributed key/value and cloud storage systems, such as HBase, Cassandra, and PNUTS. YCSB allows one to define different workload scenarios by mixing reads, writes, updates and table scans, and then measures the performance of the system on a particular workload. As of July 2013, YCSB latest version is YCSB 0.1.4.
+We use YCSB as our benchmark framework. YCSB\cite{cooper2010benchmarking} is a standard open-source benchmarking tool developed by Yahoo! Labs, its aim is to provide a general framework for evaluating the performance of distributed key/value and cloud storage systems, such as HBase, Cassandra, and PNUTS. YCSB allows one to define different workload scenarios by mixing reads, writes, updates and table scans, and then measures the performance of the system on a particular workload. As of July 2013, the latest version of YCSB is 0.1.4.
 
 \section{Introducing our Dataset}
 
-Our dataset is composed of thousands of XML files (more than 106GB of data) whose sizes vary from just a few KBs to dozens of MBs. Each of them is composed in turn of a list of elements wrapped between <element></element> tags. Every element is constituted of at least 15 sub-elements which are either integers or strings, or the start point to another sub-list of N sub-elements. While the total size of the XML is known, the amount of elements within each document is unknown due to the unfixed size of the XML files. The same situation happens with the size of each element where its number of sub-elements is unfixed as well as the length of each one (one can be a string sentence really long while other an integer). 
+Our dataset is composed of thousands of XML files (more than 106GB of data) whose sizes vary from just a few KBs to dozens of MBs. Each of them is composed in turn of a list of elements wrapped between \textless element\textgreater\textless /element\textgreater tags. Every element is constituted of at least 15 sub-elements which are either integers or strings, or the start point to another sub-list of N sub-elements. While the total size of the XML is known, the amount of elements within each document is unknown due to the unfixed size of the XML files. The same situation happens with the size of each element where its number of sub-elements is unfixed as well as the length of each one (one can be a string sentence really long while other an integer). 
 \par
 A conceptual example of one of our XML files is shown below \footnote{For the sake of simplicity, only a basic form of a real XML is depicted.}.
 
@@ -91,20 +91,18 @@ A real XML sample can be found in the Appendix 1. It is useful in order to under
 
 \subsection{HBase storage schema design}
 
-In the following chapters we will work with HBase as our datastore. For which reason, we have designed an HBase storage schema that is able to map our XML data previously depicted to our HBase database. 
+In the following chapters we will work with HBase as our datastore. For this reason, we have designed an HBase storage schema that is able to map our XML data previously depicted to our HBase database. 
 
 \par
 The sparse nature of HBase tables (not all columns populated in a row) makes them an interesting storage substitute for our XML dataset, in which elements can have different number of items, or even different items.
 
 \par
-It is worth to state that this schema is based on our main data access pattern in order to support efficient performance when updating and retrieving data from it; our row key is the \textit{Uid} tag \footnote{Uid and other real name's elements included in the Appendix 1 -  XML sample instance} since most of the request we will have to cope with will be row key-based requests. Nonetheless, there could be retrievals of some other nature, but they will only represent a low percent of the total requests.
+It is worth to state that this schema is based on our main data access pattern in order to support efficient performance when updating and retrieving data from it; our row key is the \textit{Uid} tag \footnote{Uid and other real name's elements included in the Appendix 1 -  XML sample instance.} since most of the request we will have to cope with will be row key-based requests. Nonetheless, there could be retrievals of some other nature, but they will only represent a low percent of the total requests.
 \bigskip
 
-In the Appendix 2, we show the followed Hbase storage schema design. The reader will be able to see how the previous XML video data maps into our Hbase database: Our row key is the \textit{uid} of the video. There are 4 column families: \textit{main}, \textit{genre}, \textit{tag} and \textit{resource}. Each column family contains many column qualifiers.
+In the Appendix 2, we show the followed HBase storage schema design. The reader will be able to see how the previous XML video data maps into our HBase database: Our row key is the \textit{uid} of the video. There are 4 column families: \textit{main}, \textit{genre}, \textit{tag} and \textit{resource}. Each column family contains many column qualifiers.
 \par
 By convention, a column name is made of its column family prefix and a qualifier (Ex. main:description). The colon character delimits both columns.
-
-\section{Our dataset}
 
 
 

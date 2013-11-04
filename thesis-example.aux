@@ -112,7 +112,7 @@
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \newlabel{chapter:background}{{2}{23}{Background\relax }{chapter.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.1}Datastores: from SQL to NoSQL systems}{23}{section.2.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Datastores: From SQL to NoSQL systems}{23}{section.2.1}}
 \citation{Strozzi}
 \citation{ComputerworldNoSQL}
 \citation{MySQL}
@@ -136,9 +136,9 @@
 \citation{cooper2008pnuts}
 \citation{ApacheHBase}
 \citation{cattell2011scalable}
+\citation{padhy2011rdbms}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1.2}Key features of NoSQL Datastores}{28}{subsection.2.1.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1.3}Types of NoSQL Datastores}{28}{subsection.2.1.3}}
-\citation{padhy2011rdbms}
 \citation{ApacheHBase}
 \citation{HyperTable}
 \citation{ApacheAccumulo}
@@ -209,12 +209,12 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Import research workflow.}}{48}{figure.5.1}}
 \newlabel{fig:approaches}{{5.1}{48}{Import research workflow}{figure.5.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.1}HBase cluster at a glance}{49}{section.5.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}HBase: tunning parameters for a write-heavy cluster}{49}{section.5.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}HBase: Tuning parameters for a write-heavy cluster}{49}{section.5.2}}
 \citation{ApacheHBaseMSLAB}
 \citation{MSLAB}
 \citation{MSLABexplained}
 \citation{ApacheHBaseLogs}
-\newlabel{HBase MSLAB parameters.}{{1b}{50}{HBase: tunning parameters for a write-heavy cluster\relax }{Item.38}{}}
+\newlabel{HBase MSLAB parameters.}{{1b}{50}{HBase: Tuning parameters for a write-heavy cluster\relax }{Item.38}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces HBase MSLAB parameters.}}{50}{table.5.1}}
 \citation{jiang2012hbase}
 \citation{MemstoreSematext}
@@ -232,57 +232,56 @@
 \citation{cheng2013key}
 \citation{aiyer2012storage}
 \citation{ApacheHBaseCompression}
+\citation{HBase5728}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces HBase built-in Write Buffer.}}{56}{figure.5.3}}
 \newlabel{fig:putsRegionServer}{{5.3}{56}{HBase built-in Write Buffer}{figure.5.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1.1}Second version: An HBase client without AutoFlush}{56}{subsubsection.5.3.1.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Second approach: A multithread HBase client}{56}{subsection.5.3.2}}
-\citation{HBase5728}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces Elements per second processed.}}{57}{figure.5.4}}
 \newlabel{fig:threadsworking}{{5.4}{57}{Elements per second processed}{figure.5.4}{}}
 \citation{ApacheHBaseBulkLoad}
 \citation{liu2009implementing}
+\citation{ApacheHadoopSequenceFile}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Third approach: Using MapReduce algorithm}{58}{subsection.5.3.3}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3.1}Building the solution}{58}{subsubsection.5.3.3.1}}
 \@writefile{toc}{\contentsline {paragraph}{\numberline {5.3.3.1.1}The Small Files problem \cite  {liu2009implementing}:}{58}{paragraph.5.3.3.1.1}}
-\citation{ApacheHadoopSequenceFile}
 \citation{SmallFiles}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces SequenceFile File Layout.}}{59}{figure.5.5}}
 \newlabel{fig:sequencefile}{{5.5}{59}{SequenceFile File Layout}{figure.5.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3.2}Third approach second version: Compression}{60}{subsubsection.5.3.3.2}}
-\newlabel{}{{5.3.3.2}{60}{Third approach second version: Compression\relax }{subsubsection.5.3.3.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces MapReduce compression parameters}}{60}{table.5.3}}
 \citation{GZip}
 \citation{oberhumer2005lzo}
 \citation{Snappy}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3.2}Third approach second version: Compression}{60}{subsubsection.5.3.3.2}}
+\newlabel{}{{5.3.3.2}{60}{Third approach second version: Compression\relax }{subsubsection.5.3.3.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces MapReduce compression parameters}}{60}{table.5.3}}
 \citation{CompressionHadoop}
 \citation{CompressionComparison}
 \newlabel{}{{5.3.3.2}{61}{Third approach second version: Compression\relax }{table.5.3}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {5.4}{\ignorespaces HBase Compression formats}}{61}{table.5.4}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3.3}Third approach third version: Pre-creating regions}{61}{subsubsection.5.3.3.3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces Total time to Import the dataset with different compression codecs.}}{62}{figure.5.6}}
-\newlabel{fig:codecs}{{5.6}{62}{Total time to Import the dataset with different compression codecs}{figure.5.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces Total time to Import the dataset with different compression codecs.}}{61}{figure.5.6}}
+\newlabel{fig:codecs}{{5.6}{61}{Total time to Import the dataset with different compression codecs}{figure.5.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3.3}Third approach third version: Pre-creating regions}{62}{subsubsection.5.3.3.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces HBase one single Region Server.}}{62}{figure.5.7}}
+\newlabel{fig:oneRegion}{{5.7}{62}{HBase one single Region Server}{figure.5.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces Execution time to import the dataset with different number of pre-created regions.}}{63}{figure.5.8}}
+\newlabel{fig:regions}{{5.8}{63}{Execution time to import the dataset with different number of pre-created regions}{figure.5.8}{}}
 \citation{ananthanarayanan2010reining}
 \citation{dean2008mapreduce}
 \citation{walton1991taxonomy}
 \citation{dean2008mapreduce}
 \citation{kwon2013managing}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces HBase one single Region Server.}}{63}{figure.5.7}}
-\newlabel{fig:oneRegion}{{5.7}{63}{HBase one single Region Server}{figure.5.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}Fourth approach:Skew data}{63}{subsection.5.3.4}}
 \citation{kwon2012skewtune}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces Execution time to import the dataset with different number of pre-created regions.}}{64}{figure.5.8}}
-\newlabel{fig:regions}{{5.8}{64}{Execution time to import the dataset with different number of pre-created regions}{figure.5.8}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces Uneven region server distribution.}}{65}{figure.5.9}}
-\newlabel{fig:regionDistribution}{{5.9}{65}{Uneven region server distribution}{figure.5.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces Uneven region server distribution.}}{64}{figure.5.9}}
+\newlabel{fig:regionDistribution}{{5.9}{64}{Uneven region server distribution}{figure.5.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}Fourth approach:Skew data}{64}{subsection.5.3.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.10}{\ignorespaces 24 uneven regions.}}{65}{figure.5.10}}
+\newlabel{fig:24evenRegions}{{5.10}{65}{24 uneven regions}{figure.5.10}{}}
 \citation{babu2010towards}
 \citation{heger2013hadoop}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.10}{\ignorespaces 24 uneven regions.}}{66}{figure.5.10}}
-\newlabel{fig:24evenRegions}{{5.10}{66}{24 uneven regions}{figure.5.10}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {5.5}{\ignorespaces Sampling time result.}}{66}{table.5.5}}
 \newlabel{Results}{{5.3.4}{66}{Fourth approach:Skew data\relax }{table.5.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Performance Tunning Hadoop}{66}{section.5.4}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.11}{\ignorespaces Total time to import data with and without using our Sampling Tool.}}{67}{figure.5.11}}
 \newlabel{fig:regionDistribution3}{{5.11}{67}{Total time to import data with and without using our Sampling Tool}{figure.5.11}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Performance Tunning Hadoop}{67}{section.5.4}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.12}{\ignorespaces Region distribution using our sampling tool.}}{68}{figure.5.12}}
 \newlabel{fig:regionDistribution2}{{5.12}{68}{Region distribution using our sampling tool}{figure.5.12}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.13}{\ignorespaces HDFS block size setting.}}{69}{figure.5.13}}

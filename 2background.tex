@@ -2,7 +2,7 @@
 \label{chapter:background} 
 
 
-\section{Datastores: from SQL to NoSQL systems}
+\section{Datastores:  From SQL to NoSQL systems}
 
 A \textit{database} is an organized collection of data items, which are records of some real world information \cite{gray1993transaction}. Databases have always been extremely important in our society, from time ago with non-digital databases to nowadays with digital ones. They are a ubiquitous part of today's computing environment. 
 \par
@@ -64,7 +64,7 @@ As a brief summary, we can settle that traditional RDBMSes take Consistency and 
 \item BASE: 
 ACID (Atomicity, Consistency, Isolation and Durability) datastores (traditional RDBMSes) are less powerful for distributed systems as they focus on strong consistency for transactions setting aside availability. Thus, it brings up a new softer consistency model widely adopted between most of the NoSQL datastores, which is: BASE \cite{pritchett2008base}, an acronym for Basically Available Soft-state services with Eventual-consistency. Basically available means partition failed could be supported, soft state indicates that the system could be non-synchronous sometimes and eventual-consistent implies that the data should be consistent after a reasonable time span. BASE can be seen as the opposite to ACID, while ACID requires the strongest consistency, BASE accepts eventually consistency, achieves availability and leads to levels of scalability that can not be obtained by any other way.
 
-\fixme{figura del marcador de firefox, el qe sale ejes x e y, y como acid o base y manchas verdes.}
+%\fixme{figura del marcador de firefox, el qe sale ejes x e y, y como acid o base y manchas verdes.}
 
 \item Consistency:
 \textit{Consistency} is a datastore feature that has brought lot of controversy. As we have stated before, in the domain of Cloud datastores, trade-offs between consistency and availability (also referred to as latency in new CAP studies \cite{abadi2012consistency}) have been studied and done \cite{brewer2012cap} \cite{gilbert2012perspectives}. Consistency is divided in two sides: the client-side and the server-side. Client-side consistency refers to how and when users see updates made to an object in the storage system. There are three types, which are \cite{vogels2009eventually}:
@@ -112,7 +112,7 @@ According to the approach outlined by Rabi Prasad Padhy in a 2011 International 
 \begin{itemize}
 \item Key/value stores: Data is stored as key-value pairs; key is used as an index to find its value. These datastores can hold structured and unstructured data. Query operations are limited as the internal structure of data is not known. Some examples are Amazon's SimpleDB, Riak, Redis, Azure, GT.m, MemcachedDB and Voldemort.
 \item Column-oriented Databases: Instead of sets of data in a structured table of columns and rows as in relational databases, Column-oriented databases contain one extendable column of related data. Examples of ColumnFamily databases are Google BigTable, Cassandra, HBase, HyperTable and OpenNeptune.
-\item Document-based stores: These systems store indexed documents, as just defined. Documents hold data in a standard format such as JavaScript Object Notation (JSON). Users can add whatever they need to a document. The elements of a document can be arbitrarily complex and can be queried. Document databases are Apache CouchDB, MongoDB and Raven.
+\item Document-based stores: Systems store indexed documents, as just defined. Documents hold data in a standard format such as JavaScript Object Notation (JSON). Users can add whatever they need to a document. The elements of a document can be arbitrarily complex and can be queried. Document databases are Apache CouchDB, MongoDB and Raven.
 \end{itemize}
 
 

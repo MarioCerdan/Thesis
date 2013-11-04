@@ -21,11 +21,11 @@
 \contentsline {figure}{\numberline {5.3}{\ignorespaces HBase built-in Write Buffer.}}{56}{figure.5.3}
 \contentsline {figure}{\numberline {5.4}{\ignorespaces Elements per second processed.}}{57}{figure.5.4}
 \contentsline {figure}{\numberline {5.5}{\ignorespaces SequenceFile File Layout.}}{59}{figure.5.5}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Total time to Import the dataset with different compression codecs.}}{62}{figure.5.6}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces HBase one single Region Server.}}{63}{figure.5.7}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Execution time to import the dataset with different number of pre-created regions.}}{64}{figure.5.8}
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Uneven region server distribution.}}{65}{figure.5.9}
-\contentsline {figure}{\numberline {5.10}{\ignorespaces 24 uneven regions.}}{66}{figure.5.10}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Total time to Import the dataset with different compression codecs.}}{61}{figure.5.6}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces HBase one single Region Server.}}{62}{figure.5.7}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Execution time to import the dataset with different number of pre-created regions.}}{63}{figure.5.8}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Uneven region server distribution.}}{64}{figure.5.9}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces 24 uneven regions.}}{65}{figure.5.10}
 \contentsline {figure}{\numberline {5.11}{\ignorespaces Total time to import data with and without using our Sampling Tool.}}{67}{figure.5.11}
 \contentsline {figure}{\numberline {5.12}{\ignorespaces Region distribution using our sampling tool.}}{68}{figure.5.12}
 \contentsline {figure}{\numberline {5.13}{\ignorespaces HDFS block size setting.}}{69}{figure.5.13}

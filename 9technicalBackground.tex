@@ -305,9 +305,9 @@ The MapReduce model fits with many large-scale data problems and can be efficien
 
 % for a more non-technical view, go to the introduction 1.
 
-Hadoop MapReduce \cite{ApacheHadoop} \cite{white2012hadoop} is the popular Apache open-source Java implementation of the MapReduce model. It is always used with HDFS as the underlying file system. Hadoop MapReduce consists of a single master node called JobTracker and worker nodes called TaskTrackers. When using HDFS with Hadoop MapReduce, TaskTrackers live on the same nodes where HDFS DataNodes live.
+Hadoop MapReduce \cite{ApacheHadoop} \cite{white2012hadoop} is the popular Apache open-source Java implementation of the MapReduce model. It is usually used with HDFS as the underlying file system. Hadoop MapReduce consists of a single master node called JobTracker and worker nodes called TaskTrackers. When using HDFS with Hadoop MapReduce, TaskTrackers live on the same nodes where HDFS DataNodes live.
 \par
-When a Hadoop MapReduce is submitted, it is divided into map tasks, also known as mappers, and reduce tasks, also called reducers. Each task is executed on a available slot in a worker node. Each worker can handle a fixed number of either mappers or reducers.
+When a Hadoop MapReduce job is submitted, it is divided into map tasks, also known as mappers, and reduce tasks, also called reducers. Each task is executed on a available task slot in a worker node. Each worker can handle a fixed number of either mappers or reducers.
 \par
 The number of mappers is determined by the number of data blocks as each map task processes a block of input data. Each data block should be as close to the map task as possible, so data locality can be exploited and the amount of IO reduced. On the other hand, the number of reduce tasks is specified by the application.
 
@@ -318,7 +318,7 @@ The number of mappers is determined by the number of data blocks as each map tas
 \end{figure}
 
 
-Mappers start processing its associated data block and emit key/value pairs. Each mapper output is allocated to a particular reducer by the application's partition function; pairs with the same key are sent to the same reducer. Between the map and reducer stages, the intermediate data is shuffled in order to move it from map nodes to its reduce nodes. This shuffle phase is started as soon as mappers produce pairs. After all mappers Finnish and shuffle phase completes, reducers move into the reduce phase, where the reduce function is applied to the intermediate data and the final output is written.
+Mappers start processing its associated data block and emit key/value pairs. Each mapper output is allocated to a particular reducer by the application's partition function; pairs with the same key are sent to the same reducer. Between the map and reduce stages, the intermediate data is shuffled in order to move it from map nodes to its reduce nodes. This shuffle phase is started as soon as mappers produce pairs. After all mappers finish and shuffle phase completes, reducers move into the reduce phase, where the reduce function is applied to the intermediate data and the final output is written.
 \par
 
 
