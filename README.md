@@ -1,6 +1,10 @@
 Thesis
 ======
 
+Thesis-example.pdf is the PDF. 
+======
+
+
 Mario´s Master Thesis
 
 Scalability of a Cloud-Based Data Store: Improving HBase performance
@@ -16,5 +20,3 @@ The purpose of this thesis is to scaling out the data of a San Diego company tha
 This master thesis proposes implementations as well as comparison details of a number of computation techniques conducted in HBase along with different open-source distributed computing components like Hadoop HDFS and MapReduce, and presents benchmarks of our developed solution.
 
 
-Not final version - 50% reviewed - Thesis-example.pdf is the PDF. 
-======
