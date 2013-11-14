@@ -159,7 +159,7 @@ CloudBees \cite{CloudBees}
 offers a Java-based PaaS to host, run and manage Java applications. It is one of the first PaaS aimed mainly at the Java developer. CloudBees supports any JVM-based programming language or framework. Jenkins Continous Integration (CI) tool is included in the CloudBees PaaS. It supports developers through the whole application life cycle directly in the cloud from Github. The CloudBees service provides middleware on top of some public cloud, such as Amazon Web Services, OpenStack and VMware vSphere though customers can also run the service on private cloud infrastructure.
 
 \subsection{SaaS}
-Software as a Service layer also strikes strongly in the Cloud race. SaaS represented 25\% of total cloud revenue in 2012 and it is expected to follow growing in the following years \cite{aslett2013451}. In the next paragraphs, we highlight two successful SaaS companies without forgetting Google SaaS products Google Apps and Windows SaaS offerings previously described.
+Software as a Service layer also strikes strongly in the Cloud race. SaaS represented 25\% of total cloud revenue in 2012 and it is expected to follow growing in the following years \cite{aslett2013451}. In the next paragraphs, we highlight three successful SaaS companies without forgetting Google SaaS products Google Apps and Windows SaaS offerings previously described.
 \par
 Talking about successful SaaS solutions, we always find Dropbox \cite{Dropbox}. Dropbox is a SaaS solution developed by Dropbox Inc., and launched on September 2008, that offers cloud storage and file synchronization to users. Dropbox uses Amazon S3 to store all files. 
 In the released fact sheet of March 2012 \footnote{Dropbox {F}act {S}heet - \url{https://www.dropbox.com/static/docs/DropboxFactSheet.pdf}}, Dropbox stated that they had over 50 million users, and nine months later, in November 2012, Dropbox announced that they had over 100 million users \footnote{Dropbox {T}hanks a (hundred) million - \url{https://blog.dropbox.com/2012/11/thanks-a-hundred-million/}}.
@@ -167,6 +167,8 @@ In the released fact sheet of March 2012 \footnote{Dropbox {F}act {S}heet - \url
 Another notable SaaS is Salesforce.com \cite{Salesforce.com}, which is one of the most popular SaaS Customer Relationship Management (CRM) platform. It offers on-demand CRM services for all kind of organizations. Salesforce.com presents two major products. Sales Cloud is a set of applications to manage sales, customers and other business activities more easily and efficiently; and Service Cloud, which provides organizations with a community help-desk.
 \par
 Unlike Dropbox or many other SaaS solutions, Salesforce.com is built on its own infrastructure: Force.com \cite{Force.com}, which is the Salesforce.com's PaaS product.
+\par
+Talking about successful SaaS solutions, we have to talk about photo Cloud-storage. Nowadays, photo storage has become one of the most consumed SaaS solutions around the world. In this field, Flickr is one of the leading solutions. Flickr is an image and video hosting developed by Ludicorp in 2004 and adquired by Yahoo in 2005. According to a Verge article \footnote{Verge report \url{http://www.theverge.com/2013/3/20/4121574/flickr-chief-markus-spiering-talks-photos-and-marissa-mayer}}, in March 2013 Flickr reached 87 million members and more than 3.5 million new images per day. It is written in PHP and use MySQL sharded cluster as it storage system.
 
 
 \section{Big Data}
@@ -193,10 +195,9 @@ The field of distributed systems for Cloud Computing continued expanding, and as
 \par
 As a response to BigTable we find Apache HBase \cite{ApacheHBase}, which is an open source project, modeled after Google's BigTable and written in Java. Developed as part of Apache Software Foundation's Apache Hadoop project, it became an Apache top-level project on 2010. Hbase uses HDFS as the underlying storage system for the created tables and the Apache ZooKeeper as a distributed coordination service, similar to the use of Chubby \cite{burrows2006chubby} in BigTable. Hbase features are similar to BigTable features; its implementation is very close to BigTable implementation with same properties. Main differences lie in implementation details. For example, how the memory is mapped or how the Garbage Collector works \cite {samar2011scalable}.
 \par
-HBase, BigTable and many others Cloud data stores are included in the group of so-called NoSQL databases \cite{NoSQLdatabases}. All of them are distributed storage systems mainly designed to offer a really good performance when dealing with Big Data, contrary to what traditional SQL databases do. 
+HBase, BigTable and many others Cloud data stores are included in the group of so-called NoSQL databases \footnote{List of NoSQL databases - \url{http://nosql-database.org/} }. All of them are distributed storage systems mainly designed to offer a really good performance when dealing with Big Data, contrary to what traditional SQL databases do. 
 
 \bigskip
-\fixme{This thesis is structured as follows. In the next chapter, we present background knowdledge of ...... In chapter 3, we describe experiments....}
-\bigskip
 
+This thesis is structured as follows. In the next Chapter we present background knowdledge of Cloud-based data stores and more in detail HBase data store. In Chapter 4 we characterize the environment we have been working in. We describe the cluster used for testing , the software deployed, and the dataset of our experiments. In Chapter 5 we discuss about the steps taken to import our dataset into a fully tuned HBase cluster and compare obtained results. In Chapter 6 we discuss about data retrieval in our HBase cluster and show the outcomes. In Chapter 7 we compare our HBase cluster against a MySQL cluster and the results are commented. Finally, in Chapter 8 we discuss about opportunities for improvement and review the work done for the Final Project.
 

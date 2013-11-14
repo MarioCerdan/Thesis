@@ -14,7 +14,7 @@
 \contentsline {subsection}{\numberline {1.2.1}IaaS}{18}{subsection.1.2.1}
 \contentsline {subsection}{\numberline {1.2.2}PaaS}{18}{subsection.1.2.2}
 \contentsline {subsection}{\numberline {1.2.3}SaaS}{19}{subsection.1.2.3}
-\contentsline {section}{\numberline {1.3}Big Data}{19}{section.1.3}
+\contentsline {section}{\numberline {1.3}Big Data}{20}{section.1.3}
 \contentsline {chapter}{\numberline {2}Background}{23}{chapter.2}
 \contentsline {section}{\numberline {2.1}Datastores: From SQL to NoSQL systems}{23}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}The basic principles of NoSQL}{25}{subsection.2.1.1}
@@ -51,19 +51,19 @@
 \contentsline {section}{\numberline {5.3}The import experiment}{53}{section.5.3}
 \contentsline {subsection}{\numberline {5.3.1}First approach: An HBase client}{53}{subsection.5.3.1}
 \contentsline {subsection}{\numberline {5.3.2}Second approach: A multithread HBase client}{56}{subsection.5.3.2}
-\contentsline {subsection}{\numberline {5.3.3}Third approach: Using MapReduce algorithm}{58}{subsection.5.3.3}
+\contentsline {subsection}{\numberline {5.3.3}Third approach: Using the MapReduce algorithm}{58}{subsection.5.3.3}
 \contentsline {subsubsection}{\numberline {5.3.3.1}Building the solution}{58}{subsubsection.5.3.3.1}
 \contentsline {paragraph}{\numberline {5.3.3.1.1}The Small Files problem \cite {liu2009implementing}:}{58}{paragraph.5.3.3.1.1}
 \contentsline {subsubsection}{\numberline {5.3.3.2}Third approach second version: Compression}{60}{subsubsection.5.3.3.2}
 \contentsline {subsubsection}{\numberline {5.3.3.3}Third approach third version: Pre-creating regions}{62}{subsubsection.5.3.3.3}
-\contentsline {subsection}{\numberline {5.3.4}Fourth approach:Skew data}{64}{subsection.5.3.4}
-\contentsline {section}{\numberline {5.4}Performance Tunning Hadoop}{66}{section.5.4}
+\contentsline {subsection}{\numberline {5.3.4}Fourth approach: Coping with skewed data}{64}{subsection.5.3.4}
+\contentsline {section}{\numberline {5.4}Performance Tuning Hadoop}{66}{section.5.4}
 \contentsline {chapter}{\numberline {6}Design and Implementation - Retrieval}{71}{chapter.6}
-\contentsline {section}{\numberline {6.1}Random Reads in HBase}{71}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}Random Reads in our heavy-write cluster}{71}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.1}Random reads in HBase}{71}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Random reads in our heavy-write cluster}{71}{subsection.6.1.1}
 \contentsline {subsection}{\numberline {6.1.2}Studying random read performance}{72}{subsection.6.1.2}
 \contentsline {subsection}{\numberline {6.1.3}Proceding with random read}{73}{subsection.6.1.3}
-\contentsline {chapter}{\numberline {7}Design and Implementation - Benchmark}{77}{chapter.7}
+\contentsline {chapter}{\numberline {7}Design and Implementation - Benchmarking}{77}{chapter.7}
 \contentsline {section}{\numberline {7.1}Benchmarking: HBase vs MySQL}{77}{section.7.1}
 \contentsline {subsection}{\numberline {7.1.1}Load phase}{78}{subsection.7.1.1}
 \contentsline {subsection}{\numberline {7.1.2}Reads mixed with Updates}{79}{subsection.7.1.2}
@@ -71,6 +71,3 @@
 \contentsline {chapter}{\numberline {8}Conclusions}{83}{chapter.8}
 \contentsline {section}{\numberline {8.1}Future work}{83}{section.8.1}
 \contentsline {section}{\numberline {8.2}Discussion}{84}{section.8.2}
-\contentsline {chapter}{\numberline {A}First appendix}{94}{appendix.A}
-\contentsline {section}{\numberline {A.1}XML video file}{94}{section.A.1}
-\contentsline {section}{\numberline {A.2}Hbase storage schema design}{96}{section.A.2}

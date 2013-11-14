@@ -36,8 +36,7 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {7.1}{\ignorespaces Latency vs throughput comparison.}}{79}{figure.7.1}
 \contentsline {figure}{\numberline {7.2}{\ignorespaces Workload 50\% read 50\% update - Update.}}{80}{figure.7.2}
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Workload 50\% read 50\%update - Read.}}{81}{figure.7.3}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Workload 50\% read 50\% update - Read.}}{81}{figure.7.3}
 \contentsline {figure}{\numberline {7.4}{\ignorespaces Workload 95\% read 5\% - Read.}}{81}{figure.7.4}
 \contentsline {figure}{\numberline {7.5}{\ignorespaces Workload 95\% read 5\% - Update.}}{82}{figure.7.5}
-\addvspace {10\p@ }
 \addvspace {10\p@ }

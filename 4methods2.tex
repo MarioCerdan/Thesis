@@ -1,17 +1,17 @@
 \chapter{Design and Implementation - Retrieval}
 \label{chapter:Design and Implementation - Retrieval}
 
-\section{Random Reads in HBase}
+\section{Random reads in HBase}
 
 Unlike some Cloud-based databases which are optimized for random reads like PNUTS, HBase is write-optimized by using on-disk structure that can be maintained using sequential IO. Its records are never overwritten, instead, updates are written sequentially to new files in disk. That means that multiple updates of the same record will be spread over many files, so when reading it, multiple IO operations will be needed to merge the separate updates. On the other hand, as we already explained, all writing is sequential, so HBase excels at writing and consequently, in scans, which are sequential reads. This is a simple trade-off between optimizing for reads and optimizing for writes.
 
-\subsection{Random Reads in our heavy-write cluster}
+\subsection{Random reads in our heavy-write cluster}
 
-In this section we test random reads for our HBase fully write-optimized cluster. In HBase, there is no big room for improving random reads, but still some little hacking can be done to achieve a better random read performance than the default one.
+In this section we test random reads for our HBase fully write-optimized cluster. In HBase, there is no big room for improving random reads, but still some improvements can be done to achieve a better random read performance than the default one.
 \par
 Before starting, we must describe how our reads are going to be, whether they will request an entire row, that will be the darkest room for enhancing it, or they will ask for a little part, better scenario as HBase stores familyColumns in separated files and only a few will be required in order to return the result. 
 \par
-The use case we performance is fetching 1, 10, 25, 50 or more random video details at once. The row keys of these random elements are known before hand, so we only have to look for them and retrieve its details. In these reads, not all data is requested, but instead just the main data, which is within the first ColumnFamily (CF1).                  
+The use case we performance is fetching 1, 10, 25, 50 or more random video details at once. The row keys of these random elements are known beforehand, so we only have to look for them and retrieve its details. In these reads, not all data is requested, but instead just the main data, which is within the first ColumnFamily (CF1).                  
 
 \subsection{Studying random read performance}
 
@@ -19,7 +19,7 @@ Now that we have characterized reads, lets study a bit how we can enhance them.
 \par
 First of all, the number of requested rows is really low if we compare with the total number of rows our data has, almost 45 millions counting duplicated ones. So we discard the idea of creating a \textit{Scan} object (previously described in HBase background chapter) instead of \textit{Gets} objects, since it will be helpful if we were requesting a high number of rows or if the keys would cover a small key range, but the row keys we are looking for do not represent it and above all, they are not sequential ones, so they are not even in the same region. Therefore, using \textit{Scan} would not help. 
 \par
-About whether to use Gets or Scan methods, Lars George, an authorized HBase voice, quantifies it specifying when it worths using one or the other. Its studies demonstrate that translating many \textit{Gets} into a \textit{Scan+Filter} is beneficial if the \textit{Scan} would return at least 1\%-2\% of the total rows to the client \footnote{ L. George Scan or Get study - http://permalink.gmane.org/gmane.comp.java.hadoop.hbase.user/33133}. In our particular case, in which we seek for a maximum of 50 rows, it only represents 0.00064\% of the total rows without the duplicates, so using \textit{Gets} will be likely more efficient.
+About whether to use Gets or Scan methods, Lars George, an authorized HBase voice, quantifies it specifying when it worths using one or the other. Its studies demonstrate that translating many \textit{Gets} into a \textit{Scan+Filter} is beneficial if the \textit{Scan} would return at least 1\%-2\% of the total rows to the client \footnote{ L. George Scan or Get study \newline \url{http://permalink.gmane.org/gmane.comp.java.hadoop.hbase.user/33133}}. In our particular case, in which we seek for a maximum of 50 rows, it only represents 0.00064\% of the total rows without the duplicates, so using \textit{Gets} will be likely more efficient.
 \par
 Another keypoint to keep in mind is that since the desired row keys are totally random, some times our lookups can be accesing most of the regions and others just hitting the same region. But this last thought is something we can not avoid, it depends upon the nature of the chosen row keys.
 \par
@@ -30,7 +30,7 @@ An additional improvement we can make is batching \textit{Gets} objects, instead
 This method could be optimized by changing it to a multi-threading behavior. Instead of going one by one region server, it could sort the requests by region server as before, and then could spin up as many threads as targeted region servers, but it does not worth for our little multi-get operation.
 %\cite{http://comments.gmane.org/gmane.comp.java.hadoop.hbase.user/34417}.
 \par
-Using Hbase table as the source for a MapReduce job is discarded due to the little number of requested keys per examination. But of course it is another type of reading that HBase supports, which is incredibly useful in many situations. 
+Using HBase table as the source for a MapReduce job is discarded due to the little number of requested keys per examination. But of course it is another type of reading that HBase supports, which is incredibly useful in many situations. 
 
 
 \subsection{Proceding with random read}
@@ -53,7 +53,7 @@ Figure 6.1 reproduces the obtained results. Although they are not too bad, we ca
 \begin{itemize}
 \item Configuring block cache:
 \par 
-HBase has a built-in cache to improve read performance. It just left data blocks read from HFiles in a cache if there is enough room for it. It helps reducing disk IO.
+HBase has a built-in cache to improve read performance. It just leaves data blocks read from HFiles in a cache if there is enough room for it. It helps reducing disk IO.
 \par
  This cache is configurable at columnFamily level, which means that user can choose which columnFamily can be settled in the block cache and which ones not, even user can choose between different cache priorities: \textit{In-Memory}, to try to keep the block in memory more aggressively, \textit{blockCache} = True, the block will be placed within the cache if there is room remaining, and \textit{blockCache} = False, blocks from that columnFamily will not be cached.
 \par 

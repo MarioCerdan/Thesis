@@ -16,7 +16,7 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 
 \bibitem{agrawal2010big}
 {\sc Agrawal, D., Das, S., and El~Abbadi, A.}
-\newblock Big data and cloud computing: new wine or just new bottles?
+\newblock Big data and cloud computing: {N}ew wine or just new bottles?
 \newblock {\em Proceedings of the VLDB Endowment 3}, 1-2 (2010), 1647--1648.
 
 \bibitem{aiyer2012storage}
@@ -55,16 +55,15 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 {\sc Baranau, A.}
 \newblock {C}onfiguring {HB}ase {M}emstore: {W}hat {Y}ou {S}hould {K}now, July
   2012.
+\newblock
+  \url{http://blog.sematext.com/2012/07/16/hbase-memstore-what-you-should-know%
+}. Accessed 11.7.2013.
 
 \bibitem{bernstein1983multiversion}
 {\sc Bernstein, P.~A., and Goodman, N.}
 \newblock Multiversion concurrency control theory and algorithms.
 \newblock {\em ACM Transactions on Database Systems (TODS) 8}, 4 (1983),
   465--483.
-
-\bibitem{HBase5728}
-{\sc Bing~Li, J.~X.}
-\newblock Methods {M}issing in {HT}able{I}nterface, April 2012.
 
 \bibitem{bloom1970space}
 {\sc Bloom, B.~H.}
@@ -78,8 +77,14 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 
 \bibitem{brewer2012cap}
 {\sc Brewer, E.}
-\newblock Cap twelve years later: How the "rules" have changed.
+\newblock {CAP} twelve years later: How the "rules" have changed.
 \newblock {\em Computer\/} (2012), 23--29.
+
+\bibitem{CAP}
+{\sc Brewer, E.~A.}
+\newblock Towards robust distributed systems.
+\newblock In {\em Proceedings of the nineteenth annual ACM symposium on
+  Principles of distributed computing\/} (2000), ACM, p.~7.
 
 \bibitem{burrows2006chubby}
 {\sc Burrows, M.}
@@ -133,12 +138,6 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock In {\em Proceedings of the 1st ACM symposium on Cloud computing\/}
   (2010), ACM, pp.~143--154.
 
-\bibitem{corbett2012spanner}
-{\sc Corbett, J.~C., Dean, J., Epstein, M., Fikes, A., Frost, C., Furman, J.,
-  Ghemawat, S., Gubarev, A., Heiser, C., Hochschild, P., et~al.}
-\newblock {S}panner: {G}oogle's globally-distributed database.
-\newblock In {\em Proceedings of OSDI\/} (2012), vol.~1.
-
 \bibitem{CloudBees}
 {\sc {CoudBees Inc.}}
 \newblock Cloud{B}ees web page, 2013.
@@ -156,8 +155,9 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 
 \bibitem{fan2009diskreduce}
 {\sc Fan, B., Tantisiriroj, W., Xiao, L., and Gibson, G.}
-\newblock Disk{R}educe: {RAID} for {D}ata-{I}ntensive {S}calable {C}omputing
-  ({CMU}-{PDL}-09-112).
+\newblock Disk{R}educe: {RAID} for {D}ata-{I}ntensive {S}calable {C}omputing.
+\newblock In {\em Proceedings of the 4th Annual Workshop on Petascale Data
+  Storage\/} (2009), ACM, pp.~6--10.
 
 \bibitem{fox2009above}
 {\sc Fox, A., Griffith, R., Joseph, A., Katz, R., Konwinski, A., Lee, G.,
@@ -183,9 +183,15 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock In {\em ACM SIGOPS Operating Systems Review\/} (2003), vol.~37, ACM,
   pp.~29--43.
 
+\bibitem{ProbeCAP}
+{\sc Gilbert, S., and Lynch, N.}
+\newblock Brewer's conjecture and the feasibility of consistent, available,
+  partition-tolerant web services.
+\newblock {\em ACM SIGACT News 33}, 2 (2002), 51--59.
+
 \bibitem{gilbert2012perspectives}
 {\sc Gilbert, S., and Lynch, N.}
-\newblock Perspectives on the cap theorem.
+\newblock Perspectives on the {CAP} theorem.
 \newblock {\em Computer 45}, 2 (2012), 30--36.
 
 \bibitem{GZip}
@@ -216,7 +222,8 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 
 \bibitem{heger2013hadoop}
 {\sc Heger, D.}
-\newblock Hadoop performance tuning-a pragmatic \& iterative approach.
+\newblock Hadoop performance tuning-{A} pragmatic \& iterative approach.
+\newblock {\em {CMG} Journal\/} (2013).
 
 \bibitem{heroku}
 {\sc {Heroku Inc.}}
@@ -259,6 +266,8 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \bibitem{kangcase}
 {\sc Kang, S.-H., Koo, D.-H., Kang, W.-H., and Lee, S.-W.}
 \newblock A {C}ase for {F}lash {M}emory {SSD} in {H}adoop {A}pplications.
+\newblock {\em International Journal of Control and Automation 6}, 1 (2013),
+  201--210.
 
 \bibitem{kwon2012skewtune}
 {\sc Kwon, Y., Balazinska, M., Howe, B., and Rolia, J.}
@@ -282,6 +291,9 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 {\sc Lipcon, T.}
 \newblock Avoiding full {GC}s in {A}pache {HB}ase with {M}em{S}tore-{L}ocal
   {A}llocation {B}uffers, April 2012.
+\newblock
+  \url{http://blog.cloudera.com/blog/2011/02/avoiding-full-gcs-in-hbase-with-m%
+emstore-local-allocation-buffers-part-1/}. Accessed 8.7.2013.
 
 \bibitem{MSLAB}
 {\sc Lipcon, T.}
@@ -308,6 +320,9 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \bibitem{MemstoreGBif}
 {\sc Meyn, O.}
 \newblock {O}ptimizing {W}rites in {HB}ase, July 2012.
+\newblock
+  \url{http://gbif.blogspot.fi/2012/07/optimizing-writes-in-hbase.html}.
+  Accessed 11.7.2013.
 
 \bibitem{Azure}
 {\sc {Microsoft Inc.}}
@@ -340,7 +355,7 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 
 \bibitem{pritchett2008base}
 {\sc Pritchett, D.}
-\newblock Base: {A}n acid alternative.
+\newblock Base: {A}n {ACID} alternative.
 \newblock {\em Queue 6}, 3 (2008), 48--55.
 
 \bibitem{RackSpace}
@@ -383,6 +398,7 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \bibitem{samar2011scalable}
 {\sc Samar, T., Berberich, K., and Weikum, G.}
 \newblock Scalable {D}istributed {T}ime-{T}ravel {T}ext {S}earch.
+\newblock Master's thesis, Universitat des {S}aarlandes, {S}aarbrucken, 2011.
 
 \bibitem{shvachko2010hadoop}
 {\sc Shvachko, K., Kuang, H., Radia, S., and Chansler, R.}
@@ -394,11 +410,6 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 {\sc {Solid IT}}.
 \newblock {DB}-{E}ngines {R}anking of {DBMS}, 2013.
 \newblock \url{http://db-engines.com/en/ranking}. Accessed 6.5.2013.
-
-\bibitem{NoSQLdatabases}
-{\sc Strauch, C.}
-\newblock No{SQL} databases, 2010.
-\newblock \url{http://nosql-database.org/}.
 
 \bibitem{strauch2011nosql}
 {\sc Strauch, C.}
@@ -476,11 +487,6 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock Xen {P}roject web page, 2013.
 \newblock \url{http://www.xen.org/}. Accessed 11.6.2013.
 
-\bibitem{white2012hadoop}
-{\sc Tom, W.}
-\newblock {\em {H}adoop: {T}he {D}efinitive {G}uide}, vol.~1005.
-\newblock 2009.
-
 \bibitem{vogels2009eventually}
 {\sc Vogels, W.}
 \newblock Eventually consistent.
@@ -502,6 +508,13 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \bibitem{SmallFiles}
 {\sc White, T.}
 \newblock {T}he {S}mall {F}iles {P}roblem, February 2009.
+\newblock \url{http://blog.cloudera.com/blog/2009/02/the-small-files-problem/}.
+  Accessed 22.6.2013.
+
+\bibitem{white2012hadoop}
+{\sc White, T.}
+\newblock {\em Hadoop: {T}he definitive guide}.
+\newblock O'Reilly Media, Inc., 2012.
 
 \bibitem{wiki:cloud}
 {\sc Wikipedia}.
@@ -511,12 +524,16 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 
 \bibitem{wiki:consistency}
 {\sc Wikipedia}.
-\newblock Consistency model --- {W}ikipedia{,} the free encyclopedia, 2013.
+\newblock Consistency model --- {W}ikipedia{,} {T}he {F}ree {E}ncyclopedia,
+  2013.
 \newblock Online; accessed 10-June-2013.
 
 \bibitem{LoadBalancer}
 {\sc Yu, T.}
 \newblock Load {B}alancer in {HB}ase 0.90, April 2011.
+\newblock
+  \url{http://zhihongyu.blogspot.fi/2011/04/load-balancer-in-hbase-090.html}.
+  Accessed 15.7.2013.
 
 \bibitem{aslett2013451}
 {\sc Yulitza~Peraza, G.~Z.}

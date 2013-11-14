@@ -2,55 +2,49 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: thesis-example.aux
 The style file: acm.bst
 Database file #1: sources.bib
-Warning--I didn't find a database entry for "CAP"
-Warning--I didn't find a database entry for "ProbeCAP"
+Warning--I didn't find a database entry for "corbett2012spanner"
 Warning--can't use both volume and number fields in ananthanarayanan2010reining
 Warning--empty journal in awasthi2012hybrid
-Warning--empty journal in fan2009diskreduce
 Warning--can't use both volume and number fields in ghemawat2003google
-Warning--empty journal in heger2013hadoop
-Warning--empty journal in kangcase
-Warning--empty journal in samar2011scalable
-Warning--empty publisher in white2012hadoop
-You've used 96 entries,
+You've used 95 entries,
             2253 wiz_defined-function locations,
-            1006 strings with 17960 characters,
-and the built_in function-call counts, 27647 in all, are:
-= -- 2588
-> -- 1222
+            1011 strings with 18409 characters,
+and the built_in function-call counts, 27635 in all, are:
+= -- 2616
+> -- 1170
 < -- 0
-+ -- 521
-- -- 412
-* -- 1785
-:= -- 4445
-add.period$ -- 278
-call.type$ -- 96
-change.case$ -- 490
++ -- 500
+- -- 392
+* -- 1788
+:= -- 4419
+add.period$ -- 285
+call.type$ -- 95
+change.case$ -- 478
 chr.to.int$ -- 0
-cite$ -- 104
-duplicate$ -- 1038
-empty$ -- 2436
-format.name$ -- 412
-if$ -- 5825
+cite$ -- 98
+duplicate$ -- 1050
+empty$ -- 2463
+format.name$ -- 392
+if$ -- 5854
 int.to.chr$ -- 0
-int.to.str$ -- 96
+int.to.str$ -- 95
 missing$ -- 53
-newline$ -- 471
-num.names$ -- 192
-pop$ -- 737
+newline$ -- 476
+num.names$ -- 190
+pop$ -- 709
 preamble$ -- 1
-purify$ -- 397
+purify$ -- 386
 quote$ -- 0
-skip$ -- 773
+skip$ -- 770
 stack$ -- 0
-substring$ -- 1284
-swap$ -- 289
+substring$ -- 1344
+swap$ -- 296
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 376
-warning$ -- 8
-while$ -- 271
-width$ -- 98
-write$ -- 949
-(There were 10 warnings)
+type$ -- 372
+warning$ -- 3
+while$ -- 277
+width$ -- 97
+write$ -- 966
+(There were 4 warnings)

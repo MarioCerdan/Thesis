@@ -63,7 +63,7 @@ Our dataset is composed of thousands of XML files (more than 106GB of data) whos
 \par
 A conceptual example of one of our XML files is shown below \footnote{For the sake of simplicity, only a basic form of a real XML is depicted.}.
 
-\lstset{language=XML, basicstyle=\footnotesize, numbers=left, breaklines=true}
+\lstset{language=XML, basicstyle=\footnotesize, numbers=left, breaklines=true, xleftmargin=5.0ex}
 \begin{lstlisting}
 <element 1>
 ...
@@ -72,6 +72,9 @@ A conceptual example of one of our XML files is shown below \footnote{For the sa
 	<sub-element 1>
 		"Hi, I am a looooooong string"
 	</sub-element 1>
+	<sub-element 2>
+		"Hi, I am a looooooong string version 2"
+	</sub-element 2>
 	...
 	<sub-element n>
 		<sublist1>
@@ -85,9 +88,10 @@ A conceptual example of one of our XML files is shown below \footnote{For the sa
 </element N>
 \end{lstlisting}
 
-\bigskip
 
-A real XML sample can be found in the Appendix 1. It is useful in order to understand the HBase storage schema proposed and described in the next subsection.
+%\bigskip
+
+%A real XML sample can be found in the Appendix 1. It is useful in order to understand the HBase storage schema proposed and described in the next subsection.
 
 \subsection{HBase storage schema design}
 
@@ -97,12 +101,11 @@ In the following chapters we will work with HBase as our datastore. For this rea
 The sparse nature of HBase tables (not all columns populated in a row) makes them an interesting storage substitute for our XML dataset, in which elements can have different number of items, or even different items.
 
 \par
-It is worth to state that this schema is based on our main data access pattern in order to support efficient performance when updating and retrieving data from it; our row key is the \textit{Uid} tag \footnote{Uid and other real name's elements included in the Appendix 1 -  XML sample instance.} since most of the request we will have to cope with will be row key-based requests. Nonetheless, there could be retrievals of some other nature, but they will only represent a low percent of the total requests.
-\bigskip
+It is worth to state that this schema is based on our main data access pattern in order to support efficient performance when updating and retrieving data from it; our row key is the \textit{Uid} tag since most of the request we will have to cope with will be \textit{Uid}-based requests. Nonetheless, there could be retrievals of some other nature, but they will only represent a low percent of the total requests.  Besides the row key, there are four column families which map all the other sub-elements within our XML elements. "Main" column family maps the main sub-elements of each XML element while the other three column families map sublists within each XML element (See conceptual XML example above in order to understand what are "element" and "sublist" words). 
 
-In the Appendix 2, we show the followed HBase storage schema design. The reader will be able to see how the previous XML video data maps into our HBase database: Our row key is the \textit{uid} of the video. There are 4 column families: \textit{main}, \textit{genre}, \textit{tag} and \textit{resource}. Each column family contains many column qualifiers.
-\par
-By convention, a column name is made of its column family prefix and a qualifier (Ex. main:description). The colon character delimits both columns.
+%In the Appendix 2, we show the followed HBase storage schema design. The reader will be able to see how the previous XML video data maps into our HBase database: Our row key is the \textit{uid} of the video. There are 4 column families: \textit{main}, \textit{genre}, \textit{tag} and \textit{resource}. Each column family contains many column qualifiers.
+%\par
+%By convention, a column name is made of its column family prefix and a qualifier (Ex. main:description). The colon character delimits both columns.
 
 
 

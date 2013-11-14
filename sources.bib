@@ -25,10 +25,14 @@
   organization={ACM}
 }
 
-@article{fan2009diskreduce,
-  title={Disk{R}educe: {RAID} for {D}ata-{I}ntensive {S}calable {C}omputing ({CMU}-{PDL}-09-112)},
+
+@inproceedings{fan2009diskreduce,
+  title={Disk{R}educe: {RAID} for {D}ata-{I}ntensive {S}calable {C}omputing},
   author={Fan, Bin and Tantisiriroj, Wittawat and Xiao, Lin and Gibson, Garth},
-  year={2009}
+  booktitle={Proceedings of the 4th Annual Workshop on Petascale Data Storage},
+  pages={6--10},
+  year={2009},
+  organization={ACM}
 }
 
 @article{awasthi2012hybrid,
@@ -39,7 +43,12 @@
 
 @article{kangcase,
   title={A {C}ase for {F}lash {M}emory {SSD} in {H}adoop {A}pplications},
-  author={Kang, Seok-Hoon and Koo, Dong-Hyun and Kang, Woon-Hak and Lee, Sang-Won}
+  author={Kang, Seok-Hoon and Koo, Dong-Hyun and Kang, Woon-Hak and Lee, Sang-Won},
+  journal={International Journal of Control and Automation},
+  volume={6},
+  number={1},
+  year={2013},
+  pages={201--210}
 }
 
 @article{vogels2009eventually,
@@ -102,7 +111,7 @@
 }
 
 @article{gilbert2012perspectives,
-  title={Perspectives on the CAP Theorem},
+  title={Perspectives on the {CAP} Theorem},
   author={Gilbert, Seth and Lynch, Nancy},
   journal={Computer},
   volume={45},
@@ -113,8 +122,10 @@
 }
 
 @article{heger2013hadoop,
-  title={Hadoop Performance Tuning-A Pragmatic \& Iterative Approach},
-  author={Heger, Dominique}
+  title={Hadoop Performance Tuning-{A} Pragmatic \& Iterative Approach},
+  author={Heger, Dominique},
+  journal={{CMG} Journal},
+  year= {2013}
 }
 
 
@@ -137,7 +148,7 @@
 }
 
 @article{brewer2012cap,
-  title={CAP Twelve Years Later: How the "Rules" Have Changed},
+  title={{CAP} Twelve Years Later: How the "Rules" Have Changed},
   author={Brewer, Eric},
   journal={Computer},
   pages={23--29},
@@ -175,7 +186,7 @@
 }
 
 @article{agrawal2010big,
-  title={Big data and cloud computing: new wine or just new bottles?},
+  title={Big data and cloud computing: {N}ew wine or just new bottles?},
   author={Agrawal, Divyakant and Das, Sudipto and El Abbadi, Amr},
   journal={Proceedings of the VLDB Endowment},
   volume={3},
@@ -301,7 +312,7 @@ author = {Alex Baranau},
 title = {{C}onfiguring {HB}ase {M}emstore: {W}hat {Y}ou {S}hould {K}now},
 month = {July},
 year = {2012},
-url = {\url{http://blog.sematext.com/2012/07/16/hbase-memstore-what-you-should-know}. Accessed 11.7.2013.}
+note = {\url{http://blog.sematext.com/2012/07/16/hbase-memstore-what-you-should-know}. Accessed 11.7.2013.}
 }
 
 @misc{MemstoreGBif,
@@ -309,7 +320,7 @@ author = {Oliver Meyn},
 title = {{O}ptimizing {W}rites in {HB}ase},
 month = {July},
 year = {2012},
-url = {\url{http://gbif.blogspot.fi/2012/07/optimizing-writes-in-hbase.html}. Accessed 11.7.2013.}
+note = {\url{http://gbif.blogspot.fi/2012/07/optimizing-writes-in-hbase.html}. Accessed 11.7.2013.}
 }
 
 @misc{SmallFiles,
@@ -317,7 +328,7 @@ author = {Tom White},
 title = {{T}he {S}mall {F}iles {P}roblem},
 month = {February},
 year = {2009},
-url = {\url{http://blog.cloudera.com/blog/2009/02/the-small-files-problem/}. Accessed 22.6.2013.}
+note = {\url{http://blog.cloudera.com/blog/2009/02/the-small-files-problem/}. Accessed 22.6.2013.}
 }
 
 @misc{Rackspace:forbes,
@@ -343,7 +354,7 @@ author = {Todd Lipcon},
 title = {Avoiding Full {GC}s in {A}pache {HB}ase with {M}em{S}tore-{L}ocal {A}llocation {B}uffers},
 month = {April},
 year = {2012},
-url = {\url{http://blog.cloudera.com/blog/2011/02/avoiding-full-gcs-in-hbase-with-memstore-local-allocation-buffers-part-1/}. Accessed 8.7.2013.}
+note = {\url{http://blog.cloudera.com/blog/2011/02/avoiding-full-gcs-in-hbase-with-memstore-local-allocation-buffers-part-1/}. Accessed 8.7.2013.}
 }
 
 @misc{TFile,
@@ -375,7 +386,7 @@ author = {Ted Yu},
 title = {Load {B}alancer in {HB}ase 0.90},
 month = {April},
 year = {2011},
-url = {\url{http://zhihongyu.blogspot.fi/2011/04/load-balancer-in-hbase-090.html}. Accessed 15.7.2013.}
+note = {\url{http://zhihongyu.blogspot.fi/2011/04/load-balancer-in-hbase-090.html}. Accessed 15.7.2013.}
 }
 
 @misc{OpenShift,
@@ -644,29 +655,26 @@ url = {\url{http://zhihongyu.blogspot.fi/2011/04/load-balancer-in-hbase-090.html
 
  @misc{wiki:consistency,
    author = {Wikipedia},
-   title = {Consistency model --- {W}ikipedia{,} The Free Encyclopedia},
+   title = {Consistency model --- {W}ikipedia{,} {T}he {F}ree {E}ncyclopedia},
    year = {2013},
    url = {http://en.wikipedia.org/wiki/Consistency_model},
    note = {Online; accessed 10-June-2013}
  }
 
-@inproceedings{corbett2012spanner,
-  title={{S}panner: {G}oogle's globally-distributed database},
-  author={Corbett, James C and Dean, Jeffrey and Epstein, Michael and Fikes, Andrew and Frost, Christopher and Furman, JJ and Ghemawat, Sanjay and Gubarev, Andrey and Heiser, Christopher and Hochschild, Peter and others},
-  booktitle={Proceedings of OSDI},
-  volume={1},
-  year={2012}
+
+@article{corbettspanner,
+  title={{S}panner: {G}oogle’s Globally-Distributed Database},
+  author={Corbett, James C and Dean, Jeffrey and Epstein, Michael and Fikes, Andrew and Frost, Christopher and Furman, JJ and Ghemawat, Sanjay and Gubarev, Andrey and Heiser, Christopher and Hochschild, Peter and others}
 }
+
+
 
 @book{white2012hadoop,
-  title={{H}adoop: {T}he {D}efinitive {G}uide},
-  author={Tom, White},
-  journal={Published by O'Reilly Media, Inc},
-  volume={1005},
-  pages={2--3},
-  year={2009}
+  title={Hadoop: {T}he definitive guide},
+  author={White, Tom},
+  year={2012},
+  publisher={O'Reilly Media, Inc.}
 }
-
 
 
 @article{cheng2013key,
@@ -745,11 +753,33 @@ url = {\url{http://zhihongyu.blogspot.fi/2011/04/load-balancer-in-hbase-090.html
   year={2007}
 }
 
-@article{samar2011scalable,
-  title={Scalable {D}istributed {T}ime-{T}ravel {T}ext {S}earch},
-  author={Samar, Thaer and Berberich, Klaus and Weikum, Gerhard},
-  year={2011}
+@inproceedings{CAP,
+  title={Towards robust distributed systems},
+  author={Brewer, Eric A},
+  booktitle={Proceedings of the nineteenth annual ACM symposium on Principles of distributed computing},
+  pages={7},
+  year={2000},
+  organization={ACM}
 }
+
+@article{ProbeCAP,
+  title={Brewer's conjecture and the feasibility of consistent, available, partition-tolerant web services},
+  author={Gilbert, Seth and Lynch, Nancy},
+  journal={ACM SIGACT News},
+  volume={33},
+  number={2},
+  pages={51--59},
+  year={2002},
+  publisher={ACM}
+}
+
+@MastersThesis{samar2011scalable,
+    author     =     {Samar, Thaer and Berberich, Klaus and Weikum, Gerhard},
+    title     =     {Scalable {D}istributed {T}ime-{T}ravel {T}ext {S}earch},
+    school     =     {Universitat des {S}aarlandes},
+    address     =     {{S}aarbrucken},
+    year     =     {2011},
+    }
 
 @inproceedings{ghemawat2003google,
   title={The {G}oogle file system},
@@ -795,7 +825,7 @@ url = {\url{http://zhihongyu.blogspot.fi/2011/04/load-balancer-in-hbase-090.html
 }
 
 @article{pritchett2008base,
-  title={Base: {A}n acid alternative},
+  title={Base: {A}n {ACID} alternative},
   author={Pritchett, Dan},
   journal={Queue},
   volume={6},
