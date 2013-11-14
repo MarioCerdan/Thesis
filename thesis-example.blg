@@ -2,49 +2,49 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: thesis-example.aux
 The style file: acm.bst
 Database file #1: sources.bib
-Warning--I didn't find a database entry for "corbett2012spanner"
 Warning--can't use both volume and number fields in ananthanarayanan2010reining
 Warning--empty journal in awasthi2012hybrid
+Warning--empty journal in corbettspanner
 Warning--can't use both volume and number fields in ghemawat2003google
-You've used 95 entries,
+You've used 98 entries,
             2253 wiz_defined-function locations,
-            1011 strings with 18409 characters,
-and the built_in function-call counts, 27635 in all, are:
-= -- 2616
-> -- 1170
+            1024 strings with 19404 characters,
+and the built_in function-call counts, 29454 in all, are:
+= -- 2776
+> -- 1321
 < -- 0
-+ -- 500
-- -- 392
-* -- 1788
-:= -- 4419
-add.period$ -- 285
-call.type$ -- 95
-change.case$ -- 478
++ -- 561
+- -- 450
+* -- 1947
+:= -- 4717
+add.period$ -- 293
+call.type$ -- 98
+change.case$ -- 515
 chr.to.int$ -- 0
-cite$ -- 98
-duplicate$ -- 1050
-empty$ -- 2463
-format.name$ -- 392
-if$ -- 5854
+cite$ -- 102
+duplicate$ -- 1106
+empty$ -- 2560
+format.name$ -- 450
+if$ -- 6219
 int.to.chr$ -- 0
-int.to.str$ -- 95
-missing$ -- 53
-newline$ -- 476
-num.names$ -- 190
-pop$ -- 709
+int.to.str$ -- 98
+missing$ -- 56
+newline$ -- 490
+num.names$ -- 196
+pop$ -- 752
 preamble$ -- 1
-purify$ -- 386
+purify$ -- 420
 quote$ -- 0
-skip$ -- 770
+skip$ -- 814
 stack$ -- 0
-substring$ -- 1344
-swap$ -- 296
+substring$ -- 1423
+swap$ -- 317
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 372
-warning$ -- 3
-while$ -- 277
-width$ -- 97
-write$ -- 966
+type$ -- 384
+warning$ -- 4
+while$ -- 289
+width$ -- 100
+write$ -- 995
 (There were 4 warnings)

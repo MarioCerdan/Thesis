@@ -138,6 +138,11 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 \newblock In {\em Proceedings of the 1st ACM symposium on Cloud computing\/}
   (2010), ACM, pp.~143--154.
 
+\bibitem{corbettspanner}
+{\sc Corbett, J.~C., Dean, J., Epstein, M., Fikes, A., Frost, C., Furman, J.,
+  Ghemawat, S., Gubarev, A., Heiser, C., Hochschild, P., et~al.}
+\newblock {S}panner: {G}oogle's globally-distributed database.
+
 \bibitem{CloudBees}
 {\sc {CoudBees Inc.}}
 \newblock Cloud{B}ees web page, 2013.
@@ -229,6 +234,13 @@ ib-a-comparison-of}. Accessed 11.8.2013.
 {\sc {Heroku Inc.}}
 \newblock Heroku web page, 2013.
 \newblock \url{http://www.heroku.com/}. Accessed 11.6.2013.
+
+\bibitem{huang2012high}
+{\sc Huang, J., Ouyang, X., Jose, J., Wasi-ur Rahman, M., Wang, H., Luo, M.,
+  Subramoni, H., Murthy, C., and Panda, D.~K.}
+\newblock High-performance design of {HB}ase with {RDMA} over {I}nfini{B}and.
+\newblock In {\em Parallel \& Distributed Processing Symposium (IPDPS), 2012
+  IEEE 26th International\/} (2012), IEEE, pp.~774--785.
 
 \bibitem{hunt2010zookeeper}
 {\sc Hunt, P., Konar, M., Junqueira, F.~P., and Reed, B.}
@@ -504,6 +516,14 @@ emstore-local-allocation-buffers-part-1/}. Accessed 8.7.2013.
   {M}odel.
 \newblock In {\em Computer Science \& Service System (CSSS), 2012 International
   Conference on\/} (2012), IEEE, pp.~1332--1335.
+
+\bibitem{wasi2012understanding}
+{\sc Wasi-ur Rahman, M., Huang, J., Jose, J., Ouyang, X., Wang, H., Islam,
+  N.~S., Subramoni, H., Murthy, C., and Panda, D.~K.}
+\newblock Understanding the communication characteristics in {HB}ase: {W}hat
+  are the fundamental bottlenecks?
+\newblock In {\em Performance Analysis of Systems and Software (ISPASS), 2012
+  IEEE International Symposium on\/} (2012), IEEE, pp.~122--123.
 
 \bibitem{SmallFiles}
 {\sc White, T.}
